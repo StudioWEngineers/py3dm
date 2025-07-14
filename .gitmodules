@@ -1,6 +1,3 @@
-[submodule "src/lib/draco"]
-	path = src/lib/draco
-	url = https://github.com/mcneel/draco.git
 [submodule "lib/nanobind"]
 	path = lib/nanobind
 	url = https://github.com/wjakob/nanobind.git
