@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['windows-latest', 'macos-latest', 'ubuntu-latest']
+        os: ['windows-latest', 'macos-15', 'ubuntu-latest']
         python: ['3.12', '3.13', '3.14-dev','pypy3.10']
 
     name: "Python ${{ matrix.python }} / ${{ matrix.os }}"
