@@ -7,3 +7,6 @@
 [submodule "src/lib/nanobind"]
 	path = src/lib/nanobind
 	url = https://github.com/wjakob/nanobind.git
+[submodule "lib/nanobind"]
+	path = lib/nanobind
+	url = https://github.com/wjakob/nanobind.git
