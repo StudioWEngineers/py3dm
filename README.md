@@ -12,7 +12,7 @@ Python bindings for **OpenNURBS** using **nanobind**.
 All material in this repository is licensed under a three-clause [BSD
 license](LICENSE).
 
-Please use the following BibTeX template to cite nanobind in scientific
+Please use the following BibTeX template to cite py3dm in scientific
 discourse:
 
 ```bibtex
