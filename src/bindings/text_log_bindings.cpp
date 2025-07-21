@@ -1,11 +1,14 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "casters/on_wstring_caster.h"
 #include "text_log_bindings.h"
 
 
 void TextLogBindings(nb::module_& m) {
-
     auto on_textlog = nb::class_<ON_TextLog>(m, "TextLog")
-
         /*magic methods*/
         .def(nb::init<>())
 

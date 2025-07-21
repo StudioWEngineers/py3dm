@@ -1,10 +1,13 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "point3d_bindings.h"
 
 
 void Point3dBindings(nb::module_& m) {
-
     nb::class_<ON_3dPoint>(m, "Point3d")
-
         /*magic methods*/
         .def(nb::init<double, double, double>())
         .def("__add__", [] (const ON_3dPoint& self, const ON_3dPoint& other) {
@@ -28,7 +31,7 @@ void Point3dBindings(nb::module_& m) {
             }
         )
 
-        /*read-write methods*/
+        /*read-write member variables*/
         .def_rw("x", &ON_3dPoint::x)
         .def_rw("y", &ON_3dPoint::y)
         .def_rw("z", &ON_3dPoint::z)

@@ -1,3 +1,8 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "../layer_table.h"
 #include "casters/uuid_caster.h"
 

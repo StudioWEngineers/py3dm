@@ -8,7 +8,13 @@
 */
 #pragma once
 
+// System includes
+
+// External includes
+
+// Project includes
 #include "bindings.h"
+
 
 nb::object GeometryObjectWrapper(const std::shared_ptr<ON_Object>& geom);
 

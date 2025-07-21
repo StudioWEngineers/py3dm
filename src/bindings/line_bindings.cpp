@@ -1,10 +1,13 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "line_bindings.h"
 
 
 void LineBindings(nb::module_& m) {
-
     nb::class_<ON_Line>(m, "Line")
-
         /*magic methods*/
         .def(nb::init<>())
 

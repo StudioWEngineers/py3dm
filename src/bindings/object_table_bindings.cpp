@@ -1,3 +1,8 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "../object_table.h"
 #include "casters/uuid_caster.h"
 #include "point_geometry_bindings.h"
@@ -25,7 +30,6 @@ nb::object GeometryObjectWrapper(const std::shared_ptr<ON_Object>& geom) {
 }
 
 void ObjectTableBindings(nb::module_& m) {
-
     nb::class_<ObjectTable::Iterator>(m, "__ObjectTableIterator")
 
         .def("__iter__", [](ObjectTable::Iterator& it) -> ObjectTable::Iterator& { return it; })

@@ -8,6 +8,12 @@
 */
 #pragma once
 
+// System includes
+
+// External includes
+
+// Project includes
 #include "bindings.h"
+
 
 void LayerTableBindings(nb::module_& m);

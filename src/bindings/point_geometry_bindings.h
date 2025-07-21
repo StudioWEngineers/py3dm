@@ -8,6 +8,12 @@
 */
 #pragma once
 
+// System includes
+
+// External includes
+
+// Project includes
 #include "bindings.h"
+
 
 void PointGeometryBindings(nb::module_& m);

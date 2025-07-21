@@ -1,10 +1,13 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "line_curve_bindings.h"
 
 
 void LineCurveBindings(nb::module_& m) {
-
     nb::class_<ON_LineCurve, ON_Geometry>(m, "LineCurve")
-
         /*magic methods*/
         .def(nb::init<>())
         .def(nb::init<ON_Line>())
@@ -18,7 +21,7 @@ void LineCurveBindings(nb::module_& m) {
         .def("set_start_point", &ON_LineCurve::SetStartPoint)
         .def("swap_coordinates", &ON_LineCurve::SwapCoordinates)
 
-        /*read-write methods*/
+        /*read-write member variables*/
         .def_rw("line", &ON_LineCurve::m_line)
     ;
 }

@@ -1,17 +1,20 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "geometry_bindings.h"
 #include "point_geometry_bindings.h"
 
 
 void PointGeometryBindings(nb::module_& m) {
-
     nb::class_<ON_Point, ON_Geometry>(m, "PointGeometry")
-
         /*magic methods*/
         .def(nb::init<>())
         .def(nb::init<double, double, double>())
         .def(nb::init<ON_3dPoint>())
 
-        /*read-write methods*/
+        /*read-write member variables*/
         .def_rw("point", &ON_Point::point)
 
         /*other methods*/

@@ -1,8 +1,12 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "enumerators_bindings.h"
 
 
 void EnumeratorsBindings(nb::module_& m) {
-
     nb::enum_<ON::object_color_source>(m, "ObjectColorSource")
         .value("from_layer", ON::object_color_source::color_from_layer)
         .value("from_object", ON::object_color_source::color_from_object)

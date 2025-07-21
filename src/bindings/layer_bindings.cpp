@@ -1,3 +1,8 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "../utilities/layer_utilities.h"
 #include "casters/color_caster.h"
 #include "casters/uuid_caster.h"
@@ -5,9 +10,7 @@
 
 
 void LayerBindings(nb::module_& m) {
-
     nb::class_<ON_Layer>(m, "Layer")
-
         /*magic methods*/
         .def(nb::init<>())
 

@@ -1,3 +1,8 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "casters/color_caster.h"
 #include "casters/on_wstring_caster.h"
 #include "object_attributes_bindings.h"

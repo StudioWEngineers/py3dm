@@ -1,10 +1,13 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "geometry_bindings.h"
 
 
 void GeometryBindings(nb::module_& m) {
-
     nb::class_<ON_Geometry, ON_Object>(m, "Geometry")
-
         /*magic methods*/
         .def(nb::init<>())
 

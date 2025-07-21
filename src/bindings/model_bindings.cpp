@@ -1,12 +1,15 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "../model.h"
 #include "bindings.h"
 #include "model_bindings.h"
 
 
 void ModelBindings(nb::module_& m) {
-
     nb::class_<Model>(m, "Model")
-
         /*magic methods*/
         .def(nb::init<>())
 

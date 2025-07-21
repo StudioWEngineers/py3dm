@@ -1,11 +1,14 @@
+// System includes
+
+// External includes
+
+// Project includes
 #include "../utilities/object_utilities.h"
 #include "object_bindings.h"
 
 
 void ObjectBindings(nb::module_& m) {
-
     nb::class_<ON_Object>(m, "OpenNURBSObject")
-
         /*magic methods*/
         .def(nb::init<>())
 
