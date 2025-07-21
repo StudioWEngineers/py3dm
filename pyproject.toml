@@ -31,8 +31,3 @@ build-dir = "build/{wheel_tag}"
 wheel.packages = ["py3dm"]
 cmake.version = ">=3.30"
 cmake.build-type = "Release"
-
-[tool.scikit-build.editable]
-mode = "redirect"
-verbose = true
-rebuild = true
