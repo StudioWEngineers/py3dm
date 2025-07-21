@@ -10,6 +10,4 @@
 
 #include "bindings.h"
 
-namespace nb = nanobind;
-
 void ObjectBindings(nb::module_& m);

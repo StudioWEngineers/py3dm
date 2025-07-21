@@ -10,6 +10,4 @@
 
 #include "bindings.h"
 
-namespace nb = nanobind;
-
 void LineBindings(nb::module_& m);

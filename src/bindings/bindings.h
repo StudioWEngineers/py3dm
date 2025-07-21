@@ -9,3 +9,5 @@
 #include <vector>
 #include <tuple>
 #include "../opennurbs_includes.h"
+
+namespace nb = nanobind;
