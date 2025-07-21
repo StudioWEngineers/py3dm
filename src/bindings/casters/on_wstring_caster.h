@@ -34,6 +34,10 @@ public:
     }
 
     static nb::handle from_cpp(const ON_wString& src, rv_policy policy, cleanup_list* cleanup) noexcept {
+        if (src.IsEmpty()) {
+            return nb::str("").release();
+        }
+
         ON_String utf8_str = ON_String(src);
         return nb::str(utf8_str.Array()).release();
     }
