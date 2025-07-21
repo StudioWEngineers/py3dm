@@ -8,9 +8,13 @@
 */
 #pragma once
 
+// System includes
+
+// External includes
+
+// Project includes
 #include "../bindings.h"
 
-namespace nb = nanobind;
 
 namespace nanobind::detail {
 
