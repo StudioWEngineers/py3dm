@@ -1,4 +1,5 @@
 #include "bindings.h"
+#include "enumerators_bindings.h"
 #include "geometry_bindings.h"
 #include "layer_bindings.h"
 #include "layer_table_bindings.h"
@@ -16,6 +17,7 @@ NB_MODULE(_py3dm, m) {
     m.doc() = "Python bindings for openNURBS using nanobind.";
 
     ON::Begin();
+    EnumeratorsBindings(m);
     ObjectBindings(m);
 
     Point3dBindings(m);

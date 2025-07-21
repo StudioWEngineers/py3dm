@@ -4,9 +4,12 @@ from ._py3dm import (
     LayerTable,
     Line,
     LineCurve,
+    ObjectColorSource,
+    ObjectMode,
     ObjectTable,
     OpenNURBSObject,
     Model,
+    PlotColorSource,
     PointGeometry,
     Point3d,
     TextLog

@@ -391,6 +391,25 @@ class Model:
     def revision(self) -> int: ...
 
 
+class ObjectColorSource(Enum):
+    """Python bindings for the openNURBS `object_color_source` enumerator.
+    """
+    from_layer = 0
+    from_object = 1
+    from_material = 2
+    from_parent = 3
+
+
+class ObjectMode(Enum):
+    """Python bindings for the openNURBS `object_mode` enumerator.
+    """
+    normal = 0
+    hidden = 1
+    locked = 2
+    idef = 3
+    mode_count = 4
+
+
 class ObjectTable:
     def __getitem__(self, index: int) -> Layer:...
 
@@ -500,6 +519,15 @@ class OpenNURBSObject:
         """Returns the number of user strings on the object.
         """
         ...
+
+
+class PlotColorSource(Enum):
+    """Python bindings for the openNURBS `plot_color_source` enumerator.
+    """
+    from_layer = 0
+    from_object = 1
+    from_material = 2
+    from_parent = 3
 
 
 class PointGeometry(Geometry):
