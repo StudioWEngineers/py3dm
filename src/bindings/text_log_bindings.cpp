@@ -30,13 +30,9 @@ void TextLogBindings(nb::module_& m) {
     ;
 
     nb::enum_<ON_TextLog::LevelOfDetail>(on_textlog, "LevelOfDetail")
-
         .value("Minimum", ON_TextLog::LevelOfDetail::Minimum)
-
         .value("Medium", ON_TextLog::LevelOfDetail::Medium)
-
         .value("Maximum", ON_TextLog::LevelOfDetail::Maximum)
-
         .export_values()
     ;
 }
