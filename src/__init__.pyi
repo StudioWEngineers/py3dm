@@ -391,6 +391,76 @@ class Model:
     def revision(self) -> int: ...
 
 
+class ObjectAttributes(OpenNURBSObject):
+    """Python bindings for the openNURBS `ON_3dmObjectAttributes` class.
+
+    `ON_3dmObjectAttributes`: Top level OpenNURBS objects have geometry and attributes.
+    The geometry is stored in some class derived from `ON_Geometry` and the attributes are
+    stored in an `ON_3dmObjectAttributes` class. Examples of attributes are object name,
+    object id, display attributes, group membership, layer membership, and so on.
+    """
+    color: tuple[int, int, int, int]
+
+    layer_index: int
+
+    line_type_index: int
+
+    material_index: int
+
+    plot_color: tuple[int, int, int, int]
+
+    def __init__(self) -> None: ...
+
+    def __eq__(self, other: object) -> bool: ...
+
+    def __ne__(self, other: object) -> bool: ...
+
+    @property
+    def color_source(self) -> ObjectColorSource: ...
+    @color_source.setter
+    def color_source(self, color_source: ObjectColorSource) -> None: ...
+
+    @property
+    def is_visible(self) -> bool: ...
+    @is_visible.setter
+    def is_visible(self, is_visible: bool) -> None: ...
+
+    @property
+    def mode(self) -> ObjectMode: ...
+    @mode.setter
+    def mode(self, mode: ObjectMode) -> None: ...
+
+    @property
+    def plot_color_source(self) -> PlotColorSource: ...
+    @plot_color_source.setter
+    def plot_color_source(self, plot_color_source: PlotColorSource) -> None: ...
+
+    def default(self) -> None:
+        """Initializes all attributes to the default values.
+        """
+        ...
+
+    def get_name(self) -> str:
+        """From `ON_3dmObjectAttributes`:
+
+        The `m_name member` is public to avoid breaking the SDK. Use `set_name` and
+        `get_name` for proper validation. OpenNURBS object have optional text names. More
+        than one object in a model can have the same name and some objects may have no
+        name.
+        """
+        ...
+
+    def set_name(self, name: str, fix_invalid_name: bool = False) -> bool:
+        """From `ON_3dmObjectAttributes`:
+
+        The `m_name member` is public to avoid breaking the SDK. Use `set_name` and
+        `get_name` for proper validation. OpenNURBS object have optional text names. More
+        than one object in a model can have the same name and some objects may have no
+        name.
+        """
+        ...
+
+
 class ObjectColorSource(Enum):
     """Python bindings for the openNURBS `object_color_source` enumerator.
     """
