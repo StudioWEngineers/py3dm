@@ -16,13 +16,18 @@ from uuid import UUID
 
 class Geometry(OpenNURBSObject):
     """Python wrapper for the openNURBS `ON_Geometry` class.
+
+        `ON_Geometry`: base class for all geometry classes that must provide runtime class
+        id. It provides interface for common geometric operations like finding bounding
+        boxes and transforming.
     """
     def __init__(self) -> None: ...
 
     def dimension(self) -> int:
         """Returns the dimension of the object.
 
-        Remarks:
+        Notes
+        -----
         The dimension is typically three. For parameter space trimming curves the
         dimension is two. In rare cases the dimension can be one or greater than three.
         """
