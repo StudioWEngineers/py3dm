@@ -3,10 +3,26 @@
 // External includes
 
 // Project includes
-#include "../utilities/object_utilities.h"
 #include "casters/on_wstring_caster.h"
 #include "object_bindings.h"
 
+
+namespace ObjectUtilities {
+    ON_wString GetUserString(const ON_Object& on_obj, const ON_wString& key) {
+        ON_wString string_value;
+        on_obj.GetUserString(key, string_value);
+
+        return string_value;
+    }
+
+    bool RemoveUserString(ON_Object& on_obj, const ON_wString& key) {
+        return on_obj.SetUserString(key, nullptr);
+    }
+
+    bool SetUserString(ON_Object& on_obj, const ON_wString& key, const ON_wString& value) {
+        return on_obj.SetUserString(key, value);
+    }
+} // namespace ObjectUtilities
 
 void ObjectBindings(nb::module_& m) {
     nb::class_<ON_Object>(m, "OpenNURBSObject")

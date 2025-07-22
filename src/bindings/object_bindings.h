@@ -16,4 +16,10 @@
 #include "bindings.h"
 
 
+namespace ObjectUtilities {
+    ON_wString GetUserString(const ON_Object& on_obj, const ON_wString& key);
+    bool RemoveUserString(ON_Object& on_obj, const ON_wString& key);
+    bool SetUserString(ON_Object& on_obj, const ON_wString& key, const ON_wString& value);
+}
+
 void ObjectBindings(nb::module_& m);
