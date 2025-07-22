@@ -6,7 +6,7 @@ Tests for the `Line` class.
 """
 # standard library imports
 from math import sqrt
-from unittest import TestCase, expectedFailure
+from unittest import TestCase
 
 # third party library imports
 from py3dm import Line, Point3d
@@ -31,11 +31,11 @@ class LineTestSuite(TestCase):
 
         with self.subTest(msg="Unsuccessful create"):
             self.assertFalse(self.line.create(Point3d(1, 2, 3), Point3d(1, 2, 3)))
-    @expectedFailure
+
     def test_distance_to(self) -> None:
         """Test for the `distance_to` method.
         """
-        self.assertEqual(self.line.distance_to(Point3d(1, 0, 1)), sqrt(3) / 2)
+        self.assertEqual(self.line.distance_to(Point3d(1, 0, 1)), sqrt(2 / 3))
 
     def test_getitem(self) -> None:
         """Tests for the `__getitem__` method.
