@@ -4,34 +4,23 @@
 
 // Project includes
 #include "object_utilities.h"
-#include "utilities.h"
 
 
 namespace ObjectUtilities {
 
-std::string GetUserString(const ON_Object& on_obj, std::string& key) {
-    std::wstring w_key = Utilities::utf8_to_wchar(key);
+ON_wString GetUserString(const ON_Object& on_obj, const ON_wString& key) {
     ON_wString string_value;
+    on_obj.GetUserString(key, string_value);
 
-    if (on_obj.GetUserString(w_key.c_str(), string_value)) {
-        ON_String utf8_str = ON_String(string_value);
-        return std::string(utf8_str.Array());
-    } else {
-        return std::string();
-    }
+    return string_value;
 }
 
-bool RemoveUserString(ON_Object& on_obj, std::string& key) {
-    std::wstring w_key = Utilities::utf8_to_wchar(key);
-
-    return on_obj.SetUserString(w_key.c_str(), nullptr);
+bool RemoveUserString(ON_Object& on_obj, const ON_wString& key) {
+    return on_obj.SetUserString(key, nullptr);
 }
 
-bool SetUserString(ON_Object& on_obj, std::string& key, std::string& value) {
-    std::wstring w_key = Utilities::utf8_to_wchar(key);
-    std::wstring w_val = Utilities::utf8_to_wchar(value);
-
-    return on_obj.SetUserString(w_key.c_str(), w_val.c_str());
+bool SetUserString(ON_Object& on_obj, const ON_wString& key, const ON_wString& value) {
+    return on_obj.SetUserString(key, value);
 }
 
 } // namespace ObjectUtilities

@@ -19,10 +19,10 @@
 
 namespace ObjectUtilities {
 
-    std::string GetUserString(const ON_Object& on_obj, std::string& key);
+    ON_wString GetUserString(const ON_Object& on_obj, const ON_wString& key);
 
-    bool RemoveUserString(ON_Object& on_obj, std::string& key);
+    bool RemoveUserString(ON_Object& on_obj, const ON_wString& key);
 
-    bool SetUserString(ON_Object& on_obj, std::string& key, std::string& value);
+    bool SetUserString(ON_Object& on_obj, const ON_wString& key, const ON_wString& value);
 
 }
