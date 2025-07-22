@@ -83,12 +83,7 @@ void LayerBindings(nb::module_& m) {
 
         .def_prop_ro("parent_uuid_is_null", &ON_Layer::ParentIdIsNil)
 
-        .def_prop_ro(
-            "path_separator",
-            [](const ON_Layer& /*self*/) -> std::string {
-                return LayerUtilities::GetPathSeparator();
-            }
-        )
+        .def_ro_static("path_separator", &ON_ModelComponent::NamePathSeparator)
 
         /*other methods*/
         .def("is_valid", &ON_Layer::IsValid, nb::arg("text_log") = nullptr)

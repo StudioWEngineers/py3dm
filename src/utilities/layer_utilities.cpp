@@ -11,13 +11,6 @@
 
 namespace LayerUtilities {
 
-
-std::string GetPathSeparator() {
-    ON_String utf_8_str(ON_ModelComponent::NamePathSeparator);
-    const char* utf_8 = utf_8_str.Array();
-    return utf_8 ? std::string(utf_8) : std::string();
-}
-
 bool SetName(ON_Layer& layer, const ON_wString& name) {
     return layer.SetName(name);
 }
@@ -25,6 +18,7 @@ bool SetName(ON_Layer& layer, const ON_wString& name) {
 std::string ToString(const ON_Layer& layer) {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> convert;
     std::string name_str = convert.to_bytes(layer.NameAsPointer());
+    std::string path_separator = convert.to_bytes(ON_ModelComponent::NamePathSeparator);
 
     char p_uuid_str[37];
     char uuid_str[37];
@@ -51,7 +45,7 @@ std::string ToString(const ON_Layer& layer) {
            << "\tline_type_index = " << layer.LinetypeIndex() << "\n"
            << "\tname = '" << name_str << "'\n"
            << "\tparent_uuid = " << std::string(p_uuid_str) << "\n"
-           << "\tpath separator = " << LayerUtilities::GetPathSeparator() << "\n"
+           << "\tpath separator = " << path_separator << "\n"
            << "\tpersistent_locking = " << layer.PersistentLocking() << "\n"
            << "\tpersistent_visibility = " << layer.PersistentVisibility() << "\n"
            << "\tplot_color = " << p_color_stream.str() << "\n"
