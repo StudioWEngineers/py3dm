@@ -5,7 +5,7 @@ ObjectAttributesTestSuite
 Tests for the `ObjectAttributes` class.
 """
 # standard library imports
-from unittest import TestCase, expectedFailure
+from unittest import TestCase
 
 # third party library imports
 from py3dm import ObjectAttributes, ObjectColorSource, ObjectMode, PlotColorSource
@@ -18,7 +18,7 @@ class ObjectAttributesTestSuite(TestCase):
     """
     def setUp(self) -> None:
         self.obj_attr = ObjectAttributes()
-    @expectedFailure
+
     def test_get_and_set_name(self) -> None:
         """Tests for the `get_name` and `set_name` methods.
         """
@@ -31,8 +31,11 @@ class ObjectAttributesTestSuite(TestCase):
         with self.subTest(msg="Test successfull assign name - part II"):
             self.assertEqual(self.obj_attr.get_name(), "my attributes")
 
-        with self.subTest(msg="Test unsuccessfull assign name"):
-            self.assertFalse(self.obj_attr.set_name(""))
+        with self.subTest(msg="Test successfull assign empty name - part I"):
+            self.assertTrue(self.obj_attr.set_name(""))
+
+        with self.subTest(msg="Test successfull assign empty name - part II"):
+            self.assertEqual(self.obj_attr.get_name(), "")
 
     def test_color(self) -> None:
         """Tests for the `color` method.
