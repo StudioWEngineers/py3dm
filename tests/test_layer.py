@@ -107,12 +107,13 @@ class LayerTestSuite(TestCase):
         """Tests for the `name` property.
         """
         with self.subTest(msg="Layer name before assignment"):
-            self.assertEqual(self.layer.name, "")
+            self.assertEqual(self.layer.get_name(), "")
 
-        self.layer.name = "My new layer"
+        with self.subTest(msg="Successfull set_name"):
+            self.assertTrue(self.layer.set_name("My new layer"))
 
         with self.subTest(msg="Layer name after assignment"):
-            self.assertEqual(self.layer.name, "My new layer")
+            self.assertEqual(self.layer.get_name(), "My new layer")
 
     def test_get_and_set_parent_uuid(self) -> None:
         """Tests for the `parent_uuid` property.
@@ -350,12 +351,13 @@ class ExistingLayerModificationTestSuite(TestCase):
         """Tests for the `name` property.
         """
         with self.subTest(msg="Layer name before assignment"):
-            self.assertEqual(self.layer.name, "Layer 01")
+            self.assertEqual(self.layer.get_name(), "Layer 01")
 
-        self.layer.name = "My new layer"
+        with self.subTest(msg="Successfull set_name"):
+            self.assertTrue(self.layer.set_name("My new layer"))
 
         with self.subTest(msg="Layer name after assignment"):
-            self.assertEqual(self.layer.name, "My new layer")
+            self.assertEqual(self.layer.get_name(), "My new layer")
 
     def test_get_and_set_parent_uuid(self) -> None:
         """Tests for the `parent_uuid` property.

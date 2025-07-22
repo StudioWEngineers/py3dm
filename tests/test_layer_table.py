@@ -23,11 +23,11 @@ class LayerTableTestSuite(TestCase):
         model = Model()
 
         layer1 = Layer()
-        layer1.name = "Layer A"
+        layer1.set_name("Layer A")
         layer1.color = (255, 0, 255, 255)
 
         layer2 = Layer()
-        layer2.name = "layer 2"
+        layer2.set_name("layer 2")
 
         model.LayerTable.add(layer1)
         model.LayerTable.add(layer2)
@@ -39,10 +39,10 @@ class LayerTableTestSuite(TestCase):
             self.assertEqual(len(model.LayerTable), 2)
 
         with self.subTest(msg="Name of 1st layer"):
-            self.assertEqual(model.LayerTable.get_by_index(0).name, "Layer A")
+            self.assertEqual(model.LayerTable.get_by_index(0).get_name(), "Layer A")
 
         with self.subTest(msg="Name of 2nd layer"):
-            self.assertEqual(model.LayerTable.get_by_index(1).name, "layer 2")
+            self.assertEqual(model.LayerTable.get_by_index(1).get_name(), "layer 2")
 
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(model.LayerTable.get_by_index(0).color, (255, 0, 255, 255))
@@ -67,8 +67,8 @@ class LayerTableTestSuite(TestCase):
 
         layer_1 = Layer()
         layer_2 = Layer()
-        layer_1.name = "New layer 1"
-        layer_2.name = "New layer 2"
+        layer_1.set_name("New layer 1")
+        layer_2.set_name("New layer 2")
         model.LayerTable.add(layer_1)
         model.LayerTable.add(layer_2)
 
@@ -88,8 +88,8 @@ class LayerTableTestSuite(TestCase):
 
         layer_1 = Layer()
         layer_2 = Layer()
-        layer_1.name = "New layer 1"
-        layer_2.name = "New layer 2"
+        layer_1.set_name("New layer 1")
+        layer_2.set_name("New layer 2")
         model.LayerTable.add(layer_1)
         model.LayerTable.add(layer_2)
 
@@ -119,7 +119,7 @@ class LayerTableTestSuite(TestCase):
             self.assertIsNone(model.LayerTable[3])
 
         with self.subTest(msg="Existing index"):
-            self.assertEqual(model.LayerTable[1].name, "Layer 02")
+            self.assertEqual(model.LayerTable[1].get_name(), "Layer 02")
 
     def test_get_by_index(self) -> None:
         """Tests for the `get_by_index` method.
@@ -127,11 +127,11 @@ class LayerTableTestSuite(TestCase):
         model = Model()
 
         layer_1 = Layer()
-        layer_1.name = "Layer A"
+        layer_1.set_name("Layer A")
         layer_1.color = (255, 0, 255, 255)
 
         layer_2 = Layer()
-        layer_2.name = "layer 2"
+        layer_2.set_name("layer 2")
 
         index_layer_1 = model.LayerTable.add(layer_1)
         index_layer_2 = model.LayerTable.add(layer_2)
@@ -143,7 +143,7 @@ class LayerTableTestSuite(TestCase):
             self.assertIsNone(model.LayerTable.get_by_index(3))
 
         with self.subTest(msg="Name of 2nd layer"):
-            self.assertEqual(layer_2.name, "layer 2")
+            self.assertEqual(layer_2.get_name(), "layer 2")
 
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(layer_1.color, (255, 0, 255, 255))
@@ -154,11 +154,11 @@ class LayerTableTestSuite(TestCase):
         model = Model()
 
         layer_1 = Layer()
-        layer_1.name = "Layer A"
+        layer_1.set_name("Layer A")
         layer_1.color = (255, 0, 255, 255)
 
         layer_2 = Layer()
-        layer_2.name = "layer 2"
+        layer_2.set_name("layer 2")
 
         model.LayerTable.add(layer_1)
         model.LayerTable.add(layer_2)
@@ -170,7 +170,7 @@ class LayerTableTestSuite(TestCase):
             self.assertIsNone(model.LayerTable.get_by_name("not existing"))
 
         with self.subTest(msg="Name of 2nd layer"):
-            self.assertEqual(layer_2.name, "layer 2")
+            self.assertEqual(layer_2.get_name(), "layer 2")
 
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(layer_1.color, (255, 0, 255, 255))
@@ -181,11 +181,11 @@ class LayerTableTestSuite(TestCase):
         model = Model()
 
         layer_1 = Layer()
-        layer_1.name = "Layer A"
+        layer_1.set_name("Layer A")
         layer_1.color = (255, 0, 255, 255)
 
         layer_2 = Layer()
-        layer_2.name = "layer 2"
+        layer_2.set_name("layer 2")
 
         model.LayerTable.add(layer_1)
         model.LayerTable.add(layer_2)
@@ -197,7 +197,7 @@ class LayerTableTestSuite(TestCase):
             self.assertIsNone(model.LayerTable.get_by_uuid(UUID(int=0)))
 
         with self.subTest(msg="Name of 2nd layer"):
-            self.assertEqual(layer_2.name, "layer 2")
+            self.assertEqual(layer_2.get_name(), "layer 2")
 
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(layer_1.color, (255, 0, 255, 255))
@@ -262,7 +262,7 @@ class LayerTableTestSuite(TestCase):
 
         for layer_index, layer in enumerate(model.LayerTable):
             with self.subTest(layer_index = layer_index):
-                self.assertEqual(layer.name, f"Layer 0{layer_index + 1}")
+                self.assertEqual(layer.get_name(), f"Layer 0{layer_index + 1}")
 
             with self.subTest(layer_index = layer_index):
                 self.assertEqual(layer.index, layer_index)

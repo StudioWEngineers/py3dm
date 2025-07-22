@@ -19,11 +19,9 @@
 
 namespace LayerUtilities {
 
-    const ON_wString GetName(const ON_Layer& layer);
-
     std::string GetPathSeparator();
 
-    void SetName(ON_Layer& layer, const ON_wString& name);
+    bool SetName(ON_Layer& layer, const ON_wString& name);
 
     std::string ToString(const ON_Layer& layer);
 

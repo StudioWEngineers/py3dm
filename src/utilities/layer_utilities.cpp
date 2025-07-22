@@ -11,9 +11,6 @@
 
 namespace LayerUtilities {
 
-const ON_wString GetName(const ON_Layer& layer) {
-    return layer.Name();
-}
 
 std::string GetPathSeparator() {
     ON_String utf_8_str(ON_ModelComponent::NamePathSeparator);
@@ -21,8 +18,8 @@ std::string GetPathSeparator() {
     return utf_8 ? std::string(utf_8) : std::string();
 }
 
-void SetName(ON_Layer& layer, const ON_wString& name) {
-    layer.SetName(name);
+bool SetName(ON_Layer& layer, const ON_wString& name) {
+    return layer.SetName(name);
 }
 
 std::string ToString(const ON_Layer& layer) {

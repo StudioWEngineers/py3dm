@@ -89,10 +89,37 @@ class Layer:
     @line_type_index.setter
     def line_type_index(self, index: int) -> None: ...
 
-    @property
-    def name(self) -> str: ...
-    @name.setter
-    def name(self, name: str) -> None: ...
+    def get_name(self) -> str:
+        """Returns the value of the name attribute.
+
+        Notes
+        -----
+        If the component is in a model, then the name is unique among all components in
+        the model. Names are formatted as reference : parent::leaf. For example in
+        `A.3dm : Z`, `A.3dm` is the reference and `Z` is the leaf. For a layer full path
+        `X::Y::Z`, `X::Y` is the parent and `Z` is the leaf. For most models, only the
+        leaf is present in the name. The reference portion appears when a model component
+        originates in a reference file (a linked instance definition with reference
+        component names or a worksession reference).
+        Components with a tree hierarchy, like layers, can have a parent and leaf.
+        """
+        ...
+
+    def set_name(self, name: str) -> bool:
+        """Returns `True` if the name attribute was changed to `name` or is already equal
+        to `name`; returns `False` and no changes are made if the name attribute is locked
+        and `name !=` locked value or `name` is not empty and
+        `ON_ModelComponent::IsValidComponentName(name)` is false.
+
+        Notes
+        -----
+
+        Leading and trailing non-zero unicode code points with values lower than equal
+        `ON_wString::Space` are ignored.
+
+        If `name` is the empty string, the `name_is_state` state will still be `True`.
+        """
+        ...
 
     @property
     def path_separator(self) -> str: ...

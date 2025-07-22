@@ -56,16 +56,6 @@ void LayerBindings(nb::module_& m) {
 
         .def_prop_rw("line_type_index", &ON_Layer::LinetypeIndex, &ON_Layer::SetLinetypeIndex)
 
-        .def_prop_rw(
-            "name",
-            [](const ON_Layer& self) -> ON_wString {
-                return LayerUtilities::GetName(self);
-            },
-            [](ON_Layer& self, const ON_wString& name) {
-                return LayerUtilities::SetName(self, name);
-            }
-        )
-
         .def_prop_rw("parent_uuid", &ON_Layer::ParentLayerId, &ON_Layer::SetParentLayerId)
 
         .def_prop_rw("persistent_locking", &ON_Layer::PersistentLocking, &ON_Layer::SetPersistentLocking)
@@ -102,6 +92,10 @@ void LayerBindings(nb::module_& m) {
 
         /*other methods*/
         .def("is_valid", &ON_Layer::IsValid, nb::arg("text_log") = nullptr)
+
+        .def("get_name", &ON_Layer::Name)
+
+        .def("set_name", &LayerUtilities::SetName)
 
         .def("unset_persistent_locking", &ON_Layer::UnsetPersistentLocking)
 
