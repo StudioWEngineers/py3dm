@@ -1,14 +1,55 @@
 // System includes
+#include <sstream>
 
 // External includes
 
 // Project includes
-#include "../utilities/layer_utilities.h"
 #include "casters/color_caster.h"
 #include "casters/on_wstring_caster.h"
 #include "casters/uuid_caster.h"
 #include "layer_bindings.h"
 
+
+namespace LayerUtilities {
+    bool SetName(ON_Layer& layer, const ON_wString& name) {
+        return layer.SetName(name);
+    }
+
+    ON_wString ToString(const ON_Layer& layer) {
+        char p_uuid_str[37];
+        char uuid_str[37];
+        ON_UuidToString(layer.ParentId(), p_uuid_str);
+        ON_UuidToString(layer.Id(), uuid_str);
+
+        ON_Color color = layer.Color();
+        std::wostringstream color_stream;
+        color_stream << "(" << color.Red() << ", " << color.Green() << ", " << color.Blue() << ", " << 255 - color.Alpha() << ")";
+
+        ON_Color p_color = layer.PlotColor();
+        std::wostringstream p_color_stream;
+        p_color_stream << "(" << p_color.Red() << ", " << p_color.Green() << ", " << p_color.Blue() << ", " << 255 - p_color.Alpha() << ")";
+
+        std::wostringstream output;
+        output << "Layer with properties:\n"
+               << "\tcolor = " << color_stream.str() << "\n"
+               << "\tiges_level = " << layer.IgesLevel() << "\n"
+               << "\tindex = " << layer.Index() << "\n"
+               << "\tis_expanded = " << std::boolalpha << layer.m_bExpanded << "\n"
+               << "\tis_locked = " << layer.IsLocked() << "\n"
+               << "\tis_visible = " << layer.IsVisible() << "\n"
+               << "\tlayer_uuid = " << uuid_str << "\n"
+               << "\tline_type_index = " << layer.LinetypeIndex() << "\n"
+               << "\tname = '" << layer.NameAsPointer() << "'\n"
+               << "\tparent_uuid = " << p_uuid_str << "\n"
+               << "\tpath separator = " << ON_ModelComponent::NamePathSeparator.Array() << "\n"
+               << "\tpersistent_locking = " << layer.PersistentLocking() << "\n"
+               << "\tpersistent_visibility = " << layer.PersistentVisibility() << "\n"
+               << "\tplot_color = " << p_color_stream.str() << "\n"
+               << "\tplot_weight = " << layer.PlotWeight() << "\n"
+               << "\trender_material_index = " << layer.RenderMaterialIndex() << "\n";
+        return ON_wString(output.str().c_str());
+    }
+} // namespace LayerUtilities
 
 void LayerBindings(nb::module_& m) {
     nb::class_<ON_Layer>(m, "Layer")

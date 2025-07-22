@@ -16,4 +16,9 @@
 #include "bindings.h"
 
 
+namespace LayerUtilities {
+    bool SetName(ON_Layer& layer, const ON_wString& name);
+    ON_wString ToString(const ON_Layer& layer);
+}
+
 void LayerBindings(nb::module_& m);
