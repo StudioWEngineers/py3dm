@@ -5,6 +5,7 @@
 // Project includes
 #include "../utilities/layer_utilities.h"
 #include "casters/color_caster.h"
+#include "casters/on_wstring_caster.h"
 #include "casters/uuid_caster.h"
 #include "layer_bindings.h"
 
@@ -57,10 +58,10 @@ void LayerBindings(nb::module_& m) {
 
         .def_prop_rw(
             "name",
-            [](const ON_Layer& self) -> std::string {
+            [](const ON_Layer& self) -> ON_wString {
                 return LayerUtilities::GetName(self);
             },
-            [](ON_Layer& self, const std::string& name) {
+            [](ON_Layer& self, const ON_wString& name) {
                 return LayerUtilities::SetName(self, name);
             }
         )
