@@ -16,4 +16,8 @@
 #include "bindings.h"
 
 
+namespace ObjectAttributesUtilities{
+    bool SetName(ON_3dmObjectAttributes& obj_attr, const ON_wString name, bool fix_invalid_name);
+};
+
 void ObjectAttributesBindings(nb::module_& m);

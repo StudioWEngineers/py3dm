@@ -8,6 +8,13 @@
 #include "object_attributes_bindings.h"
 
 
+namespace ObjectAttributesUtilities {
+    bool SetName(ON_3dmObjectAttributes& obj_attr, const ON_wString name, bool fix_invalid_name) {
+        return obj_attr.SetName(name, fix_invalid_name);
+    }
+}
+
+
 void ObjectAttributesBindings(nb::module_& m) {
     nb::class_<ON_3dmObjectAttributes, ON_Object>(m, "ObjectAttributes")
         /*magic methods*/
@@ -37,6 +44,6 @@ void ObjectAttributesBindings(nb::module_& m) {
         /*other methods*/
         .def("default", &ON_3dmObjectAttributes::Default)
         .def("get_name", &ON_3dmObjectAttributes::Name)
-        .def("set_name", &ON_3dmObjectAttributes::SetName, nb::arg("name"), nb::arg("fix_invalid_name") = false)
+        .def("set_name", &ObjectAttributesUtilities::SetName, nb::arg("name"), nb::arg("fix_invalid_name") = false)
     ;
 }
