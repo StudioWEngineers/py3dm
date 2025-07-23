@@ -119,7 +119,7 @@ html_theme = "furo"
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<version> documentation".
-# html_title = None
+html_title = f"{project} v{version} documentation"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 # html_short_title = None

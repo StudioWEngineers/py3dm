@@ -1,6 +1,8 @@
 Introduction
 ============
 
+Welcome to py3dm v|release| documentation!
+
 *py3dm* is a small binding library that exposes openNURBS classes to Python. It is
 reminiscent of `rhino3dm <https://github.com/mcneel/rhino3dm>` and uses very similar
 syntax.
