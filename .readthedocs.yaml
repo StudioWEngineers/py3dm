@@ -12,7 +12,7 @@ python:
     - requirements: docs/requirements.txt
 
 sphinx:
-  configuration: docs/configuration.py
+  configuration: docs/conf.py
 
 formats:
   - pdf
