@@ -7,6 +7,12 @@ Python bindings for **OpenNURBS** using **nanobind**.
 - draco commit `4e12ab27d0fe690cf98e96dc33c2bd52e1485163` [google-draco](https://github.com/google/draco)
 - nanobind `2.7.0` [nanobind](https://github.com/wjakob/nanobind)
 
+## Documentation
+
+Please see the following links for reference documentation (currently a BIG WIP):
+[HTML](https://py3dm.readthedocs.io/en/latest/) and
+[PDF](https://py3dm.readthedocs.io/_/downloads/en/latest/pdf/) formats.
+
 ## License and attribution
 
 All material in this repository is licensed under a three-clause [BSD
