@@ -9,7 +9,7 @@ Python bindings for **OpenNURBS** using **nanobind**.
 
 ## Documentation
 
-Please see the following links for reference documentation (currently a BIG WIP):
+Please see the following links for reference documentation (currently a BIG WIP) in 
 [HTML](https://py3dm.readthedocs.io/en/latest/) and
 [PDF](https://py3dm.readthedocs.io/_/downloads/en/latest/pdf/) formats.
 
