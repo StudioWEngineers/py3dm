@@ -50,9 +50,10 @@ author = "StudioWEngineers"
 VERSION_REGEX = re.compile(
     r"^\s*#\s*define\s+PY3DM_VERSION_([A-Z]+)\s+(.*)$", re.MULTILINE)
 
-this_directory = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+version_file = os.path.join(repo_root, "src", "bindings", "bindings.h")
 
-with open(os.path.join(this_directory, "src/bindings/bindings.h")) as f:
+with open(version_file) as f:
     matches = dict(VERSION_REGEX.findall(f.read()))
     version = "{MAJOR}.{MINOR}.{PATCH}".format(**matches)
 
