@@ -1,4 +1,10 @@
 # py3dm
+[![Tests](https://github.com/StudioWEngineers/py3dm/actions/workflows/workflow_ci.yml/badge.svg)](https://github.com/StudioWEngineers/py3dm/actions/workflows/workflow_ci.yml)
+[![PyPI](https://github.com/StudioWEngineers/py3dm/actions/workflows/build_and_publish.yml/badge.svg)](https://github.com/StudioWEngineers/py3dm/actions/workflows/build_and_publish.yml)
+[![Documentation Status](https://readthedocs.org/projects/py3dm/badge/?version=latest)](https://py3dm.readthedocs.io/en/latest/?badge=latest)
+[![GitHub Release](https://img.shields.io/github/v/release/StudioWEngineers/py3dm)](https://github.com/StudioWEngineers/py3dm/releases)
+
+
 Python bindings for **OpenNURBS** using **nanobind**.
 
 ## Dependencies
