@@ -11,7 +11,7 @@ syntax.
    ---------------------
 
    You are reading the HTML version of the documentation. An alternative `PDF
-   version <https://xxx/_/downloads/en/latest/pdf/>`__ is
+   version <https://py3dm.readthedocs.io/_/downloads/en/latest/pdf/>`__ is
    also available.
 
    Dependencies
