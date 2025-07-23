@@ -7,7 +7,7 @@ name = "py3dm"
 version = "0.1.0"
 description = "Python bindings for openNURBS using nanobind."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 authors = [
     { name = "Studio W Engineers", email = "studio.w.engineers@gmail.com" }
 ]
@@ -16,6 +16,9 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
     "Programming Language :: C++",
     "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Software Development :: Libraries :: Python Modules",
@@ -31,3 +34,5 @@ build-dir = "build/{wheel_tag}"
 wheel.packages = ["py3dm"]
 cmake.version = ">=3.30"
 cmake.build-type = "Release"
+wheel.py-api = "cp312"      # This ensures cp312-abi3 tag is used
+sdist.include = ["src", "py3dm", "README.md", "LICENSE", "pyproject.toml"]
