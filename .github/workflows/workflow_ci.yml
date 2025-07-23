@@ -8,6 +8,8 @@ on:
       - '**/*.h'
       - 'src/__init__.py'
       - '.github/workflows/workflow_ci.yml'
+      - 'pyproject.toml'
+      - 'CMakeLists.txt'
 
   push:
     branches:
@@ -18,6 +20,8 @@ on:
       - '**/*.h'
       - 'src/__init__.py'
       - '.github/workflows/workflow_ci.yml'
+      - 'pyproject.toml'
+      - 'CMakeLists.txt'
 
 concurrency:
   group: test-${{ github.ref }}
