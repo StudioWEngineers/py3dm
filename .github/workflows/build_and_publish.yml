@@ -28,7 +28,7 @@ jobs:
           pip install cibuildwheel==2.17
 
       - name: Build wheels with cibuildwheel
-        run: cibuildwheel --output-dir dist
+        run: cibuildwheel . --output-dir dist
         env:
           CIBW_BUILD: "cp312-* cp313-* cp314-*"
           CIBW_SKIP: "*-musllinux*"
