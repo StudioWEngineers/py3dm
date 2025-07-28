@@ -76,14 +76,6 @@ if(UNIX AND NOT APPLE)
     target_link_libraries(_py3dm PRIVATE ${UUID_LIB})
 endif()
 
-# Python package installation
-install(FILES
-    ${CMAKE_SOURCE_DIR}/src/__init__.py
-    ${CMAKE_SOURCE_DIR}/src/__init__.pyi
-    ${CMAKE_SOURCE_DIR}/src/py.typed
-    DESTINATION py3dm
-)
-
 install(TARGETS _py3dm
     LIBRARY DESTINATION py3dm
     RUNTIME DESTINATION py3dm
