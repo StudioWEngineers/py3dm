@@ -28,7 +28,7 @@ jobs:
           pip install cibuildwheel==2.23
 
       - name: Build wheels with cibuildwheel
-        run: cibuildwheel . --output-dir dist
+        run: cibuildwheel --output-dir dist .
         env:
           CIBW_BUILD: "cp312-* cp313-* cp314-*"
           CIBW_SKIP: "*-musllinux*"
@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: py3dm-wheels
-          path: dist
+          path: dist/*.whl
 
   publish:
     name: Upload to PyPI
