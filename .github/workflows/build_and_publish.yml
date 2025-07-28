@@ -40,9 +40,11 @@ jobs:
           CIBW_BUILD: "cp312-* cp313-* cp314-*"
           CIBW_SKIP: "*-musllinux*"
           CIBW_TEST_SKIP: "*"
+          CIBW_ARCHS_WINDOWS: "AMD64"
           CIBW_ENVIRONMENT: >
             CMAKE_GENERATOR=Ninja
             CMAKE_BUILD_TYPE=Release
+          CIBW_BUILD_VERBOSITY: 3
 
       - name: Upload wheels to GitHub (artifact)
         uses: actions/upload-artifact@v4
