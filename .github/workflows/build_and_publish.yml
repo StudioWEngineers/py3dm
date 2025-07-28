@@ -29,7 +29,6 @@ jobs:
 
       - name: Build wheels with cibuildwheel
         run: cibuildwheel . --output-dir dist
-        working-directory: ./
         env:
           CIBW_BUILD: "cp312-* cp313-* cp314-*"
           CIBW_SKIP: "*-musllinux*"
