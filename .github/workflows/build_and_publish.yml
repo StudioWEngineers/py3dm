@@ -22,13 +22,18 @@ jobs:
         with:
           python-version: '3.12'  # Just one build Python since ABI3 targets 3.12+
 
+      - name: Install build tools on macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install ninja cmake
+
       - name: Install cibuildwheel
         run: |
           python -m pip install --upgrade pip
           pip install cibuildwheel==2.23
 
       - name: Build wheels with cibuildwheel
-        run: cibuildwheel --output-dir dist .
+        run: CIBW_VERBOSE=1 cibuildwheel --output-dir dist .
         env:
           CIBW_BUILD: "cp312-* cp313-* cp314-*"
           CIBW_SKIP: "*-musllinux*"
