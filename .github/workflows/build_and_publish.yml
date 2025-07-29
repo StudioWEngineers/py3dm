@@ -38,7 +38,7 @@ jobs:
         run: cibuildwheel --output-dir dist .
         env:
           CIBW_BUILD: "cp312-* cp313-* cp314-*"
-          CIBW_SKIP: "*-musllinux*"
+          CIBW_SKIP: "*-musllinux* *-win32 cp3*t-*"
           CIBW_TEST_SKIP: "*"
           CIBW_ARCHS_WINDOWS: "AMD64"
           CIBW_ENVIRONMENT: >
