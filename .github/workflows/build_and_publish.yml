@@ -38,6 +38,7 @@ jobs:
           python -m build --wheel --sdist --outdir dist
 
       - name: Verify wheel files
+        shell: bash
         run: |
           echo "Found the following files in dist/:"
           find dist -type f
