@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-15, windows-latest]
+        os: [macos-15, windows-latest]
         python: [3.12, 3.13]
 
     steps:
@@ -33,19 +33,7 @@ jobs:
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y uuid-dev
 
-      - name: Build manylinux wheel (Linux only)
-        if: runner.os == 'Linux'
-        run: |
-          PYTHON_TAG="cp$(echo ${{ matrix.python }} | tr -d '.')"
-          docker run --rm -v ${{ github.workspace }}:/io quay.io/pypa/manylinux2014_x86_64 bash -c "
-            cd /io && \
-            /opt/python/${PYTHON_TAG}*/bin/python -m pip install --upgrade build auditwheel && \
-            /opt/python/${PYTHON_TAG}*/bin/python -m build --wheel --outdir /io/dist && \
-            auditwheel repair /io/dist/*.whl -w /io/dist
-          "
-
-      - name: Build wheel and sdist (non-Linux)
-        if: runner.os != 'Linux'
+      - name: Build wheel and sdist
         run: |
           python -m build --wheel --sdist --outdir dist
 
