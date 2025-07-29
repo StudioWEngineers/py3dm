@@ -38,3 +38,6 @@ cmake.version = ">=3.30"
 cmake.build-type = "Release"
 wheel.py-api = "cp312"      # This ensures cp312-abi3 tag is used
 sdist.include = ["src", "py3dm", "README.md", "LICENSE", "pyproject.toml"]
+
+[tool.cibuildwheel]
+skip = ["*-win32", "cp3*t-*"]
