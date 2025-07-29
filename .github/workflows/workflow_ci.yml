@@ -2,33 +2,49 @@ name: Tests
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - '**/*.cpp'
-      - '**/*.h'
-      - 'src/__init__.py'
-      - '.github/workflows/workflow_ci.yml'
-      - 'pyproject.toml'
-      - 'CMakeLists.txt'
-
   push:
-    branches:
-      - main
-
-    paths:
-      - '**/*.cpp'
-      - '**/*.h'
-      - 'src/__init__.py'
-      - '.github/workflows/workflow_ci.yml'
-      - 'pyproject.toml'
-      - 'CMakeLists.txt'
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 concurrency:
   group: test-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
+  check_relevant_changes:
+    name: check for relevant changes
+    runs-on: ubuntu-latest
+    outputs:
+      any_changed: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 2
+      - name: check changed files
+        uses: tj-actions/changed-files@v45.0.4
+        id: changed-files
+        with:
+          files: |
+            .github/workflows/workflow_ci.yml
+            py3dm/__init__.py
+            src/**
+            tests/**
+            CMakeLists.txt
+            pyproject.toml
+      - name: List all changed files
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
+
   standard:
+    needs: [check_relevant_changes]
+    if: needs.check_relevant_changes.outputs.any_changed == 'true'
+
     strategy:
       fail-fast: false
       matrix:
