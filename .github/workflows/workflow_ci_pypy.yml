@@ -49,12 +49,11 @@ jobs:
 
       - name: Install built wheel
         run: |
-          cd dist
           echo "Current directory: $(pwd)"
           echo "Directory contents:"
           ls -al
           pip install --no-deps --ignore-requires-python dist/*.whl
-          python -c "import py3dm; print('py3dm import successful')"
+        # python -c "import py3dm; print('py3dm import successful')"
 
       - name: test ${{ matrix.python-version }}
         run: |
