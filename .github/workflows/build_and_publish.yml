@@ -41,6 +41,7 @@ jobs:
           CIBW_SKIP: "*-musllinux* *-win32 cp3*t-*"
           CIBW_TEST_SKIP: "*"
           CIBW_ARCHS_WINDOWS: "AMD64"
+          CIBW_CMAKE_ARGS: "-UWIN32"
           CIBW_ENVIRONMENT: >
             CMAKE_GENERATOR=Ninja
             CMAKE_BUILD_TYPE=Release
