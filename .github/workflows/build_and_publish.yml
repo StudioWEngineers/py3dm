@@ -2,17 +2,14 @@ name: Build and Publish Wheels
 
 on:
   push:
-    tags:
-      - 'v*'
 
 jobs:
   build:
-    name: Build wheels on ${{ matrix.os }} with Python ${{ matrix.python }}
+    name: Build wheels with cibuildwheel
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-15, windows-latest]
-        python: [3.12, 3.13]
+        os: [macos-15, windows-latest, ubuntu-latest]
 
     steps:
       - name: Checkout source
@@ -20,34 +17,25 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Set up Python ${{ matrix.python }}
+      - name: Set up Python (for host environment)
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python }}
+          python-version: "3.12"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip build
+      - name: Install cibuildwheel
+        run: python -m pip install --upgrade cibuildwheel
 
-      - name: Install libuuid (dev headers and linker support)
-        if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y uuid-dev
-
-      - name: Build wheel and sdist
-        run: |
-          python -m build --wheel --sdist --outdir dist
-
-      - name: Verify wheel files
-        shell: bash
-        run: |
-          echo "Found the following files in dist/:"
-          find dist -type f
-          ls dist/*.whl || (echo "No wheels found to upload!" && exit 1)
+      - name: Build wheels using cibuildwheel
+        env:
+          CIBW_BUILD: "cp312-* cp313-*"
+          CIBW_SKIP: "*-musllinux_*"
+          CIBW_ARCHS_MACOS: "x86_64 arm64 universal2"
+        run: python -m cibuildwheel --output-dir dist
 
       - name: Upload wheels to GitHub (artifact)
         uses: actions/upload-artifact@v4
         with:
-          name: py3dm-wheels-${{ matrix.os }}-py${{ matrix.python }}
+          name: py3dm-wheels-${{ matrix.os }}
           path: dist/*.whl
 
   publish:
@@ -60,13 +48,13 @@ jobs:
       - name: Download wheel artifacts
         uses: actions/download-artifact@v4
         with:
-          path: dist
+          path: artifacts
 
       - name: Flatten dist folder
         run: |
-          mkdir -p flat_dist
-          find dist -type f \( -name '*.whl' -o -name '*.tar.gz' \) -exec cp {} flat_dist/ \;
-          ls flat_dist
+          mkdir -p dist
+          find artifacts -type f -name '*.whl' -exec cp {} dist/ \;
+          ls dist/
 
       - name: Install Twine
         run: python -m pip install --upgrade twine
@@ -74,6 +62,6 @@ jobs:
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
         run: |
-          python -m twine upload --verbose flat_dist/*
+          python -m twine upload --verbose --repository-url https://test.pypi.org/legacy/ dist/*
