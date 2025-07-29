@@ -38,8 +38,9 @@ jobs:
         run: |
           PYTHON_TAG="cp$(echo ${{ matrix.python }} | tr -d '.')"
           docker run --rm -v ${{ github.workspace }}:/io quay.io/pypa/manylinux2014_x86_64 bash -c "
-            /opt/python/${PYTHON_TAG}*/bin/python -m pip install --upgrade build auditwheel &&
-            /opt/python/${PYTHON_TAG}*/bin/python -m build --wheel --outdir /io/dist &&
+            cd /io && \
+            /opt/python/${PYTHON_TAG}*/bin/python -m pip install --upgrade build auditwheel && \
+            /opt/python/${PYTHON_TAG}*/bin/python -m build --wheel --outdir /io/dist && \
             auditwheel repair /io/dist/*.whl -w /io/dist
           "
 
