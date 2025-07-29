@@ -1,0 +1,52 @@
+name: Tests - PyPy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  pypy-build:
+    name: PyPy ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [pypy3.9, pypy3.10]
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+
+      - name: Display Python version
+        run: |
+          python --version
+          python -c "import sys; print(sys.implementation)"
+
+      - name: Manually install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install scikit-build-core>=0.11.5 nanobind build
+
+      - name: Build wheel without build isolation
+        run: |
+          python -m build --wheel --no-isolation
+
+      - name: Install built wheel
+        run: |
+          pip install dist/*.whl
+          python -c "import py3dm; print('py3dm import successful')"
+
+      - name: test ${{ matrix.python-version }}
+        run: |
+          cd tests
+          python -m unittest discover --verbose
+        shell: bash
