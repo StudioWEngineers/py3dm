@@ -1,5 +1,5 @@
 /*
-    src/bindings/object_attributesbindings.h: Exposing ON_3dmObjectAttributes to Python
+    src/bindings/object_attributes_bindings.h: Exposing ON_3dmObjectAttributes to Python
 
     Copyright (c) 2025 Studio W Engineers
 
