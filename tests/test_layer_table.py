@@ -265,7 +265,7 @@ class LayerTableTestSuite(TestCase):
                 self.assertEqual(layer.get_name(), f"Layer 0{layer_index + 1}")
 
             with self.subTest(layer_index = layer_index):
-                self.assertEqual(layer.index, layer_index)
+                self.assertEqual(layer.get_index(), layer_index)
 
     def test_max_index(self) -> None:
         """Tests for the `max_index` method.

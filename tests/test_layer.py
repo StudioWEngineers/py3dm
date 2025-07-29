@@ -45,7 +45,7 @@ class LayerTestSuite(TestCase):
     def test_get_index(self) -> None:
         """Tests for the `index` property.
         """
-        self.assertEqual(self.layer.index, -2147483647)
+        self.assertEqual(self.layer.get_index(), -2147483647)
 
     def test_get_and_set_is_expanded(self) -> None:
         """Tests for the `is_expanded` property.
@@ -201,23 +201,23 @@ class LayerTestSuite(TestCase):
         """Tests for the `parent_uuid_is_not_null` read-only property.
         """
         with self.subTest(msg="Before assignment"):
-            self.assertFalse(self.layer.parent_uuid_is_not_null)
+            self.assertFalse(self.layer.parent_uuid_is_not_null())
 
         self.layer.parent_uuid = uuid4()
 
         with self.subTest(msg="After assignment"):
-            self.assertTrue(self.layer.parent_uuid_is_not_null)
+            self.assertTrue(self.layer.parent_uuid_is_not_null())
 
     def test_get_parent_uuid_is_null(self) -> None:
         """Tests for the `parent_uuid_is_null` read-only property.
         """
         with self.subTest(msg="Before assignment"):
-            self.assertTrue(self.layer.parent_uuid_is_null)
+            self.assertTrue(self.layer.parent_uuid_is_null())
 
         self.layer.parent_uuid = uuid4()
 
         with self.subTest(msg="After assignment"):
-            self.assertFalse(self.layer.parent_uuid_is_null)
+            self.assertFalse(self.layer.parent_uuid_is_null())
 
     def test_get_path_separator(self) -> None:
         """Tests for the `path_separator` read-only property.
@@ -288,7 +288,7 @@ class ExistingLayerModificationTestSuite(TestCase):
     def test_get_index(self) -> None:
         """Tests for the `index` property.
         """
-        self.assertEqual(self.layer.index, 0)
+        self.assertEqual(self.layer.get_index(), 0)
 
     def test_get_and_set_is_expanded(self) -> None:
         """Tests for the `is_expanded` property.
@@ -445,23 +445,23 @@ class ExistingLayerModificationTestSuite(TestCase):
         """Tests for the `parent_uuid_is_not_null` read-only property.
         """
         with self.subTest(msg="Before assignment"):
-            self.assertFalse(self.layer.parent_uuid_is_not_null)
+            self.assertFalse(self.layer.parent_uuid_is_not_null())
 
         self.layer.parent_uuid = uuid4()
 
         with self.subTest(msg="After assignment"):
-            self.assertTrue(self.layer.parent_uuid_is_not_null)
+            self.assertTrue(self.layer.parent_uuid_is_not_null())
 
     def test_get_parent_uuid_is_null(self) -> None:
         """Tests for the `parent_uuid_is_null` read-only property.
         """
         with self.subTest(msg="Before assignment"):
-            self.assertTrue(self.layer.parent_uuid_is_null)
+            self.assertTrue(self.layer.parent_uuid_is_null())
 
         self.layer.parent_uuid = uuid4()
 
         with self.subTest(msg="After assignment"):
-            self.assertFalse(self.layer.parent_uuid_is_null)
+            self.assertFalse(self.layer.parent_uuid_is_null())
 
     def test_get_path_separator(self) -> None:
         """Tests for the `path_separator` read-only property.
