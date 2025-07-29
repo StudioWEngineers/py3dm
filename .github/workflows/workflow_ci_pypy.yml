@@ -49,7 +49,7 @@ jobs:
 
       - name: Install built wheel
         run: |
-          pip install dist/*.whl
+          pip install --no-deps --ignore-requires-python dist/*.whl
           python -c "import py3dm; print('py3dm import successful')"
 
       - name: test ${{ matrix.python-version }}
