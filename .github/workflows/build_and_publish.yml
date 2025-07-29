@@ -41,7 +41,6 @@ jobs:
 
   publish:
     name: Publish wheels to PyPI
-    if: startsWith(github.ref, 'refs/tags/v')
     needs: build
     runs-on: ubuntu-latest
 
