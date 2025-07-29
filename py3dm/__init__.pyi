@@ -423,6 +423,92 @@ class Model:
     def revision(self) -> int: ...
 
 
+class ModelComponent(OpenNURBSObject):
+    """Python bindings for the openNURBS `ON_ModelComponent` class.
+
+    `ON_ModelComponent`: base class for all components in a model and manages the index,
+    uuid and other information common to all components in a model.
+    """
+    def __init__(self) -> None: ...
+
+    @overload
+    def get_index(self) -> int:
+        """Value of the runtime model component index attribute.
+
+        Notes
+        -----
+        If the component is in a model, then the index is unique for all components of
+        identical type in the model and is locked. If the index has not been set,
+        `ON_UNSET_INT_INDEX` is returned. The `get_index()` value can change when saved in
+        an archive (.3dm file). Use the `get_uuid()` when you need to reference model
+        components in an archive.
+        """
+        ...
+
+    @overload
+    def get_index(self, index: int) -> int:
+        """Value of the runtime model component index attribute.
+
+        Parameters
+        ----------
+        index: int
+            Value to return if the index has not been set. `ON_UNSET_INT_INDEX` or indices
+            of default components are often used for this parameter.
+
+        Notes
+        -----
+        If the component is in a model, then the index is unique for all components of
+        identical type in the model and is locked. If the index has not been set,
+        `ON_UNSET_INT_INDEX` is returned. The `get_index()` value can change when saved in
+        an archive (.3dm file). Use the `get_uuid()` when you need to reference model
+        components in an archive.
+        """
+        ...
+
+    def get_uuid(self) -> UUID:
+        """Value of the `ON_UUID` attribute.
+
+        Notes
+        -----
+        If the component is in a model, then the `ON_UUID` is unique for all components in
+        the model and is locked.
+        """
+        ...
+
+    def parent_uuid_is_not_null(self) -> bool: ...
+
+    def parent_uuid_is_null(self) -> bool: ...
+
+    @overload
+    def set_uuid(self, new_uuid: UUID) -> bool:
+        """Value of the runtime model component index attribute.
+
+        Returns
+        -------
+        value: bool
+            `True` if the `ON_UUID` value was changed to `new_uuid` or is already equal to
+            component_id. `False` if the `ON_UUID` value is locked and
+            `new_uuid != locked value`.
+        """
+        ...
+
+    @overload
+    def set_uuid(self) -> UUID:
+        """Sets the id to a new value created by `ON_CreateUuid()`.
+
+        Returns
+        -------
+        value: UUID
+            `ON_nil_uuid` if the `ON_UUID` was locked, otherwise the value of the new
+            `ON_UUID`.
+        """
+        ...
+
+    def uuid_is_not_null(self) -> bool: ...
+
+    def uuid_is_null(self) -> bool: ...
+
+
 class ObjectAttributes(OpenNURBSObject):
     """Python bindings for the openNURBS `ON_3dmObjectAttributes` class.
 

@@ -11,6 +11,7 @@
 #include "line_bindings.h"
 #include "line_curve_bindings.h"
 #include "model_bindings.h"
+#include "model_component_bindings.h"
 #include "object_attributes_bindings.h"
 #include "object_bindings.h"
 #include "object_table_bindings.h"
@@ -27,6 +28,7 @@ NB_MODULE(_py3dm, m) {
     ObjectBindings(m);
 
     ObjectAttributesBindings(m);
+    ModelComponentBindings(m);
     Point3dBindings(m);
     LineBindings(m);
 

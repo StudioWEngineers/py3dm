@@ -4,6 +4,7 @@ from ._py3dm import (
     LayerTable,
     Line,
     LineCurve,
+    ModelComponent,
     ObjectAttributes,
     ObjectColorSource,
     ObjectMode,
