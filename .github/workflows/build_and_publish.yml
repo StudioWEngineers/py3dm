@@ -75,7 +75,5 @@ jobs:
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
-          repository-url: https://test.pypi.org/legacy/
         run: |
-          python -m twine upload --verbose flat_dist/*
-
+          python -m twine upload --verbose --repository-url https://test.pypi.org/legacy/ flat_dist/*
