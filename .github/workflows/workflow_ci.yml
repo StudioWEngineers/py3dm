@@ -29,7 +29,8 @@ jobs:
           files: |
             .github/workflows/workflow_ci.yml
             py3dm/__init__.py
-            src/**
+            src/**/*.h
+            src/**/*.cpp
             tests/**
             CMakeLists.txt
             pyproject.toml
