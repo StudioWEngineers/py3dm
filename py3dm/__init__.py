@@ -3,7 +3,6 @@ from ._py3dm import (
     __doc__,
     __email__,
     __maintainer__,
-    __version__,
     Geometry,
     Layer,
     LayerTable,
@@ -21,3 +20,5 @@ from ._py3dm import (
     Point3d,
     TextLog
 )
+
+__version__ = "0.2.0-dev1"
