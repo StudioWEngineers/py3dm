@@ -78,9 +78,9 @@ endif()
 
 # Python package installation
 install(FILES
-    ${CMAKE_SOURCE_DIR}/src/__init__.py
-    ${CMAKE_SOURCE_DIR}/src/__init__.pyi
-    ${CMAKE_SOURCE_DIR}/src/py.typed
+    ${CMAKE_SOURCE_DIR}/py3dm/__init__.py
+    ${CMAKE_SOURCE_DIR}/py3dm/__init__.pyi
+    ${CMAKE_SOURCE_DIR}/py3dm/py.typed
     DESTINATION py3dm
 )
 
