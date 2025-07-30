@@ -21,6 +21,10 @@
 
 
 NB_MODULE(_py3dm, m) {
+    m.attr("__author__") = "StudioWEngineers";
+    m.attr("__email__") = "studio.w.engineers@gmail.com";
+    m.attr("__maintainer__") = "StudioWEngineers";
+    m.attr("__version__") = "0.2.0-dev1";
     m.doc() = "Python bindings for openNURBS using nanobind.";
 
     ON::Begin();

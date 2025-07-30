@@ -14,6 +14,13 @@ from uuid import UUID
 # local library specific imports
 
 
+__author__: str
+__doc__: str  # type: ignore[no-redef]
+__email__: str
+__maintainer__: str
+__version__: str
+
+
 class Geometry(OpenNURBSObject):
     """Python wrapper for the openNURBS `ON_Geometry` class.
 

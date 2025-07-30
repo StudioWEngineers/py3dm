@@ -1,4 +1,9 @@
 from ._py3dm import (
+    __author__,
+    __doc__,
+    __email__,
+    __maintainer__,
+    __version__,
     Geometry,
     Layer,
     LayerTable,
