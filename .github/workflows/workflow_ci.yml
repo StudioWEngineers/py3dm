@@ -55,41 +55,41 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: set up python ${{ matrix.python }}
-      uses: actions/setup-python@v5.4.0
-      with:
-        python-version: ${{ matrix.python }}
+      - name: set up python ${{ matrix.python }}
+        uses: actions/setup-python@v5.4.0
+        with:
+          python-version: ${{ matrix.python }}
 
-    - name: install the latest CMake
-      uses: lukka/get-cmake@latest
+      - name: install the latest CMake
+        uses: lukka/get-cmake@latest
 
-    - name: install dependencies
-      run: python -m pip install --upgrade pip setuptools wheel build scikit-build-core
+      - name: install dependencies
+        run: python -m pip install --upgrade pip setuptools wheel build scikit-build-core
 
-    - name: Install libuuid (dev headers and linker support)
-      if: runner.os == 'Linux'
-      run: sudo apt-get update && sudo apt-get install -y uuid-dev
+      - name: Install libuuid (dev headers and linker support)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y uuid-dev
 
-    - name: checkout
-      uses: actions/checkout@v4.1.1
+      - name: checkout
+        uses: actions/checkout@v4.1.1
 
-    - name: update submodules
-      run: git submodule update --init --recursive
+      - name: update submodules
+        run: git submodule update --init --recursive
 
-    - name: build ${{ matrix.python }} ${{ matrix.os }}
-      run: python -m build
+      - name: build ${{ matrix.python }} ${{ matrix.os }}
+        run: python -m build
 
-    - name: install package
-      run: |
-        cd dist
-        python -m pip install *.whl
-      shell: bash
+      - name: install package
+        run: |
+          cd dist
+          python -m pip install *.whl
+        shell: bash
 
-    - name: test ${{ matrix.python }} ${{ matrix.os }}
-      run: |
-        cd tests
-        python -m unittest discover --verbose
-      shell: bash
+      - name: test ${{ matrix.python }} ${{ matrix.os }}
+        run: |
+          cd tests
+          python -m unittest discover --verbose
+        shell: bash
 
   pypy_build_build_and_test:
     needs: [check_relevant_changes]
