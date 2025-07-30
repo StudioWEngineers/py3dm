@@ -56,7 +56,6 @@ void LayerBindings(nb::module_& m) {
     nb::class_<ON_Layer, ON_ModelComponent>(m, "Layer")
         /*magic methods*/
         .def(nb::init<>())
-
         .def("__repr__", [](const ON_Layer& self) {return LayerUtilities::ToString(self);})
 
         /*read-write member variables*/
@@ -67,38 +66,23 @@ void LayerBindings(nb::module_& m) {
 
         /*read-write properties*/
         .def_prop_rw("color", &ON_Layer::Color, &ON_Layer::SetColor)
-
         .def_prop_rw("iges_level", &ON_Layer::IgesLevel, &ON_Layer::SetIgesLevel)
-
         .def_prop_rw("is_locked", &ON_Layer::IsLocked, &ON_Layer::SetLocked)
-
         .def_prop_rw("is_visible", nb::overload_cast<>(&ON_Layer::IsVisible, nb::const_), &ON_Layer::SetVisible)
-
         .def_prop_rw("layer_uuid", &ON_ModelComponent::Id, nb::overload_cast<const ON_UUID&>(&ON_ModelComponent::SetId))
-
         .def_prop_rw("line_type_index", &ON_Layer::LinetypeIndex, &ON_Layer::SetLinetypeIndex)
-
         .def_prop_rw("parent_uuid", &ON_Layer::ParentLayerId, &ON_Layer::SetParentLayerId)
-
         .def_prop_rw("persistent_locking", &ON_Layer::PersistentLocking, &ON_Layer::SetPersistentLocking)
-
         .def_prop_rw("persistent_visibility", &ON_Layer::PersistentVisibility, &ON_Layer::SetPersistentVisibility)
-
         .def_prop_rw("plot_color", &ON_Layer::PlotColor, &ON_Layer::SetPlotColor)
-
         .def_prop_rw("plot_weight", &ON_Layer::PlotWeight, &ON_Layer::SetPlotWeight)
-
         .def_prop_rw("render_material_index", &ON_Layer::RenderMaterialIndex, &ON_Layer::SetRenderMaterialIndex)
 
         /*other methods*/
         .def("is_valid", &ON_Layer::IsValid, nb::arg("text_log") = nullptr)
-
         .def("get_name", &ON_Layer::Name)
-
         .def("set_name", &LayerUtilities::SetName)
-
         .def("unset_persistent_locking", &ON_Layer::UnsetPersistentLocking)
-
         .def("unset_persistent_visibility", &ON_Layer::UnsetPersistentVisibility)
     ;
 }
