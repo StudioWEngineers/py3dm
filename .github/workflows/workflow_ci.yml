@@ -41,7 +41,7 @@ jobs:
             echo "$file was changed"
           done
 
-  standard:
+  cpython_build_and_test:
     needs: [check_relevant_changes]
     if: needs.check_relevant_changes.outputs.any_changed == 'true'
 
@@ -90,3 +90,55 @@ jobs:
         cd tests
         python -m unittest discover --verbose
       shell: bash
+
+  pypy_build_build_and_test:
+    name: PyPy ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    needs: [check_relevant_changes]
+    if: needs.check_relevant_changes.outputs.any_changed == 'true'
+
+    strategy:
+      matrix:
+        python-version: [pypy3.9, pypy3.10]
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: update submodules
+        run: git submodule update --init --recursive
+
+      - name: Set up ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+
+      - name: Display Python version
+        run: |
+          python --version
+          python -c "import sys; print(sys.implementation)"
+
+      - name: Manually install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install scikit-build-core>=0.11.5 nanobind build
+
+      - name: Install libuuid (dev headers and linker support)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y uuid-dev
+
+      - name: Build wheel without build isolation
+        run: |
+          python -m build --wheel --no-isolation
+
+      - name: Install built wheel
+        run: |
+          pip install --no-deps --ignore-requires-python dist/*.whl
+
+      - name: test ${{ matrix.python-version }}
+        run: |
+          cd tests
+          python -m unittest discover --verbose
+        shell: bash
