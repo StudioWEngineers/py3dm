@@ -1,6 +1,6 @@
 # adapted from https://github.com/wjakob/nanobind/blob/master/src/version.py
 
-# With no command line flag, this prints the nanobind version.
+# With no command line flag, this prints the py3dm version.
 # With flags -w semver, this writes the new version to where it's needed.
 
 import os
