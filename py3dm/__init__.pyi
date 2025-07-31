@@ -603,6 +603,71 @@ class ObjectTable:
 
     def __len__(self) -> int: ...
 
+    @overload
+    def add_line(self, start: Point3d, end: Point3d, obj_attr: ObjectAttributes | None = None) -> UUID:
+        """Returns the `UUID` of the line in case of successful addition, or an empty
+        `UUID` otherwise. If the line is in the model, then the `UUID` is unique for all
+        components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add_line(self, line: Line, obj_attr: ObjectAttributes | None = None) -> UUID:
+        """Returns the `UUID` of the line in case of successful addition, or an empty
+        `UUID` otherwise. If the line is in the model, then the `UUID` is unique for all
+        components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add_line(self, line: LineCurve, obj_attr: ObjectAttributes | None = None) -> UUID:
+        """Returns the `UUID` of the line in case of successful addition, or an empty
+        `UUID` otherwise. If the line is in the model, then the `UUID` is unique for all
+        components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add_point(self, x: float, y: float, z: float, obj_attr: ObjectAttributes | None = None) -> UUID:
+        """Returns the `UUID` of the point in case of successful addition, or an empty
+        `UUID` otherwise. If the point is in the model, then the `UUID` is unique for all
+        components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add_point(self, point: Point3d, obj_attr: ObjectAttributes | None = None) -> UUID:
+        """Returns the `UUID` of the point in case of successful addition, or an empty
+        `UUID` otherwise. If the point is in the model, then the `UUID` is unique for all
+        components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add_point(self, point: PointGeometry, obj_attr: ObjectAttributes | None = None) -> UUID:
+        """Returns the `UUID` of the point in case of successful addition, or an empty
+        `UUID` otherwise. If the point is in the model, then the `UUID` is unique for all
+        components in the model and is locked.
+        """
+        ...
+
+    def count(self) -> int:
+        """Returns the number of active model components of type
+        `ON_ModelComponent::Type::ModelGeometry` in this table.
+
+        Notes
+        -----
+        The `count()` does not include deleted components (for which `is_deleted() =
+        True`) and does not include system components.
+        """
+        ...
+
+    def delete_by_uuid(self, object_uuid: UUID) -> bool:
+        """Returns `True` if the object with the given `object_uuid` has been removed from
+        the table.
+        """
+        ...
+
 
 class OpenNURBSObject:
     """Python bindings for the openNURBS `ON_Object` class.

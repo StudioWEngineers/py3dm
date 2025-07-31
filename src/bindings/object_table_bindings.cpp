@@ -52,8 +52,46 @@ void ObjectTableBindings(nb::module_& m) {
         .def("__iter__", [](ObjectTable& self) {return self.Begin();}, nb::keep_alive<0, 1>())
 
         /*other methods*/
-        .def("max_index", &ObjectTable::MaxIndex)
-        .def("add", &ObjectTable::Add)
+        .def(
+            "add_line",
+            nb::overload_cast<const ON_3dPoint&, const ON_3dPoint&, const ON_3dmObjectAttributes*>(&ObjectTable::AddLine, nb::const_),
+            nb::arg("start"),
+            nb::arg("end"),
+            nb::arg("obj_attr") = nullptr
+        )
+        .def(
+            "add_line",
+            nb::overload_cast<const ON_Line&, const ON_3dmObjectAttributes*>(&ObjectTable::AddLine, nb::const_),
+            nb::arg("linet"),
+            nb::arg("obj_attr") = nullptr
+        )
+        .def(
+            "add_line",
+            nb::overload_cast<const ON_LineCurve&, const ON_3dmObjectAttributes*>(&ObjectTable::AddLine, nb::const_),
+            nb::arg("line"),
+            nb::arg("obj_attr") = nullptr
+        )
+        .def(
+            "add_point",
+            nb::overload_cast<double, double, double, const ON_3dmObjectAttributes*>(&ObjectTable::AddPoint, nb::const_),
+            nb::arg("x"),
+            nb::arg("y"),
+            nb::arg("z"),
+            nb::arg("obj_attr") = nullptr
+        )
+        .def(
+            "add_point",
+            nb::overload_cast<const ON_3dPoint&, const ON_3dmObjectAttributes*>(&ObjectTable::AddPoint, nb::const_),
+            nb::arg("point"),
+            nb::arg("obj_attr") = nullptr
+        )
+        .def(
+            "add_point",
+            nb::overload_cast<const ON_Point&, const ON_3dmObjectAttributes*>(&ObjectTable::AddPoint, nb::const_),
+            nb::arg("point"),
+            nb::arg("obj_attr") = nullptr
+        )
+        .def("count", &ObjectTable::Count)
         .def("delete_by_uuid", &ObjectTable::DeleteByUUID)
-    ;
+        ;
 }

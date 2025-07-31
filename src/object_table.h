@@ -16,10 +16,16 @@ class ObjectTable {
 public:
     ObjectTable(std::shared_ptr<ONX_Model> model);
 
-    //int Count() const;
+    int Count() const;
     bool DeleteByUUID(ON_UUID on_uuid);
-    int MaxIndex() const;
-    ON_UUID Add(const double x, const double y, const double z) const;
+
+    /*add methods*/
+    ON_UUID AddLine(const ON_3dPoint& start, const ON_3dPoint& end, const ON_3dmObjectAttributes* obj_attr) const;
+    ON_UUID AddLine(const ON_Line& line, const ON_3dmObjectAttributes* obj_attr) const;
+    ON_UUID AddLine(const ON_LineCurve& line, const ON_3dmObjectAttributes* obj_attr) const;
+    ON_UUID AddPoint(double x, double y, double z, const ON_3dmObjectAttributes* obj_attr) const;
+    ON_UUID AddPoint(const ON_3dPoint& point, const ON_3dmObjectAttributes* obj_attr) const;
+    ON_UUID AddPoint(const ON_Point& point, const ON_3dmObjectAttributes* obj_attr) const;
 
     class Iterator {
     public:

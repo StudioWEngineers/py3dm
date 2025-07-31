@@ -5,25 +5,56 @@ ObjectTable::ObjectTable(std::shared_ptr<ONX_Model> model) {
     m_model = model;
 }
 
+int ObjectTable::Count() const {
+    return m_model->Manifest().ActiveComponentCount(ON_ModelComponent::Type::ModelGeometry);
+}
+
 bool ObjectTable::DeleteByUUID(ON_UUID on_uuid) {
     return !m_model->RemoveModelComponent(ON_ModelComponent::Type::ModelGeometry, on_uuid).IsEmpty();
 }
 
-int ObjectTable::MaxIndex() const {
-    return m_model->Manifest().ComponentIndexLimit(ON_ModelComponent::Type::ModelGeometry);
-}
-
-ON_UUID ObjectTable::Add(const double x, const double y, const double z) const {
+ON_UUID ObjectTable::AddLine(const ON_3dPoint& start, const ON_3dPoint& end, const ON_3dmObjectAttributes* obj_attr) const {
     if (m_model == nullptr) {
         return ON_nil_uuid;
     }
 
-    //const ON_3dmObjectAttributes* attr = attributes ? attributes->m_attributes : nullptr;
+    ON_LineCurve line(start, end);
+    const ON_ModelComponent* mc = m_model->AddModelGeometryComponent(&line, obj_attr).ModelComponent();
+    if (mc != nullptr) {
+        return mc->Id();
+    }
 
-    ON_Point point_geometry(x, y, z);
-    ON_ModelComponentReference on_mcr = m_model->AddModelGeometryComponent(&point_geometry, nullptr);
-    //on_mcr.ModelComponent()->Id()
-    return ON_ModelGeometryComponent::FromModelComponentRef(on_mcr, &ON_ModelGeometryComponent::Unset)->Id();
+    return ON_nil_uuid;
+}
+
+ON_UUID ObjectTable::AddLine(const ON_Line& line, const ON_3dmObjectAttributes* obj_attr) const {
+    return ObjectTable::AddLine(line.from, line.to, obj_attr);
+}
+
+ON_UUID ObjectTable::AddLine(const ON_LineCurve& line, const ON_3dmObjectAttributes* obj_attr) const {
+    return ObjectTable::AddLine(line.m_line, obj_attr);
+}
+
+ON_UUID ObjectTable::AddPoint(double x, double y, double z, const ON_3dmObjectAttributes* obj_attr) const {
+    if (m_model == nullptr) {
+        return ON_nil_uuid;
+    }
+
+    ON_Point point(x, y, z);
+    const ON_ModelComponent* mc = m_model->AddModelGeometryComponent(&point, obj_attr).ModelComponent();
+    if (mc != nullptr) {
+        return mc->Id();
+    }
+
+    return ON_nil_uuid;
+}
+
+ON_UUID ObjectTable::AddPoint(const ON_3dPoint& point, const ON_3dmObjectAttributes* obj_attr) const {
+    return ObjectTable::AddPoint(point.x, point.y, point.z, obj_attr);
+}
+
+ON_UUID ObjectTable::AddPoint(const ON_Point& point, const ON_3dmObjectAttributes* obj_attr) const {
+    return ObjectTable::AddPoint(point.point, obj_attr);
 }
 
 
