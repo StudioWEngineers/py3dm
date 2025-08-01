@@ -24,25 +24,25 @@ bool Model::Write(std::wstring path, int version) {
 }
 
 
-std::wstring Model::GetApplicationDetails() const {
+ON_wString Model::GetApplicationDetails() const {
     if (p_model.get() != nullptr) {
-        return std::wstring(p_model->m_properties.m_Application.m_application_details);
+        return p_model->m_properties.m_Application.m_application_details;
     }
-    return std::wstring();
+    return ON_wString::EmptyString;
 }
 
-std::wstring Model::GetApplicationName() const {
+ON_wString Model::GetApplicationName() const {
     if (p_model.get() != nullptr) {
-        return std::wstring(p_model->m_properties.m_Application.m_application_name);
+        return p_model->m_properties.m_Application.m_application_name;
     }
-    return std::wstring();
+    return ON_wString::EmptyString;
 }
 
-std::wstring Model::GetApplicationUrl() const {
+ON_wString Model::GetApplicationUrl() const {
     if (p_model.get() != nullptr) {
-        return std::wstring(p_model->m_properties.m_Application.m_application_URL);
+        return p_model->m_properties.m_Application.m_application_URL;
     }
-    return std::wstring();
+    return ON_wString::EmptyString;
 }
 
 int Model::GetArchiveVersion() const {
@@ -52,18 +52,18 @@ int Model::GetArchiveVersion() const {
     return 0;
 }
 
-std::wstring Model::GetCreatedBy() const {
+ON_wString Model::GetCreatedBy() const {
     if (p_model.get() != nullptr) {
-        return std::wstring(p_model->m_properties.m_RevisionHistory.m_sCreatedBy);
+        return p_model->m_properties.m_RevisionHistory.m_sCreatedBy;
     }
-    return std::wstring();
+    return ON_wString::EmptyString;
 }
 
-std::wstring Model::GetLastEditedBy() const {
+ON_wString Model::GetLastEditedBy() const {
     if (p_model.get() != nullptr) {
-        return std::wstring(p_model->m_properties.m_RevisionHistory.m_sLastEditedBy);
+        return p_model->m_properties.m_RevisionHistory.m_sLastEditedBy;
     }
-    return std::wstring();
+    return ON_wString::EmptyString;
 }
 
 int Model::GetRevision() const {
@@ -82,33 +82,33 @@ int Model::NewRevision() {
     return 0;
 }
 
-void Model::SetApplicationDetails(std::wstring details) {
+void Model::SetApplicationDetails(ON_wString details) {
     if (p_model.get() != nullptr) {
-        p_model->m_properties.m_Application.m_application_details = details.c_str();
+        p_model->m_properties.m_Application.m_application_details = details;
     }
 }
 
-void Model::SetApplicationName(std::wstring name) {
+void Model::SetApplicationName(ON_wString name) {
     if (p_model.get() != nullptr) {
-        p_model->m_properties.m_Application.m_application_name = name.c_str();
+        p_model->m_properties.m_Application.m_application_name = name;
     }
 }
 
-void Model::SetApplicationUrl(std::wstring url) {
+void Model::SetApplicationUrl(ON_wString url) {
     if (p_model.get() != nullptr) {
-        p_model->m_properties.m_Application.m_application_URL = url.c_str();
+        p_model->m_properties.m_Application.m_application_URL = url;
     }
 }
 
-void Model::SetCreatedBy(std::wstring author) {
+void Model::SetCreatedBy(ON_wString author) {
     if (p_model.get() != nullptr) {
-        p_model->m_properties.m_RevisionHistory.m_sCreatedBy = author.c_str();
+        p_model->m_properties.m_RevisionHistory.m_sCreatedBy = author;
     }
 }
 
-void Model::SetLastEditedBy(std::wstring author) {
+void Model::SetLastEditedBy(ON_wString author) {
     if (p_model.get() != nullptr) {
-        p_model->m_properties.m_RevisionHistory.m_sLastEditedBy = author.c_str();
+        p_model->m_properties.m_RevisionHistory.m_sLastEditedBy = author;
     }
 }
 

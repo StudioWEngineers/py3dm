@@ -21,20 +21,20 @@ public:
     void Reset();
     bool Write(std::wstring path, int version);
 
-    std::wstring GetApplicationDetails() const;
-    std::wstring GetApplicationName() const;
-    std::wstring GetApplicationUrl() const;
+    ON_wString GetApplicationDetails() const;
+    ON_wString GetApplicationName() const;
+    ON_wString GetApplicationUrl() const;
     int GetArchiveVersion() const;
-    std::wstring GetCreatedBy() const;
-    std::wstring GetLastEditedBy() const;
+    ON_wString GetCreatedBy() const;
+    ON_wString GetLastEditedBy() const;
     int GetRevision() const;
 
     int NewRevision();
-    void SetApplicationDetails(std::wstring details);
-    void SetApplicationName(std::wstring name);
-    void SetApplicationUrl(std::wstring url);
-    void SetCreatedBy(std::wstring author);
-    void SetLastEditedBy(std::wstring author);
+    void SetApplicationDetails(ON_wString details);
+    void SetApplicationName(ON_wString name);
+    void SetApplicationUrl(ON_wString url);
+    void SetCreatedBy(ON_wString author);
+    void SetLastEditedBy(ON_wString author);
 
     LayerTable ModelLayerTable();
     ObjectTable ModelObjectTable();

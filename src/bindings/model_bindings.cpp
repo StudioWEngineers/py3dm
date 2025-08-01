@@ -4,6 +4,7 @@
 
 // Project includes
 #include "../model.h"
+#include "casters/on_wstring_caster.h"
 #include "bindings.h"
 #include "model_bindings.h"
 
