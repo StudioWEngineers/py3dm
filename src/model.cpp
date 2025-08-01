@@ -4,10 +4,10 @@
 Model::Model() : p_model(std::make_shared<ONX_Model>()) {}
 
 
-bool Model::Read(std::wstring path) {
+bool Model::Read(ON_wString path) {
     p_model.reset(new ONX_Model());
 
-    if (p_model->Read(path.c_str())) {
+    if (p_model->Read(path)) {
         return true;
     }
 
@@ -19,8 +19,8 @@ void Model::Reset() {
     p_model.reset();
 }
 
-bool Model::Write(std::wstring path, int version) {
-    return p_model->Write(path.c_str(), version);
+bool Model::Write(ON_wString path, int version) {
+    return p_model->Write(path, version);
 }
 
 

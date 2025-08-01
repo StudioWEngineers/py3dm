@@ -17,9 +17,9 @@ class Model {
 public:
     Model();
 
-    bool Read(std::wstring path);
+    bool Read(ON_wString path);
     void Reset();
-    bool Write(std::wstring path, int version);
+    bool Write(ON_wString path, int version);
 
     ON_wString GetApplicationDetails() const;
     ON_wString GetApplicationName() const;
