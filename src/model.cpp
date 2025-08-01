@@ -23,7 +23,6 @@ bool Model::Write(ON_wString path, int version) {
     return p_model->Write(path, version);
 }
 
-
 ON_wString Model::GetApplicationDetails() const {
     if (p_model.get() != nullptr) {
         return p_model->m_properties.m_Application.m_application_details;
@@ -67,13 +66,11 @@ ON_wString Model::GetLastEditedBy() const {
 }
 
 int Model::GetRevision() const {
-    int revision_number = 0;
     if (p_model.get() != nullptr) {
-        revision_number = p_model->m_properties.m_RevisionHistory.m_revision_count;
+        return p_model->m_properties.m_RevisionHistory.m_revision_count;
     }
-    return revision_number;
+    return 0;
 }
-
 
 int Model::NewRevision() {
     if (p_model.get() != nullptr) {
@@ -111,7 +108,6 @@ void Model::SetLastEditedBy(ON_wString author) {
         p_model->m_properties.m_RevisionHistory.m_sLastEditedBy = author;
     }
 }
-
 
 LayerTable Model::ModelLayerTable() {
     return LayerTable(p_model);
