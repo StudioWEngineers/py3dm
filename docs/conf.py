@@ -207,45 +207,51 @@ htmlhelp_basename = "py3dm_doc"
 
 latex_engine = "pdflatex"
 
+latex_maketitle = r'''
+\begin{titlepage}
+\noindent \Huge Example title \par
+
+\end{titlepage}
+'''
 latex_elements = {
+
     'papersize': 'a4paper',
     'pointsize': '10pt',
-    "classoptions": ",openany,oneside",
-    "preamble": r"""
-\usepackage{MnSymbol}
-\DeclareUnicodeCharacter{25CB}{\ensuremath{\circ}}
-\DeclareUnicodeCharacter{25CF}{\ensuremath{\bullet}}
-\DeclareUnicodeCharacter{21B5}{\ensuremath{\rhookswarrow}}
-\DeclareUnicodeCharacter{2194}{\ensuremath{\leftrightarrow}}
-""",
+    'classoptions': ',openany,oneside',
+    'sphinxsetup': 'verbatimwithframe=false, margin=1.25in',
+
+    'preamble': r"""
+% === Typography ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[final]{microtype}
+\usepackage{multirow}
+\usepackage{lmodern}
+\usepackage{everysel}
+\usepackage{graphicx}
+\usepackage[nodayofweek,level]{datetime}
+
+% === Font ===
+\renewcommand*\familydefault{\ttdefault}
+\EverySelectfont{%
+  \fontdimen2\font=0.4em%
+  \fontdimen3\font=0.2em%
+  \fontdimen4\font=0.1em%
+  \fontdimen7\font=0.1em%
+  \hyphenchar\font=`\-%
 }
 
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
+\addto\captionsenglish{%
+  \renewcommand{\contentsname}{Table of Contents}
+}
+""",
+   'maketitle': latex_maketitle
+}
+
 latex_documents = [
-    (master_doc, "py3dm.tex", "py3dm Documentation", author, "manual"),
+    ('index', 'myproject.tex', 'My Project Documentation', 'Author Name', 'manual'),
 ]
-
-# The name of an image file (relative to this directory) to place at the top of
-# the title page.
-# latex_logo = 'nanobind-logo.png'
-
-# For "manual" documents, if this is true, then toplevel headings are parts,
-# not chapters.
-# latex_use_parts = False
-
-# If true, show page references after internal links.
-# latex_show_pagerefs = False
-
-# If true, show URL addresses after external links.
-# latex_show_urls = False
-
-# Documents to append as an appendix to all manuals.
-# latex_appendices = []
-
-# If false, no module index is generated.
-# latex_domain_indices = True
 
 primary_domain = "python"
 highlight_language = "python"
