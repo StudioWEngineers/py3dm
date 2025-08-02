@@ -240,40 +240,11 @@ latex_elements = {
 }
 """,
     'maketitle': r'''
-        \thispagestyle{empty}
-	    \begingroup
-	    \drop = 0.3\textheight
-	    \vspace*{\baselineskip}
-	    \vfill
-	    \hbox{
-	    	\hspace*{0.01\textwidth}
-	    	\rule{3pt}{\dimexpr\textheight-28pt\relax}
-	    	\hspace*{0.1\textwidth}
-	    	\parbox[b]{1.0\textwidth}{
-	    		\vbox{
-	    			{\noindent\HUGE\bfseries \@StudioWTitle}\\[1.0\baselineskip]
-	    			{\noindent\huge\bfseries \@StudioWSubTitle}\\[3\baselineskip]
-	    			{\LARGE  Internal Note}\\[3\baselineskip]
-	    			\vspace{\drop}
-
-	    			\begin{tabular}{l l}
-	    			{Author:}&{\@StudioWAuthor}\\
-	    			{Reviser:}&{\@StudioWReviser}\\
-	    			{Corresponding author:}&{\@StudioWEmail}\\
-	    			{}&{}\\
-	    			{First issue:}&{\@StudioWFirstIssue}\\
-	    			{Last editing:}&{\@StudioWCurrentIssue}\\
-	    			{Revision:}&{\@StudioWRevision}\\
-	    			{Document ID:}&{\@StudioWDocumentID}
-	    			\end{tabular}
-	    			\vspace{0.05\textheight}
-
-	    			{\noindent \small{This document consists of \thelastsheet \ pages, cover included.}}
-	    			\vspace{0.085\textheight}
-	    		}% end of vbox
-	    	}% end of parbox
-	    }% end of hbox
-    	\endgroup
+        \sphinxmaketitle
+        \begin{center}
+          \vspace{2em}
+          \textit{This document is confidential.}
+        \end{center}
     '''
 }
 
