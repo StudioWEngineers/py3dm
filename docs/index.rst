@@ -7,7 +7,6 @@
 
 .. raw:: latex
 
-   \maketitle
    \MakeFirstPage
 
 Introduction
