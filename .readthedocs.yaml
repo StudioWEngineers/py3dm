@@ -15,4 +15,5 @@ sphinx:
   configuration: docs/conf.py
 
 formats:
+  - html
   - pdf
