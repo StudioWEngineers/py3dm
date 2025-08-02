@@ -211,6 +211,7 @@ latex_elements = {
     'papersize': 'a4paper',
     'pointsize': '10pt',
     'classoptions': ',openany,oneside',
+    'sphinxsetup': 'verbatimwithframe=false, margin=1.25in',
 
     'preamble': r"""
 % === Packages and Unicode ===
@@ -294,30 +295,9 @@ latex_elements = {
 ''',
 }
 
-# Document info (example, replace with your actual project info)
 latex_documents = [
     ('index', 'myproject.tex', 'My Project Documentation', 'Author Name', 'manual'),
 ]
-
-# The name of an image file (relative to this directory) to place at the top of
-# the title page.
-# latex_logo = 'nanobind-logo.png'
-
-# For "manual" documents, if this is true, then toplevel headings are parts,
-# not chapters.
-# latex_use_parts = False
-
-# If true, show page references after internal links.
-# latex_show_pagerefs = False
-
-# If true, show URL addresses after external links.
-# latex_show_urls = False
-
-# Documents to append as an appendix to all manuals.
-# latex_appendices = []
-
-# If false, no module index is generated.
-# latex_domain_indices = True
 
 primary_domain = "python"
 highlight_language = "python"
