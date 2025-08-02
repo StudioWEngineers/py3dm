@@ -226,13 +226,11 @@ latex_elements = {
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage[final]{microtype}
-\usepackage[hidelinks]{hyperref}
 \usepackage{multirow}
 \usepackage{lmodern}
 \usepackage{everysel}
 \usepackage{graphicx}
 \usepackage[nodayofweek,level]{datetime}
-\usepackage{lipsum,kantlipsum}
 
 \renewcommand*\familydefault{\ttdefault}
 \EverySelectfont{%
@@ -249,7 +247,7 @@ latex_elements = {
 
 % === Custom Title Page Macro ===
 \makeatletter
-\newcommand*{\MakeFirstPage}{
+\newcommand*{\maketile}{
   \thispagestyle{empty}
   \begingroup
   \drop = 0.3\textheight
@@ -290,7 +288,7 @@ latex_elements = {
 """,
 
     'maketitle': r'''
-\MakeFirstPage
+\maketitle
 \clearpage
 ''',
 }
