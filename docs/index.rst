@@ -1,6 +1,14 @@
 .. raw:: latex
 
+   \def\@StudioWTitle{py3dm Documentation}
+   \def\@StudioWSubTitle{Binding Library for openNURBS}
+   \def\@StudioWAuthor{Your Name}
+   \def\@StudioWRevision{Rev 1.0}
+
+.. raw:: latex
+
    \maketitle
+   \MakeFirstPage
 
 Introduction
 ============
