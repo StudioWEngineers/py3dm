@@ -2,5 +2,3 @@
 
 Frequently asked questions
 ==========================
-
-first question
