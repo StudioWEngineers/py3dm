@@ -210,7 +210,7 @@ latex_engine = "pdflatex"
 latex_maketitle = r'''
 \begin{titlepage}
 \noindent \Huge Example title \par
-\sphinxlogo
+
 \end{titlepage}
 '''
 latex_elements = {
