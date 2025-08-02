@@ -210,42 +210,134 @@ latex_engine = "pdflatex"
 latex_elements = {
     'papersize': 'a4paper',
     'pointsize': '10pt',
-    "classoptions": ",openany,oneside",
-    "preamble": r"""
+    'classoptions': ',openany,oneside',
+
+    'sphinxsetup': 'verbatimwithframe=false, margin=1.25in',
+
+    'preamble': r"""
+% === Unicode and Symbol Support ===
 \usepackage{MnSymbol}
 \DeclareUnicodeCharacter{25CB}{\ensuremath{\circ}}
 \DeclareUnicodeCharacter{25CF}{\ensuremath{\bullet}}
 \DeclareUnicodeCharacter{21B5}{\ensuremath{\rhookswarrow}}
 \DeclareUnicodeCharacter{2194}{\ensuremath{\leftrightarrow}}
-""",
+
+% === Language and Typography ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[final]{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{multirow}
+\usepackage{lmodern}
+\usepackage{everysel}
+\usepackage{graphicx}
+\usepackage[nodayofweek,level]{datetime}
+\usepackage{lipsum,kantlipsum}
+
+\renewcommand*\familydefault{\ttdefault}
+\EverySelectfont{%
+  \fontdimen2\font=0.4em%
+  \fontdimen3\font=0.2em%
+  \fontdimen4\font=0.1em%
+  \fontdimen7\font=0.1em%
+  \hyphenchar\font=`\-%
 }
 
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
+\addto\captionsenglish{%
+  \renewcommand{\contentsname}{Table of Contents}
+}
+
+% === Title Page Metadata Macros ===
+\makeatletter
+\def\StudioWAuthor#1{\gdef\@StudioWAuthor{#1}}
+\def\@StudioWAuthor{\@latex@warning@no@line{No \noexpand\StudioWAuthor given}}
+\def\StudioWReviser#1{\gdef\@StudioWReviser{#1}}
+\def\@StudioWReviser{\@latex@warning@no@line{No \noexpand\StudioWReviser given}}
+\def\StudioWTitle#1{\gdef\@StudioWTitle{#1}}
+\def\@StudioWTitle{\@latex@warning@no@line{No \noexpand\StudioWTitle given}}
+\def\StudioWSubTitle#1{\gdef\@StudioWSubTitle{#1}}
+\def\@StudioWSubTitle{\@latex@warning@no@line{No \noexpand\StudioWSubTitle given}}
+\def\StudioWFirstIssue#1{\gdef\@StudioWFirstIssue{#1}}
+\def\@StudioWFirstIssue{\@latex@warning@no@line{No \noexpand\StudioWFirstIssue given}}
+\def\StudioWCurrentIssue#1{\gdef\@StudioWCurrentIssue{#1}}
+\def\@StudioWCurrentIssue{\@latex@warning@no@line{No \noexpand\StudioWCurrentIssue given}}
+\def\StudioWRevision#1{\gdef\@StudioWRevision{#1}}
+\def\@StudioWRevision{\@latex@warning@no@line{No \noexpand\StudioWRevision given}}
+\def\StudioWDocumentID#1{\gdef\@StudioWDocumentID{#1}}
+\def\@StudioWDocumentID{\@latex@warning@no@line{No \noexpand\StudioWDocumentID given}}
+\def\StudioWEmail#1{\gdef\@StudioWEmail{#1}}
+\def\@StudioWEmail{\@latex@warning@no@line{No \noexpand\StudioWEmail given}}
+\makeatother
+
+% === Title Page Layout ===
+\makeatletter
+\newcommand*{\MakeFirstPage}{
+  \thispagestyle{empty}
+  \begingroup
+  \drop = 0.3\textheight
+  \vspace*{\baselineskip}
+  \vfill
+  \hbox{
+    \hspace*{0.01\textwidth}
+    \rule{3pt}{\dimexpr\textheight-28pt\relax}
+    \hspace*{0.1\textwidth}
+    \parbox[b]{1.0\textwidth}{
+      \vbox{
+        {\noindent\HUGE\bfseries \@StudioWTitle}\\[1.0\baselineskip]
+        {\noindent\huge\bfseries \@StudioWSubTitle}\\[3\baselineskip]
+        {\LARGE  Internal Note}\\[3\baselineskip]
+        \vspace{\drop}
+        \begin{tabular}{l l}
+        {Author:}&{\@StudioWAuthor}\\
+        {Reviser:}&{\@StudioWReviser}\\
+        {Corresponding author:}&{\@StudioWEmail}\\
+        {}&{}\\
+        {First issue:}&{\@StudioWFirstIssue}\\
+        {Last editing:}&{\@StudioWCurrentIssue}\\
+        {Revision:}&{\@StudioWRevision}\\
+        {Document ID:}&{\@StudioWDocumentID}
+        \end{tabular}
+        \vspace{0.05\textheight}
+        {\noindent \small{This document consists of \thelastsheet \ pages, cover included.}}
+        \vspace{0.085\textheight}
+      }
+    }
+  }
+  \endgroup
+}
+\makeatother
+
+\newcommand*\NewPage{\newpage\null\thispagestyle{empty}\newpage}
+\raggedbottom
+""",
+
+    'maketitle': r'''
+\MakeFirstPage
+\clearpage
+''',
+}
+
+# LaTeX document configuration: source file, output filename, title, author, doc class
 latex_documents = [
     (master_doc, "py3dm.tex", "py3dm Documentation", author, "manual"),
 ]
 
-# The name of an image file (relative to this directory) to place at the top of
-# the title page.
-# latex_logo = 'nanobind-logo.png'
+# Optional: add this later in conf.py to inject metadata into the title page
+latex_elements['preamble'] += rf"""
+\StudioWTitle{{{project}}}
+\StudioWSubTitle{{{version}}}
+\StudioWAuthor{{{author}}}
+\StudioWReviser{{}}
+\StudioWEmail{{your.email@example.com}}
+\StudioWFirstIssue{{2025-01-01}}
+\StudioWCurrentIssue{{2025-08-02}}
+\StudioWRevision{{1.0}}
+\StudioWDocumentID{{DOC-001}}
+"""
 
-# For "manual" documents, if this is true, then toplevel headings are parts,
-# not chapters.
-# latex_use_parts = False
-
-# If true, show page references after internal links.
-# latex_show_pagerefs = False
-
-# If true, show URL addresses after external links.
-# latex_show_urls = False
-
-# Documents to append as an appendix to all manuals.
-# latex_appendices = []
-
-# If false, no module index is generated.
-# latex_domain_indices = True
+# Optional logo at top of title page
+# latex_logo = 'xxx.png'
 
 primary_domain = "python"
 highlight_language = "python"
