@@ -207,7 +207,14 @@ htmlhelp_basename = "py3dm_doc"
 
 latex_engine = "pdflatex"
 
+latex_maketitle = r'''
+\begin{titlepage}
+\noindent \Huge Example title \par
+\sphinxlogo
+\end{titlepage}
+'''
 latex_elements = {
+
     'papersize': 'a4paper',
     'pointsize': '10pt',
     'classoptions': ',openany,oneside',
@@ -239,13 +246,7 @@ latex_elements = {
   \renewcommand{\contentsname}{Table of Contents}
 }
 """,
-    'maketitle': r'''
-        \sphinxmaketitle
-        \begin{center}
-          \vspace{2em}
-          \textit{This document is confidential.}
-        \end{center}
-    '''
+   'maketitle': latex_maketitle
 }
 
 latex_documents = [
