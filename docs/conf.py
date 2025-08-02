@@ -214,13 +214,6 @@ latex_elements = {
     'sphinxsetup': 'verbatimwithframe=false, margin=1.25in',
 
     'preamble': r"""
-% === Packages and Unicode ===
-\usepackage{MnSymbol}
-\DeclareUnicodeCharacter{25CB}{\ensuremath{\circ}}
-\DeclareUnicodeCharacter{25CF}{\ensuremath{\bullet}}
-\DeclareUnicodeCharacter{21B5}{\ensuremath{\rhookswarrow}}
-\DeclareUnicodeCharacter{2194}{\ensuremath{\leftrightarrow}}
-
 % === Typography ===
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -232,6 +225,7 @@ latex_elements = {
 \usepackage{graphicx}
 \usepackage[nodayofweek,level]{datetime}
 
+% === Font ===
 \renewcommand*\familydefault{\ttdefault}
 \EverySelectfont{%
   \fontdimen2\font=0.4em%
@@ -244,53 +238,43 @@ latex_elements = {
 \addto\captionsenglish{%
   \renewcommand{\contentsname}{Table of Contents}
 }
-
-% === Custom Title Page Macro ===
-\makeatletter
-\newcommand*{\maketile}{
-  \thispagestyle{empty}
-  \begingroup
-  \drop = 0.3\textheight
-  \vspace*{\baselineskip}
-  \vfill
-  \hbox{
-    \hspace*{0.01\textwidth}
-    \rule{3pt}{\dimexpr\textheight-28pt\relax}
-    \hspace*{0.1\textwidth}
-    \parbox[b]{1.0\textwidth}{
-      \vbox{
-        {\noindent\HUGE\bfseries \@StudioWTitle}\\[1.0\baselineskip]
-        {\noindent\huge\bfseries \@StudioWSubTitle}\\[3\baselineskip]
-        {\LARGE  Internal Note}\\[3\baselineskip]
-        \vspace{\drop}
-        \begin{tabular}{l l}
-        {Author:}&{\@StudioWAuthor}\\
-        {Reviser:}&{\@StudioWReviser}\\
-        {Corresponding author:}&{\@StudioWEmail}\\
-        {}&{}\\
-        {First issue:}&{\@StudioWFirstIssue}\\
-        {Last editing:}&{\@StudioWCurrentIssue}\\
-        {Revision:}&{\@StudioWRevision}\\
-        {Document ID:}&{\@StudioWDocumentID}
-        \end{tabular}
-        \vspace{0.05\textheight}
-        {\noindent \small{This document consists of \thelastsheet \ pages, cover included.}}
-        \vspace{0.085\textheight}
-      }
-    }
-  }
-  \endgroup
-}
-\makeatother
-
-\newcommand*\NewPage{\newpage\null\thispagestyle{empty}\newpage}
-\raggedbottom
 """,
-
     'maketitle': r'''
-\maketitle
-\clearpage
-''',
+        \thispagestyle{empty}
+	    \begingroup
+	    \drop = 0.3\textheight
+	    \vspace*{\baselineskip}
+	    \vfill
+	    \hbox{
+	    	\hspace*{0.01\textwidth}
+	    	\rule{3pt}{\dimexpr\textheight-28pt\relax}
+	    	\hspace*{0.1\textwidth}
+	    	\parbox[b]{1.0\textwidth}{
+	    		\vbox{
+	    			{\noindent\HUGE\bfseries \@StudioWTitle}\\[1.0\baselineskip]
+	    			{\noindent\huge\bfseries \@StudioWSubTitle}\\[3\baselineskip]
+	    			{\LARGE  Internal Note}\\[3\baselineskip]
+	    			\vspace{\drop}
+
+	    			\begin{tabular}{l l}
+	    			{Author:}&{\@StudioWAuthor}\\
+	    			{Reviser:}&{\@StudioWReviser}\\
+	    			{Corresponding author:}&{\@StudioWEmail}\\
+	    			{}&{}\\
+	    			{First issue:}&{\@StudioWFirstIssue}\\
+	    			{Last editing:}&{\@StudioWCurrentIssue}\\
+	    			{Revision:}&{\@StudioWRevision}\\
+	    			{Document ID:}&{\@StudioWDocumentID}
+	    			\end{tabular}
+	    			\vspace{0.05\textheight}
+
+	    			{\noindent \small{This document consists of \thelastsheet \ pages, cover included.}}
+	    			\vspace{0.085\textheight}
+	    		}% end of vbox
+	    	}% end of parbox
+	    }% end of hbox
+    	\endgroup
+    '''
 }
 
 latex_documents = [
