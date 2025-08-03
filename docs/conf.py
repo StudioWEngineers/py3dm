@@ -29,7 +29,7 @@ templates_path = [".templates"]
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 # source_suffix = ['.rst', '.md']
-source_suffix = ".rst"
+source_suffix = {'.rst': 'restructuredtext'}
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
@@ -211,8 +211,6 @@ latex_maketitle = r'''
 \begin{titlepage}
 	\begingroup
 	\drop = 0.3\textheight
-	\vspace*{\baselineskip}
-	\vfill
 	\hbox{
 		\hspace*{0.01\textwidth}
 		\rule{3pt}{\dimexpr\textheight-28pt\relax}
@@ -234,9 +232,6 @@ latex_maketitle = r'''
 				{px3dm version:}&{v0.2.0}\\
 				\end{tabular}
 				\vspace{0.05\textheight}
-
-				{\noindent \small{This document consists of \thelastsheet \ pages, cover included.}}
-				\vspace{0.085\textheight}
 			}% end of vbox
 		}% end of parbox
 	}% end of hbox
@@ -245,45 +240,413 @@ latex_maketitle = r'''
 
 \end{titlepage}
 '''
+#\rule{3pt}{\dimexpr\textheight-28pt\relax}
+
+
+latex_maketitle = r'''
+\begin{titlepage}
+  \vspace*{2cm}
+  {\Huge\bfseries py3dm \par}
+  \vspace{1cm}
+  {\LARGE\bfseries Python bindings for OpenNURBS\par}
+  \vspace{2cm}
+  {\Large How to use\par}
+  \vspace{3cm}
+  \begin{tabular}{rl}
+    Author: & StudioWEngineers \\
+    Reviser: & - \\
+    Corresponding author: & studio.w.engineers@gmail.com \\
+    First issue: & July 2025 \\
+    Last editing: & \today \\
+    px3dm version: & v0.2.0 \\
+  \end{tabular}
+  \vfill
+\end{titlepage}
+'''
+latex_maketitle = r'''
+\begin{titlepage}
+  \begingroup
+  \hbox{
+    \rule{3pt}{0.9\textheight}%
+    \hspace{1cm}
+    \parbox[b]{0.8\textwidth}{
+      \raggedright
+      {\Huge\bfseries py3dm}\\[1.0\baselineskip]
+      {\huge\bfseries Python bindings for OpenNURBS}\\[3\baselineskip]
+      {\LARGE How to use}\\[3\baselineskip]
+      \begin{tabular}{ll}
+        Author: & StudioWEngineers \\
+        Reviser: & - \\
+        Corresponding author: & studio.w.engineers@gmail.com \\
+        First issue: & July, 2025 \\
+        Last editing: & \today \\
+        py3dm version: & v0.2.0 \\
+      \end{tabular}
+    }
+  }
+  \endgroup
+\end{titlepage}
+'''
+
+latex_maketitle = r'''
+\begin{titlepage}
+\pagenumbering{gobble}
+  \begingroup
+  \vfill
+  \hbox{
+    \rule{3pt}{0.9\textheight}%
+    \hspace{1cm}
+    \parbox[t]{0.8\textwidth}{
+      \raggedright
+      {\Huge\bfseries py3dm}\\[1.0\baselineskip]
+      {\LARGE\bfseries Python bindings for OpenNURBS}\\[3\baselineskip]
+      {\LARGE How to use}\\[3\baselineskip]
+      \begin{tabular}{ll}
+        Author: & StudioWEngineers \\
+        Reviser: & - \\
+        Corresponding author: & studio.w.engineers@gmail.com \\
+        First issue: & July, 2025 \\
+        Last editing: & \today \\
+        py3dm version: & v0.2.0 \\
+      \end{tabular}
+    }
+  }
+  \vfill
+  \endgroup
+\end{titlepage}
+'''
+
+latex_maketitle1 = r'''
+\begin{titlepage}
+  \begingroup
+  \vspace*{.1cm}
+  \hbox{%
+    % Vertical line: 3pt wide, 90% text height
+    \rule{3pt}{0.9\textheight}%
+    \hspace{1cm}%
+    % Text block, left-aligned, 0.8 width
+    \parbox[b]{0.8\textwidth}{%
+      \raggedright
+      {\Huge\bfseries py3dm}\\[1.0\baselineskip]
+      {\LARGE\bfseries Python bindings for OpenNURBS}\\[3\baselineskip]
+      {\LARGE How to use}\\[3\baselineskip]
+      \begin{tabular}{ll}
+        Author: & StudioWEngineers \\
+        Reviser: & - \\
+        Corresponding author: & studio.w.engineers@gmail.com \\
+        First issue: & July, 2025 \\
+        Last editing: & \today \\
+        py3dm version: & v0.2.0 \\
+      \end{tabular}
+    }%
+  }
+  \vfill
+  \endgroup
+\end{titlepage}
+'''
+
+latex_maketitle2 = r'''
+\begin{titlepage}
+  \begingroup
+  \vspace*{3cm}  % space from top - adjust to your liking
+
+  % Use a tabular to place vertical line and text side-by-side neatly
+  \noindent
+  \begin{tabular}{@{}l p{0.8\textwidth}@{}}
+    \rule{3pt}{0.8\textheight} & % vertical line, left column
+    {%
+      \raggedright
+      {\Huge\bfseries py3dm}\\[1.5em]
+      {\LARGE\bfseries Python bindings for OpenNURBS}\\[3em]
+      {\LARGE How to use}\\[3em]
+      \begin{tabular}{ll}
+        Author: & StudioWEngineers \\
+        Reviser: & - \\
+        Corresponding author: & studio.w.engineers@gmail.com \\
+        First issue: & July, 2025 \\
+        Last editing: & \today \\
+        py3dm version: & v0.2.0 \\
+      \end{tabular}
+    }
+  \end{tabular}
+
+  \endgroup
+\end{titlepage}
+'''
+
+latex_maketitle = r'''
+\begin{titlepage}
+\pagenumbering{gobble}
+  \begingroup
+  \vspace*{1cm}  % adjust space from top here
+  \noindent
+  \begin{tabular}{@{}l p{0.8\textwidth}@{}}
+    \rule{3pt}{0.9\textheight} &  % vertical line left column
+    {%
+      \raggedright
+      {\Huge\bfseries py3dm}\\[1.0\baselineskip]
+      {\LARGE\bfseries Python bindings for OpenNURBS}\\[3\baselineskip]
+      {\LARGE How to use}\\[3\baselineskip]
+      \begin{tabular}{ll}
+        Author: & StudioWEngineers \\
+        Reviser: & - \\
+        Corresponding author: & studio.w.engineers@gmail.com \\
+        First issue: & July, 2025 \\
+        Last editing: & \today \\
+        py3dm version: & v0.2.0 \\
+      \end{tabular}
+    }
+  \end{tabular}
+  \vfill
+  \endgroup
+\end{titlepage}
+'''
+
+latex_maketitle = r'''
+\begin{titlepage}
+\noindent
+\pagenumbering{gobble}
+  \begingroup
+  \vspace*{2cm} % adjust top space here
+  \noindent
+  \begin{minipage}[t]{0.025\linewidth}
+    \rule{3pt}{\dimexpr\ht\strutbox + 6cm\relax} % vertical line height
+  \end{minipage}%
+  \hspace{1cm}%
+  \begin{minipage}[t]{0.8\linewidth}
+    \vspace{0pt} % force top alignment inside minipage
+    \raggedright
+    {\Huge\bfseries py3dm}\\[1.0\baselineskip]
+    {\LARGE\bfseries Python bindings for OpenNURBS}\\[3\baselineskip]
+    {\LARGE How to use}\\[3\baselineskip]
+    \begin{tabular}{ll}
+      Author: & StudioWEngineers \\
+      Reviser: & - \\
+      Corresponding author: & studio.w.engineers@gmail.com \\
+      First issue: & July, 2025 \\
+      Last editing: & \today \\
+      py3dm version: & v0.2.0 \\
+    \end{tabular}
+  \end{minipage}
+  \vfill
+  \endgroup
+\end{titlepage}
+'''
+
+latex_maketitle = r'''
+\begin{titlepage}
+\pagenumbering{gobble}
+  \begingroup
+  \vspace*{2cm} % space from top
+  \noindent
+  \begin{tabular}{@{}p{0.03\textwidth}@{\hspace{1cm}}p{0.8\textwidth}@{}}
+    \rule{3pt}{6cm} &
+    {%
+      \raggedright
+      {\Huge\bfseries py3dm}\\[1.0\baselineskip]
+      {\LARGE\bfseries Python bindings for OpenNURBS}\\[3\baselineskip]
+      {\LARGE How to use}\\[3\baselineskip]
+      \begin{tabular}{ll}
+        Author: & StudioWEngineers \\
+        Reviser: & - \\
+        Corresponding author: & studio.w.engineers@gmail.com \\
+        First issue: & July, 2025 \\
+        Last editing: & \today \\
+        py3dm version: & v0.2.0 \\
+      \end{tabular}
+    }
+  \end{tabular}
+  \vfill
+  \endgroup
+\end{titlepage}
+'''
+
+latex_maketitle = r'''
+\begin{titlepage}
+\pagenumbering{gobble}
+  \begingroup
+  \vspace*{2cm} % space from top of page
+
+  \noindent
+  \vbox to 0pt{%
+    \hbox to \textwidth{%
+      \rule{3pt}{6cm}%
+      \hspace{1cm}%
+      \begin{minipage}[t]{0.8\textwidth}
+        \raggedright
+        {\Huge\bfseries py3dm}\\[1.0\baselineskip]
+        {\LARGE\bfseries Python bindings for OpenNURBS}\\[3\baselineskip]
+        {\LARGE How to use}\\[3\baselineskip]
+        \begin{tabular}{ll}
+          Author: & StudioWEngineers \\
+          Reviser: & - \\
+          Corresponding author: & studio.w.engineers@gmail.com \\
+          First issue: & July, 2025 \\
+          Last editing: & \today \\
+          py3dm version: & v0.2.0 \\
+        \end{tabular}
+      \end{minipage}%
+      \hfill
+    }
+  }
+
+  \vfill
+  \endgroup
+\end{titlepage}
+'''
+
+latex_maketitle = r'''
+\begin{titlepage}
+\thispagestyle{empty} % override Sphinx’s default
+\pagenumbering{gobble}
+\begingroup
+\vspace*{2cm}  % Adjust top margin
+\noindent
+\begin{minipage}[t]{\textwidth}
+  \begin{minipage}[t]{0.03\textwidth}
+    \rule{3pt}{15cm} % vertical bar height
+  \end{minipage}
+  \hspace{1cm}
+  \begin{minipage}[t]{0.85\textwidth}
+    \raggedright
+    {\Huge\bfseries py3dm}\\[1.0\baselineskip]
+    {\LARGE\bfseries Python bindings for OpenNURBS}\\[2\baselineskip]
+    {\LARGE How to use}\\[2\baselineskip]
+    \begin{tabular}{ll}
+      Author: & StudioWEngineers \\
+      Reviser: & - \\
+      Corresponding author: & studio.w.engineers@gmail.com \\
+      First issue: & July, 2025 \\
+      Last editing: & \today \\
+      py3dm version: & v0.2.0 \\
+    \end{tabular}
+  \end{minipage}
+\end{minipage}
+\vfill
+\endgroup
+\end{titlepage}
+'''
+
+latex_maketitle4 = r'''
+\begin{titlepage}
+\thispagestyle{empty} % override Sphinx’s default
+\vspace*{2cm}
+\noindent
+\hbox to \textwidth{%
+  \vtop{\rule{3pt}{15cm}}%
+  \hspace{1cm}%
+  \vtop{\hsize=0.8\textwidth
+        \raggedright
+        ... your text ...
+  }%
+}
+\end{titlepage}
+'''
+
+latex_maketitle = r'''
+\begin{titlepage}
+\thispagestyle{empty}
+\pagenumbering{gobble}
+\begingroup
+\vspace*{2cm}
+\noindent
+\begin{minipage}[t]{\textwidth}
+  \begin{minipage}[t]{0.03\textwidth}
+    \rule{3pt}{\dimexpr\ht\strutbox+10cm\relax} % height based on text block
+  \end{minipage}
+  \hspace{1cm}
+  \begin{minipage}[t]{0.85\textwidth}
+    \raggedright
+    {\Huge\bfseries py3dm}\\[1.0\baselineskip]
+    {\LARGE\bfseries Python bindings for OpenNURBS}\\[2\baselineskip]
+    {\LARGE How to use}\\[2\baselineskip]
+    \begin{tabular}{ll}
+      Author: & StudioWEngineers \\
+      Reviser: & - \\
+      Corresponding author: & studio.w.engineers@gmail.com \\
+      First issue: & July, 2025 \\
+      Last editing: & \today \\
+      py3dm version: & v0.2.0 \\
+    \end{tabular}
+  \end{minipage}
+\end{minipage}
+\vfill
+\endgroup
+\end{titlepage}
+'''
+
+latex_maketitle = r'''
+\begin{titlepage}
+\thispagestyle{empty}
+\pagenumbering{gobble}
+\begingroup
+\vspace*{2cm}
+\setlength{\arrayrulewidth}{3pt} % thicker vertical line
+\noindent
+\begin{tabular}{@{}p{0.03\textwidth}|@{\hspace{1cm}} p{0.85\textwidth}@{}}
+  % Left narrow column — empty, vertical line will appear between columns &
+  &
+  % Right column with all text content
+  \raggedright
+  \vspace*{1cm}
+  {\Huge\bfseries py3dm}\\[3.0\baselineskip]
+  {\LARGE\bfseries Python bindings for OpenNURBS}\\[7\baselineskip]
+  {\LARGE How to use}\\[20\baselineskip]
+  \begin{tabular}{ll}
+    Author: & StudioWEngineers \\
+    Reviser: & - \\
+    Corresponding author: & studio.w.engineers@gmail.com \\
+    First issue: & July, 2025 \\
+    Last editing: & \today \\
+    py3dm version: & v0.2.0 \\
+    \vspace*{1cm}
+  \end{tabular}
+\end{tabular}
+\vfill
+\endgroup
+\end{titlepage}
+'''
+
 latex_elements = {
 
     'papersize': 'a4paper',
     'pointsize': '10pt',
     'classoptions': ',openany,oneside',
-    'sphinxsetup': 'verbatimwithframe=false, margin=1.25in',
+#    'sphinxsetup': 'verbatimwithframe=false, margin=1.25in',
 
-    'preamble': r"""
-% === Typography ===
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[english]{babel}
-\usepackage[final]{microtype}
-\usepackage{multirow}
-\usepackage{lmodern}
-\usepackage{everysel}
-\usepackage{graphicx}
+
+'preamble': r"""
+% === Use full TeX Gyre Cursor font family ===
+\usepackage{tgcursor}   % TeX Gyre Cursor monospace font
+\renewcommand*\rmdefault{qcr} % set serif default to tgcursor (mono)
+\renewcommand*\sfdefault{qcr} % set sans default to tgcursor (mono)
+\renewcommand*\ttdefault{qcr} % monospace
+\renewcommand*\familydefault{\ttdefault} % monospace everywhere
+
+% === Fix section heading fonts ===
+\usepackage{titlesec}
+\titleformat{\section}
+  {\Large\ttfamily}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\large\ttfamily}
+  {\thesubsection}{1em}{}
+
+% === Localization ===
 \usepackage[nodayofweek,level]{datetime}
-
-% === Font ===
-\renewcommand*\familydefault{\ttdefault}
-\EverySelectfont{%
-  \fontdimen2\font=0.4em%
-  \fontdimen3\font=0.2em%
-  \fontdimen4\font=0.1em%
-  \fontdimen7\font=0.1em%
-  \hyphenchar\font=`\-%
-}
-
 \addto\captionsenglish{%
   \renewcommand{\contentsname}{Table of Contents}
 }
 """,
+
    'maketitle': latex_maketitle
 }
-
+latex_docclass = {'howto': 'book'}
 latex_documents = [
-    ('index', 'myproject.tex', 'My Project Documentation', 'Author Name', 'manual'),
+    ('index', 'py3dm.tex', 'py3dm Documentation', 'StudioWEngineers', 'manual'),
 ]
+nitpicky = True
+latex_use_latex_multicolumn = True
 
-primary_domain = "python"
+#primary_domain = "python"
 highlight_language = "python"
