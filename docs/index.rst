@@ -4,7 +4,7 @@ Introduction
 Welcome to py3dm v|release| documentation!
 
 *py3dm* is a small binding library that exposes openNURBS classes to Python. It is
-reminiscent of `rhino3dm <https://github.com/mcneel/rhino3dm>` and uses very similar
+reminiscent of `rhino3dm <https://github.com/mcneel/rhino3dm>`__ and uses very similar
 syntax.
 
 .. only:: not latex
@@ -25,9 +25,9 @@ syntax.
 
 *py3dm* depends on
 
-- `nanobind <https://github.com/wjakob/nanobind>`.
-- `openNURBS <https://github.com/mcneel/opennurbs>`.
-- `google draco <https://github.com/google/draco>`.
+- `nanobind <https://github.com/wjakob/nanobind>`__.
+- `openNURBS <https://github.com/mcneel/opennurbs>`__.
+- `google draco <https://github.com/google/draco>`__.
 
 .. only:: not latex
 
@@ -66,4 +66,4 @@ discourse:
    :caption: API Reference
    :maxdepth: 1
 
-   api_core
+   api
