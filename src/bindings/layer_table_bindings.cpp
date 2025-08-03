@@ -5,6 +5,7 @@
 // Project includes
 #include "../layer_table.h"
 #include "casters/uuid_caster.h"
+#include "casters/on_wstring_caster.h"
 
 
 void LayerTableBindings(nb::module_& m) {

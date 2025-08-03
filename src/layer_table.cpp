@@ -7,7 +7,7 @@ LayerTable::LayerTable(std::shared_ptr<ONX_Model> model) {
 }
 
 /*deleters*/
-bool LayerTable::DeleteByName(std::wstring layer_name) {
+bool LayerTable::DeleteByName(ON_wString layer_name) {
     return LayerTable::DeleteByUUID(LayerTable::GetLayerUUID(layer_name));
 }
 
@@ -26,7 +26,7 @@ ON_Layer* LayerTable::GetByIndex(int index) {
     return layer;
 }
 
-ON_Layer* LayerTable::GetByName(std::wstring full_name) {
+ON_Layer* LayerTable::GetByName(ON_wString full_name) {
     return LayerTable::GetByUUID(LayerTable::GetLayerUUID(full_name));
 }
 
@@ -51,7 +51,7 @@ int LayerTable::Count() const {
     return m_model.get()->ActiveComponentCount(ON_ModelComponent::Type::Layer);
 }
 
-const std::wstring LayerTable::GetFullPath(const ON_Layer* layer) const {
+const ON_wString LayerTable::GetFullPath(const ON_Layer* layer) const {
     ONX_Model* model = m_model.get();
     if (model == nullptr) {
         return layer->NameAsPointer();
@@ -71,10 +71,10 @@ const std::wstring LayerTable::GetFullPath(const ON_Layer* layer) const {
         parent_id = layer->ParentId();
     }
 
-    return std::wstring(full_name.Array());
+    return full_name.Array();
 }
 
-int LayerTable::GetLayerIndex(std::wstring full_name) {
+int LayerTable::GetLayerIndex(ON_wString full_name) {
     const int max_index = m_model->Manifest().ComponentIndexLimit(ON_ModelComponent::Type::Layer);
 
     for (unsigned int i = 0; i < max_index; ++i) {
@@ -95,7 +95,7 @@ int LayerTable::GetLayerIndex(std::wstring full_name) {
     return ON_UNSET_INT_INDEX;
 }
 
-const ON_UUID LayerTable::GetLayerUUID(std::wstring full_name) {
+const ON_UUID LayerTable::GetLayerUUID(ON_wString full_name) {
     const int count = m_model->Manifest().ComponentIndexLimit(ON_ModelComponent::Type::Layer);
 
     for (unsigned int i = 0; i < count; ++i) {
@@ -107,7 +107,7 @@ const ON_UUID LayerTable::GetLayerUUID(std::wstring full_name) {
         if (!layer)
             continue;
 
-        if (full_name == std::wstring(layer->Name())) {
+        if (full_name == layer->Name()) {
             return layer->Id();
         }
     }
@@ -115,7 +115,7 @@ const ON_UUID LayerTable::GetLayerUUID(std::wstring full_name) {
     return ON_nil_uuid;
 }
 
-bool LayerTable::Has(std::wstring full_name) {
+bool LayerTable::Has(ON_wString full_name) {
     const int max_index = m_model->Manifest().ComponentIndexLimit(ON_ModelComponent::Type::Layer);
 
     for (unsigned int i = 0; i < max_index; ++i) {
