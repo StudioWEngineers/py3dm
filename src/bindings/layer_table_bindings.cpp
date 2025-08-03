@@ -33,8 +33,8 @@ void LayerTableBindings(nb::module_& m) {
         .def("__len__", &LayerTable::Count)
 
         /*deleters*/
-        .def("delete_by_name", &LayerTable::DeleteByName, nb::arg("full_name"))
-        .def("delete_by_uuid", &LayerTable::DeleteByUUID, nb::arg("layer_uuid"))
+        .def("delete_by_name", &LayerTable::DeleteByName)
+        .def("delete_by_uuid", &LayerTable::DeleteByUUID)
 
         /*getters*/
         .def("get_by_index", &LayerTable::GetByIndex, nb::rv_policy::reference_internal)
@@ -42,7 +42,7 @@ void LayerTableBindings(nb::module_& m) {
         .def("get_by_uuid", &LayerTable::GetByUUID, nb::rv_policy::reference_internal)
 
         /*other methods*/
-        .def("add", &LayerTable::Add, nb::arg("layer"))
+        .def("add", &LayerTable::Add)
         .def("count", &LayerTable::Count)
         .def("get_layer_index", &LayerTable::GetLayerIndex)
         .def("get_layer_uuid", &LayerTable::GetLayerUUID)
