@@ -1,8 +1,12 @@
 """
-Type hints
-----------
+py3dm
+-----
 
-Type hints for the `py3dm` library.
+Python bindings for `OpenNURBS` using `nanobind`.
+
+__author__: "StudioWEngineers"
+
+__email__: "studio.w.engineers@gmail.com"
 """
 # standard library imports
 from enum import Enum
