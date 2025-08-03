@@ -1,20 +1,12 @@
 #include "layer_table.h"
 
 
+/*constructors*/
 LayerTable::LayerTable(std::shared_ptr<ONX_Model> model) {
     m_model = model;
 }
 
-int LayerTable::Add(const ON_Layer& layer) {
-    const ON_Layer* m_layer = ON_Layer::FromModelComponentRef(m_model->AddModelComponent(layer), nullptr);
-
-    return (nullptr != m_layer) ? m_layer->Index() : ON_UNSET_INT_INDEX;
-}
-
-int LayerTable::Count() const {
-    return m_model.get()->ActiveComponentCount(ON_ModelComponent::Type::Layer);
-}
-
+/*deleters*/
 bool LayerTable::DeleteByName(std::wstring layer_name) {
     return LayerTable::DeleteByUUID(LayerTable::GetLayerUUID(layer_name));
 }
@@ -23,6 +15,7 @@ bool LayerTable::DeleteByUUID(ON_UUID on_uuid) {
     return !m_model->RemoveModelComponent(ON_ModelComponent::Type::Layer, on_uuid).IsEmpty();
 }
 
+/*getters*/
 ON_Layer* LayerTable::GetByIndex(int index) {
     ON_ModelComponentReference comp_ref = m_model->ComponentFromIndex(ON_ModelComponent::Type::Layer, index);
     if (comp_ref.IsEmpty()) {
@@ -45,6 +38,17 @@ ON_Layer* LayerTable::GetByUUID(ON_UUID on_uuid) {
 
     ON_Layer* layer = const_cast<ON_Layer*>(ON_Layer::Cast(comp_ref.ModelComponent()));
     return layer;
+}
+
+/*other methods*/
+int LayerTable::Add(const ON_Layer& layer) {
+    const ON_Layer* m_layer = ON_Layer::FromModelComponentRef(m_model->AddModelComponent(layer), nullptr);
+
+    return (nullptr != m_layer) ? m_layer->Index() : ON_UNSET_INT_INDEX;
+}
+
+int LayerTable::Count() const {
+    return m_model.get()->ActiveComponentCount(ON_ModelComponent::Type::Layer);
 }
 
 const std::wstring LayerTable::GetFullPath(const ON_Layer* layer) const {
@@ -155,6 +159,7 @@ int LayerTable::MaxIndex() const {
     return m_model->Manifest().ComponentIndexLimit(ON_ModelComponent::Type::Layer);
 }
 
+/*LayerTable Iterator*/
 LayerTable::Iterator::Iterator(LayerTable* table, int index)
     : m_table(table), m_index(index), m_count(table->MaxIndex()) {}
 
