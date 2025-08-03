@@ -209,7 +209,39 @@ latex_engine = "pdflatex"
 
 latex_maketitle = r'''
 \begin{titlepage}
-\noindent \Huge Example title \par
+	\begingroup
+	\drop = 0.3\textheight
+	\vspace*{\baselineskip}
+	\vfill
+	\hbox{
+		\hspace*{0.01\textwidth}
+		\rule{3pt}{\dimexpr\textheight-28pt\relax}
+		\hspace*{0.1\textwidth}
+		\parbox[b]{1.0\textwidth}{
+			\vbox{
+				{\noindent\HUGE\bfseries py3dm }\\[1.0\baselineskip]
+				{\noindent\huge\bfseries Python bindings for OpenNURBS}\\[3\baselineskip]
+				{\LARGE  How to use}\\[3\baselineskip]
+				\vspace{\drop}
+
+				\begin{tabular}{l l}
+				{Author:}&{StudioWEngineers}\\
+				{Reviser:}&{-}\\
+				{Corresponding author:}&{studio.w.engineers@gmail.com}\\
+				{}&{}\\
+				{First issue:}&{July, 2025}\\
+				{Last editing:}&{\today}\\
+				{px3dm version:}&{v0.2.0}\\
+				\end{tabular}
+				\vspace{0.05\textheight}
+
+				{\noindent \small{This document consists of \thelastsheet \ pages, cover included.}}
+				\vspace{0.085\textheight}
+			}% end of vbox
+		}% end of parbox
+	}% end of hbox
+
+	\endgroup
 
 \end{titlepage}
 '''
