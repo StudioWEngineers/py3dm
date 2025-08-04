@@ -78,13 +78,7 @@ if(UNIX AND NOT APPLE)
 endif()
 
 # Python package installation
-install(FILES
-    ${CMAKE_SOURCE_DIR}/py3dm/__init__.py
-    ${CMAKE_SOURCE_DIR}/py3dm/__init__.pyi
-    ${CMAKE_SOURCE_DIR}/py3dm/py.typed
-    DESTINATION py3dm
-)
-
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/py3dm DESTINATION .)
 install(TARGETS _py3dm
     LIBRARY DESTINATION py3dm
     RUNTIME DESTINATION py3dm
