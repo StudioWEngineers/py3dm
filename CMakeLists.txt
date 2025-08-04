@@ -28,26 +28,30 @@ add_subdirectory(lib/nanobind)
 nanobind_build_library(nanobind)
 nanobind_add_module(_py3dm NB_STATIC ${bindings_source} ${zlib_source})
 
-# Compiler definitions
+# Compiler definitions - py3dm (zlib) specific
 target_compile_definitions(_py3dm PRIVATE
-    OPENNURBS_ZLIB_LIB_DIR
     GNU_SOURCE
-    ON_COMPILING_OPENNURBS
-    OPENNURBS_FREETYPE_INC_
     MY_ZCALLOC
     Z_PREFIX
+)
+
+# Compiler definitions - OpenNURBS specific
+target_compile_definitions(opennurbs_static PRIVATE
+    ON_COMPILING_OPENNURBS
+    OPENNURBS_FREETYPE_INC_
+    OPENNURBS_ZLIB_LIB_DIR
     UNICODE
 )
 
 if(UNIX AND NOT APPLE)
-    target_compile_definitions(_py3dm PRIVATE
+    target_compile_definitions(opennurbs_static PRIVATE
         ON_RUNTIME_LINUX
     )
 endif()
 
 option(INCLUDE_DRACO "Enable google draco mesh compression support" OFF)
 if(INCLUDE_DRACO)
-    target_compile_definitions(_py3dm PRIVATE
+    target_compile_definitions(opennurbs_static PRIVATE
         ON_INCLUDE_DRACO
     )
     add_subdirectory(lib/draco)
