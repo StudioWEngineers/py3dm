@@ -1,43 +1,58 @@
+# OS-specific files
 .DS_Store
-# Prerequisites
-*.d
 
-# Compiled Object files
-*.slo
-*.lo
+
+# === C++ Build Artifacts ===
+
+# Object files
 *.o
 *.obj
+*.lo
+*.slo
 
-# Precompiled Headers
+# Precompiled headers
 *.gch
 *.pch
 
-# Compiled Dynamic libraries
+# Static libraries
+*.a
+*.la
+*.lai
+*.lib
+
+# Shared libraries / dynamic libraries
 *.so
 *.dylib
 *.dll
 *.pyd
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
 
 # Executables
 *.exe
 *.out
 *.app
 
-# Python cache
-__pycache__/
+# Dependency files
+*.d
 
-# temporary certificate files
+
+# === Python Artifacts ===
+
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Mypy
+.mypy_cache/
+src/.mypy_cache/
+
+# Distribution/build folders
+**/build/
+/dist/
+
+# Temporary certificate files
 *.p12
 
-.vscode
 
-/build
-/dist
+# === IDE / Editor ===
 
-/src/.mypy_cache
+.vscode/
