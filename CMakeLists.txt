@@ -6,7 +6,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(DEV_MODULE Development.Module)
 find_package(Python 3.8 COMPONENTS Interpreter ${DEV_MODULE} REQUIRED)
-add_subdirectory(lib/nanobind)
 
 # Source files
 file(GLOB_RECURSE bindings_source "src/*.h" "src/*.cpp")
@@ -25,6 +24,7 @@ list(REMOVE_ITEM opennurbs_source
 add_library(opennurbs_static STATIC ${opennurbs_source})
 
 # Main Python extension module
+add_subdirectory(lib/nanobind)
 nanobind_build_library(nanobind)
 nanobind_add_module(_py3dm NB_STATIC ${bindings_source} ${zlib_source})
 
