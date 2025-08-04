@@ -650,3 +650,6 @@ latex_use_latex_multicolumn = True
 
 #primary_domain = "python"
 highlight_language = "python"
+
+extensions = ['autoapi.extension']
+autoapi_dirs = ['../build/cp312-abi3-win_amd64/Release']
