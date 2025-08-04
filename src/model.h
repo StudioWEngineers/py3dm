@@ -15,7 +15,6 @@
 // Project includes
 #include "layer_table.h"
 #include "object_table.h"
-#include "opennurbs_includes.h"
 
 
 class Model {
