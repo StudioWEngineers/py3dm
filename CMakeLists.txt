@@ -9,12 +9,12 @@ find_package(Python 3.8 COMPONENTS Interpreter ${DEV_MODULE} REQUIRED)
 add_subdirectory(lib/nanobind)
 
 # Source files
-file(GLOB_RECURSE bindings_SRC "src/*.h" "src/*.cpp")
-file(GLOB zlib_SRC "lib/opennurbs/zlib/*.h" "lib/opennurbs/zlib/*.c")
-file(GLOB opennurbs_SRC "lib/opennurbs/*.h" "lib/opennurbs/*.cpp")
+file(GLOB_RECURSE bindings_source "src/*.h" "src/*.cpp")
+file(GLOB zlib_source "lib/opennurbs/zlib/*.h" "lib/opennurbs/zlib/*.c")
+file(GLOB opennurbs_source "lib/opennurbs/*.h" "lib/opennurbs/*.cpp")
 
 # Remove unused OpenNURBS files
-list(REMOVE_ITEM opennurbs_SRC
+list(REMOVE_ITEM opennurbs_source
     "${CMAKE_CURRENT_SOURCE_DIR}/lib/opennurbs/opennurbs_gl.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/lib/opennurbs/opennurbs_precompiledheader.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/lib/opennurbs/opennurbs_unicode_cp932.cpp"
@@ -38,12 +38,12 @@ add_definitions(
 #endif()
 
 # Static libraries
-add_library(zlib_static STATIC ${zlib_SRC})
-add_library(opennurbs_static STATIC ${opennurbs_SRC})
+add_library(zlib_static STATIC ${zlib_source})
+add_library(opennurbs_static STATIC ${opennurbs_source})
 
 # Main Python extension module
 nanobind_build_library(nanobind)
-nanobind_add_module(_py3dm NB_STATIC ${bindings_SRC} ${zlib_SRC})
+nanobind_add_module(_py3dm NB_STATIC ${bindings_source} ${zlib_source})
 
 option(INCLUDE_DRACO "Enable google draco mesh compression support" OFF)
 if(INCLUDE_DRACO)
