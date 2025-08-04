@@ -21,22 +21,6 @@ list(REMOVE_ITEM opennurbs_source
     "${CMAKE_CURRENT_SOURCE_DIR}/lib/opennurbs/opennurbs_unicode_cp949.cpp"
 )
 
-# Compiler flags / definitions
-add_definitions(
-    -D_GNU_SOURCE
-    -DON_COMPILING_OPENNURBS
-    -DOPENNURBS_FREETYPE_INC_
-    -DMY_ZCALLOC
-    -DZ_PREFIX
-    -DOPENNURBS_ZLIB_LIB_DIR
-    -DUNICODE
-)
-#if(UNIX AND NOT APPLE)
-#   add_definitions(
-#        -DON_RUNTIME_LINUX -> this seems to be required in font.cpp and other cpp
-#   )
-#endif()
-
 # Static libraries
 add_library(opennurbs_static STATIC ${opennurbs_source})
 
@@ -44,9 +28,28 @@ add_library(opennurbs_static STATIC ${opennurbs_source})
 nanobind_build_library(nanobind)
 nanobind_add_module(_py3dm NB_STATIC ${bindings_source} ${zlib_source})
 
+# Compiler definitions
+target_compile_definitions(_py3dm PRIVATE
+    OPENNURBS_ZLIB_LIB_DIR
+    GNU_SOURCE
+    ON_COMPILING_OPENNURBS
+    OPENNURBS_FREETYPE_INC_
+    MY_ZCALLOC
+    Z_PREFIX
+    UNICODE
+)
+
+if(UNIX AND NOT APPLE)
+    target_compile_definitions(
+        ON_RUNTIME_LINUX
+    )
+endif()
+
 option(INCLUDE_DRACO "Enable google draco mesh compression support" OFF)
 if(INCLUDE_DRACO)
-    add_definitions(-DON_INCLUDE_DRACO)
+    target_compile_definitions(_py3dm PRIVATE
+        ON_INCLUDE_DRACO
+    )
     add_subdirectory(lib/draco)
     target_include_directories(_py3dm PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/draco/src
