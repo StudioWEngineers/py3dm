@@ -1,28 +1,10 @@
 #include "model.h"
 
 
+/*constructors*/
 Model::Model() : p_model(std::make_shared<ONX_Model>()) {}
 
-
-bool Model::Read(ON_wString path) {
-    p_model.reset(new ONX_Model());
-
-    if (p_model->Read(path)) {
-        return true;
-    }
-
-    p_model.reset();
-    return false;
-}
-
-void Model::Reset() {
-    p_model.reset();
-}
-
-bool Model::Write(ON_wString path, int version) {
-    return p_model->Write(path, version);
-}
-
+/*getters*/
 ON_wString Model::GetApplicationDetails() const {
     if (p_model.get() != nullptr) {
         return p_model->m_properties.m_Application.m_application_details;
@@ -72,6 +54,7 @@ int Model::GetRevision() const {
     return 0;
 }
 
+/*setters*/
 int Model::NewRevision() {
     if (p_model.get() != nullptr) {
         return p_model->m_properties.m_RevisionHistory.NewRevision();
@@ -109,6 +92,27 @@ void Model::SetLastEditedBy(ON_wString author) {
     }
 }
 
+/*other methods*/
+bool Model::Read(ON_wString path) {
+    p_model.reset(new ONX_Model());
+
+    if (p_model->Read(path)) {
+        return true;
+    }
+
+    p_model.reset();
+    return false;
+}
+
+void Model::Reset() {
+    p_model.reset();
+}
+
+bool Model::Write(ON_wString path, int version) {
+    return p_model->Write(path, version);
+}
+
+/*tables*/
 LayerTable Model::ModelLayerTable() {
     return LayerTable(p_model);
 }

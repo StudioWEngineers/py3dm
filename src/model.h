@@ -8,6 +8,11 @@
 */
 #pragma once
 
+// System includes
+
+// External includes
+
+// Project includes
 #include "layer_table.h"
 #include "object_table.h"
 #include "opennurbs_includes.h"
@@ -15,12 +20,10 @@
 
 class Model {
 public:
+    /*constructors*/
     Model();
 
-    bool Read(ON_wString path);
-    void Reset();
-    bool Write(ON_wString path, int version);
-
+    /*getters*/
     ON_wString GetApplicationDetails() const;
     ON_wString GetApplicationName() const;
     ON_wString GetApplicationUrl() const;
@@ -29,6 +32,7 @@ public:
     ON_wString GetLastEditedBy() const;
     int GetRevision() const;
 
+    /*setters*/
     int NewRevision();
     void SetApplicationDetails(ON_wString details);
     void SetApplicationName(ON_wString name);
@@ -36,6 +40,12 @@ public:
     void SetCreatedBy(ON_wString author);
     void SetLastEditedBy(ON_wString author);
 
+    /*other methods*/
+    bool Read(ON_wString path);
+    void Reset();
+    bool Write(ON_wString path, int version);
+
+    /*tables*/
     LayerTable ModelLayerTable();
     ObjectTable ModelObjectTable();
 
