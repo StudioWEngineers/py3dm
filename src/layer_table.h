@@ -9,7 +9,6 @@
 #pragma once
 
 // System includes
-#include <memory>
 
 // External includes
 
