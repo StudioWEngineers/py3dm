@@ -8,15 +8,18 @@
 */
 #pragma once
 
+// System includes
+
+// External includes
+
+// Project includes
 #include "opennurbs_includes.h"
 
 
 class ObjectTable {
 public:
+    /*constructors*/
     ObjectTable(std::shared_ptr<ONX_Model> model);
-
-    int Count() const;
-    bool DeleteByUUID(ON_UUID on_uuid);
 
     /*add methods*/
     ON_UUID AddLine(const ON_3dPoint& start, const ON_3dPoint& end, const ON_3dmObjectAttributes* obj_attr) const;
@@ -26,6 +29,11 @@ public:
     ON_UUID AddPoint(const ON_3dPoint& point, const ON_3dmObjectAttributes* obj_attr) const;
     ON_UUID AddPoint(const ON_Point& point, const ON_3dmObjectAttributes* obj_attr) const;
 
+    /*other methods*/
+    int Count() const;
+    bool DeleteByUUID(ON_UUID on_uuid);
+
+    /*ObjectTable Iterator*/
     class Iterator {
     public:
         Iterator(ObjectTable* table);
@@ -39,7 +47,6 @@ public:
         ONX_ModelComponentIterator m_iterator;
         mutable ON_ModelComponentReference m_current;
     };
-
 
     Iterator Begin();
 
