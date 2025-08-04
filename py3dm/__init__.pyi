@@ -169,17 +169,43 @@ class Layer(ModelComponent):
 
 
 class LayerTable:
+    """Helper class that manages all the `Layer`s (`ON_Layer`s) added to the model.
+    """
     def __getitem__(self, index: int) -> Layer:...
 
     def __iter__(self) -> Iterator[Layer]: ...
 
     def __len__(self) -> int: ...
 
-    def add(self, layer: Layer) -> int: ...
+    def add(self, layer: Layer) -> int:
+        """Adds the `layer` to the table.
 
-    def count(self) -> int: ...
+        Returns
+        -------
+        layer_index: int
+            If the `layer` has been successfully added, `ON_UNSET_INT_INDEX` otherwise.
+        """
+        ...
 
-    def delete_by_name(self, layer_name: str) -> bool: ...
+    def count(self) -> int:
+        """Returns the number of active model components of type
+        `ON_ModelComponent::Type::Layer` in this table.
+
+        Notes
+        -----
+        The `count()` does not include system components.
+        """
+        ...
+
+    def delete_by_name(self, layer_name: str) -> bool:
+        """Deletes the `Layer` given its full name, e.g., `Layer 01::Nested layer 02`.
+
+        Returns
+        -------
+        success: bool
+            `True` if successfull, `False` otherwise.
+        """
+        ...
 
     def delete_by_uuid(self, layer_uuid: UUID) -> bool: ...
 
