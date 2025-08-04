@@ -58,7 +58,6 @@ endif()
 
 target_include_directories(_py3dm PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/opennurbs
-    ${CMAKE_BINARY_DIR}
 )
 
 # Link additional libraries
