@@ -6,7 +6,6 @@ Tests for the `ObjectTable` class.
 """
 # standard library imports
 from unittest import TestCase
-from uuid import UUID
 
 # third party library imports
 from py3dm import Line, LineCurve, Model, ObjectAttributes, PointGeometry, Point3d
