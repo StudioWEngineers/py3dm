@@ -38,7 +38,6 @@ add_definitions(
 #endif()
 
 # Static libraries
-add_library(zlib_static STATIC ${zlib_source})
 add_library(opennurbs_static STATIC ${opennurbs_source})
 
 # Main Python extension module
