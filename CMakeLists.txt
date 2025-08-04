@@ -40,7 +40,7 @@ target_compile_definitions(_py3dm PRIVATE
 )
 
 if(UNIX AND NOT APPLE)
-    target_compile_definitions(
+    target_compile_definitions(_py3dm PRIVATE
         ON_RUNTIME_LINUX
     )
 endif()
