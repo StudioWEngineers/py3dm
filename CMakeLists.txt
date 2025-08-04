@@ -43,9 +43,9 @@ add_library(opennurbs_static STATIC ${opennurbs_SRC})
 
 # Main Python extension module
 nanobind_build_library(nanobind)
-nanobind_add_module(_py3dm NB_STATIC ${bindings_SRC})
+nanobind_add_module(_py3dm NB_STATIC ${bindings_SRC} ${zlib_SRC})
 
-option(INCLUDE_DRACO "Enable Draco mesh compression support" OFF)
+option(INCLUDE_DRACO "Enable google draco mesh compression support" OFF)
 if(INCLUDE_DRACO)
     add_definitions(-DON_INCLUDE_DRACO)
     add_subdirectory(lib/draco)
@@ -64,9 +64,7 @@ target_include_directories(_py3dm PRIVATE
 
 # Link additional libraries
 target_link_libraries(_py3dm PRIVATE
-    zlib_static
     opennurbs_static
-    nanobind-static
 )
 
 # Link shlwapi on Windows
