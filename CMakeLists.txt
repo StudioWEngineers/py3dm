@@ -30,7 +30,6 @@ add_definitions(
     -DZ_PREFIX
     -DOPENNURBS_ZLIB_LIB_DIR
     -DUNICODE
-    -DON_INCLUDE_DRACO
 )
 #if(UNIX AND NOT APPLE)
 #   add_definitions(
@@ -41,7 +40,6 @@ add_definitions(
 # Static libraries
 add_library(zlib_static STATIC ${zlib_SRC})
 add_library(opennurbs_static STATIC ${opennurbs_SRC})
-add_subdirectory(lib/draco)
 
 # Main Python extension module
 nanobind_build_library(nanobind)
@@ -52,9 +50,21 @@ else()
 endif()
 target_link_libraries(_py3dm PRIVATE nanobind-static)
 
+option(INCLUDE_DRACO "Enable Draco mesh compression support" OFF)
+if(INCLUDE_DRACO)
+    message(STATUS "using draco!")
+    add_definitions(-DON_INCLUDE_DRACO)
+    add_subdirectory(lib/draco)
+    target_include_directories(_py3dm PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/draco/src
+    )
+    target_link_libraries(_py3dm PRIVATE
+        draco::draco
+    )
+endif()
+
 target_include_directories(_py3dm PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/opennurbs
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/draco/src
     ${CMAKE_BINARY_DIR}
 )
 
@@ -62,7 +72,6 @@ target_include_directories(_py3dm PRIVATE
 target_link_libraries(_py3dm PRIVATE
     zlib_static
     opennurbs_static
-    draco::draco
 )
 
 # Link shlwapi on Windows
