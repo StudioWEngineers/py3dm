@@ -252,6 +252,54 @@ class LayerTableTestSuite(TestCase):
         with self.subTest(msg="1st layer"):
             self.assertTrue(model.LayerTable.has("Layer 01"))
 
+    def test_max_index(self) -> None:
+        """Tests for the `max_index` method.
+        """
+        model = Model()
+
+        with self.subTest(msg="max_index before adding layers to model"):
+            self.assertEqual(model.LayerTable.max_index(), 0)
+
+        model.LayerTable.add(Layer())
+        model.LayerTable.add(Layer())
+
+        with self.subTest(msg="max_index after adding layers to model"):
+            self.assertEqual(model.LayerTable.max_index(), 2)
+
+        model.LayerTable.delete_by_name("Layer 02")
+        model.LayerTable.add(Layer())
+
+        with self.subTest(msg="max_index after adding and deleting layers to model"):
+            self.assertEqual(model.LayerTable.max_index(), 3)
+
+
+class NestedLayerTableTestSuite(TestCase):
+    """Tests for the `LayerTable` class, with nested layers.
+    """
+    def test_nested_layer(self) -> None:
+        """Test for creating a nested layer.
+        """
+
+        model = Model()
+        model.LayerTable.add(Layer())
+        parent_layer_uuid = model.LayerTable.get_layer_uuid("layer 01")
+
+        child_layer = Layer()
+        child_layer.parent_uuid = parent_layer_uuid
+        child_layer.set_name("my child layer")
+
+        model.LayerTable.add(child_layer)
+        child_uuid = model.LayerTable.get_layer_uuid("my child layer")
+
+        self.assertEqual(
+            model.LayerTable.get_by_uuid(child_uuid).parent_uuid,
+            parent_layer_uuid
+        )
+
+
+class LayerTableTeIteratorstSuite(TestCase):
+    """Tests for the `LayerTable` class, with focus on the iterator.
+    """
     def test_iter(self) -> None:
         """Tests for the `__iter__` method.
         """
@@ -267,16 +315,17 @@ class LayerTableTestSuite(TestCase):
             with self.subTest(layer_index = layer_index):
                 self.assertEqual(layer.get_index(), layer_index)
 
-    def test_max_index(self) -> None:
-        """Tests for the `max_index` method.
+    def test_modify_layer_in_iter(self) -> None:
+        """Tests for the `__iter__` method.
         """
         model = Model()
 
-        with self.subTest(msg="max_index before adding layers to model"):
-            self.assertEqual(model.LayerTable.max_index(), 0)
-
         model.LayerTable.add(Layer())
         model.LayerTable.add(Layer())
 
-        with self.subTest(msg="max_index after adding layers to model"):
-            self.assertEqual(model.LayerTable.max_index(), 2)
+        for layer_index, layer in enumerate(model.LayerTable):
+            with self.subTest(layer_index = layer_index):
+                layer.set_name(f"new_layer_{layer_index}")
+
+            with self.subTest(layer_index = layer_index):
+                self.assertEqual(layer.get_name(), f"new_layer_{layer_index}")
