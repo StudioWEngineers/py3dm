@@ -28,8 +28,7 @@ templates_path = [".templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
-# source_suffix = ['.rst', '.md']
-source_suffix = ".rst"
+source_suffix = {'.rst': 'restructuredtext'}
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
@@ -207,45 +206,80 @@ htmlhelp_basename = "py3dm_doc"
 
 latex_engine = "pdflatex"
 
+latex_maketitle = r'''
+\begin{titlepage}
+\thispagestyle{empty}
+\pagenumbering{gobble}
+\begingroup
+\vspace*{2cm}
+\setlength{\arrayrulewidth}{3pt} % thicker vertical line
+\noindent
+\begin{tabular}{@{}p{0.03\textwidth}|@{\hspace{1cm}} p{0.85\textwidth}@{}}
+  % Left narrow column — empty, vertical line will appear between columns &
+  &
+  % Right column with all text content
+  \raggedright
+  \vspace*{1cm}
+  {\Huge\bfseries py3dm}\\[3.0\baselineskip]
+  {\LARGE\bfseries Python bindings for OpenNURBS}\\[7\baselineskip]
+  {\LARGE How to use}\\[20\baselineskip]
+  \begin{tabular}{ll}
+    Author: & StudioWEngineers \\
+    Reviser: & - \\
+    Corresponding author: & studio.w.engineers@gmail.com \\
+    First issue: & July, 2025 \\
+    Last editing: & \today \\
+    py3dm version: & v0.2.0 \\
+    \vspace*{1cm}
+  \end{tabular}
+\end{tabular}
+\vfill
+\endgroup
+\end{titlepage}
+'''
+
+latex_preamble = r'''
+% === Use full TeX Gyre Cursor font family ===
+\usepackage{tgcursor}   % TeX Gyre Cursor monospace font
+\renewcommand*\rmdefault{qcr} % set serif default to tgcursor (mono)
+\renewcommand*\sfdefault{qcr} % set sans default to tgcursor (mono)
+\renewcommand*\ttdefault{qcr} % monospace
+\renewcommand*\familydefault{\ttdefault} % monospace everywhere
+
+% === Fix section heading fonts ===
+\usepackage{titlesec}
+\titleformat{\section}
+  {\Large\ttfamily}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\large\ttfamily}
+  {\thesubsection}{1em}{}
+
+% === Localization ===
+\usepackage[nodayofweek,level]{datetime}
+\addto\captionsenglish{%
+  \renewcommand{\contentsname}{Table of Contents}
+}
+'''
+
 latex_elements = {
     'papersize': 'a4paper',
     'pointsize': '10pt',
-    "classoptions": ",openany,oneside",
-    "preamble": r"""
-\usepackage{MnSymbol}
-\DeclareUnicodeCharacter{25CB}{\ensuremath{\circ}}
-\DeclareUnicodeCharacter{25CF}{\ensuremath{\bullet}}
-\DeclareUnicodeCharacter{21B5}{\ensuremath{\rhookswarrow}}
-\DeclareUnicodeCharacter{2194}{\ensuremath{\leftrightarrow}}
-""",
+    'classoptions': 'openany,oneside',
+    'preamble': latex_preamble,
+    'maketitle': latex_maketitle
 }
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
+latex_docclass = {'howto': 'book'}
 latex_documents = [
-    (master_doc, "py3dm.tex", "py3dm Documentation", author, "manual"),
+    ('index', 'py3dm.tex', 'py3dm Documentation', 'StudioWEngineers', 'manual'),
 ]
+nitpicky = True
+latex_use_latex_multicolumn = True
 
-# The name of an image file (relative to this directory) to place at the top of
-# the title page.
-# latex_logo = 'nanobind-logo.png'
-
-# For "manual" documents, if this is true, then toplevel headings are parts,
-# not chapters.
-# latex_use_parts = False
-
-# If true, show page references after internal links.
-# latex_show_pagerefs = False
-
-# If true, show URL addresses after external links.
-# latex_show_urls = False
-
-# Documents to append as an appendix to all manuals.
-# latex_appendices = []
-
-# If false, no module index is generated.
-# latex_domain_indices = True
-
-primary_domain = "python"
+#primary_domain = "python"
 highlight_language = "python"
+
+extensions = ['autoapi.extension']
+autoapi_dirs = ['../py3dm']
+autoapi_type = 'python'
+autoapi_ignore = ['**/__init__.py']

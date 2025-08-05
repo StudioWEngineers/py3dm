@@ -65,5 +65,3 @@ discourse:
 .. toctree::
    :caption: API Reference
    :maxdepth: 1
-
-   api
