@@ -1,4 +1,4 @@
-from ._py3dm import (
+from . _py3dm import (
     __author__,
     __doc__,
     __email__,
