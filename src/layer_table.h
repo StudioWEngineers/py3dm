@@ -31,7 +31,7 @@ public:
     ON_Layer* GetByUUID(ON_UUID on_uuid);
 
     /*other methods*/
-    int Add(const ON_Layer& layer);
+    const ON_UUID Add(const ON_Layer& layer);
     int Count() const;
     const ON_wString GetFullPath(const ON_Layer* layer) const;
     int GetLayerIndex(ON_wString full_name);

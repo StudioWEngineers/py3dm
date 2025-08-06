@@ -41,10 +41,10 @@ ON_Layer* LayerTable::GetByUUID(ON_UUID on_uuid) {
 }
 
 /*other methods*/
-int LayerTable::Add(const ON_Layer& layer) {
+const ON_UUID LayerTable::Add(const ON_Layer& layer) {
     const ON_Layer* m_layer = ON_Layer::FromModelComponentRef(m_model->AddModelComponent(layer), nullptr);
 
-    return (nullptr != m_layer) ? m_layer->Index() : ON_UNSET_INT_INDEX;
+    return (nullptr != m_layer) ? m_layer->Id() : ON_nil_uuid;
 }
 
 int LayerTable::Count() const {
