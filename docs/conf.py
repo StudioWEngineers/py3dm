@@ -282,7 +282,12 @@ highlight_language = "python"
 extensions = [
     'autoapi.extension',
     "sphinx.ext.intersphinx"]
+
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+}
+
 autoapi_dirs = ['../py3dm']
 autoapi_type = 'python'
 autoapi_ignore = ['**/__init__.py']
-autoapi_keep_files = True
+autoapi_keep_files = False
