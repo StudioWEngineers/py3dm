@@ -170,7 +170,7 @@ class Layer(ModelComponent):
 
 
 class LayerTable:
-    """Helper class that manages all the `Layer`s (``ON_Layer``s) added to the model.
+    """Helper class that manages all the `Layer` (``ON_Layer``) added to the model.
     """
     def __getitem__(self, index: int) -> Layer:...
 
