@@ -14,11 +14,8 @@ ON_UUID ObjectTable::AddLine(const ON_3dPoint& start, const ON_3dPoint& end, con
 
     ON_LineCurve line(start, end);
     const ON_ModelComponent* mc = m_model->AddModelGeometryComponent(&line, obj_attr).ModelComponent();
-    if (mc != nullptr) {
-        return mc->Id();
-    }
 
-    return ON_nil_uuid;
+    return (mc != nullptr) ? mc->Id() : ON_nil_uuid;
 }
 
 ON_UUID ObjectTable::AddLine(const ON_Line& line, const ON_3dmObjectAttributes* obj_attr) const {
@@ -36,11 +33,8 @@ ON_UUID ObjectTable::AddPoint(double x, double y, double z, const ON_3dmObjectAt
 
     ON_Point point(x, y, z);
     const ON_ModelComponent* mc = m_model->AddModelGeometryComponent(&point, obj_attr).ModelComponent();
-    if (mc != nullptr) {
-        return mc->Id();
-    }
 
-    return ON_nil_uuid;
+    return (mc != nullptr) ? mc->Id() : ON_nil_uuid;
 }
 
 ON_UUID ObjectTable::AddPoint(const ON_3dPoint& point, const ON_3dmObjectAttributes* obj_attr) const {
