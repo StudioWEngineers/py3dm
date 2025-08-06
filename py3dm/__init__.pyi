@@ -2,7 +2,7 @@
 py3dm
 -----
 
-Python bindings for `OpenNURBS` using `nanobind`.
+Python bindings for ``OpenNURBS`` using ``nanobind``.
 
 __author__: "StudioWEngineers"
 
@@ -26,11 +26,11 @@ __version__: str
 
 
 class Geometry(OpenNURBSObject):
-    """Python wrapper for the openNURBS `ON_Geometry` class.
+    """Python wrapper for the openNURBS ``ON_Geometry`` class.
 
-        `ON_Geometry`: base class for all geometry classes that must provide runtime class
-        id. It provides interface for common geometric operations like finding bounding
-        boxes and transforming.
+        ``ON_Geometry``: base class for all geometry classes that must provide runtime
+        class id. It provides interface for common geometric operations like finding
+        bounding boxes and transforming.
     """
     def __init__(self) -> None: ...
 
@@ -45,19 +45,19 @@ class Geometry(OpenNURBSObject):
         ...
 
     def is_deformable(self) -> bool:
-        """Returns `True` if object can be accurately modified with "squishy"
+        """Returns ``True`` if object can be accurately modified with "squishy"
         transformations like projections, shears, an non-uniform scaling.
         """
         ...
 
     def is_valid(self, text_log: TextLog | None = None) -> bool:
-        """The base implementation returns `False`.
+        """The base implementation returns ``False``.
         """
         ...
 
 
 class Layer(ModelComponent):
-    """Python wrapper for the openNURBS `ON_Layer` class.
+    """Python wrapper for the openNURBS ``ON_Layer`` class.
     """
     def __init__(self) -> None: ...
     def __repr__(self) -> str: ...
@@ -109,28 +109,29 @@ class Layer(ModelComponent):
         -----
         If the component is in a model, then the name is unique among all components in
         the model. Names are formatted as reference : parent::leaf. For example in
-        `A.3dm : Z`, `A.3dm` is the reference and `Z` is the leaf. For a layer full path
-        `X::Y::Z`, `X::Y` is the parent and `Z` is the leaf. For most models, only the
-        leaf is present in the name. The reference portion appears when a model component
-        originates in a reference file (a linked instance definition with reference
-        component names or a worksession reference).
-        Components with a tree hierarchy, like layers, can have a parent and leaf.
+        ``A.3dm : Z``, ``A.3dm`` is the reference and ``Z`` is the leaf. For a layer full
+        path ``X::Y::Z``, ``X::Y`` is the parent and ``Z`` is the leaf. For most models,
+        only the leaf is present in the name. The reference portion appears when a model
+        component originates in a reference file (a linked instance definition with
+        reference component names or a worksession reference). Components with a tree
+        hierarchy, like layers, can have a parent and leaf.
         """
         ...
 
     def set_name(self, name: str) -> bool:
-        """Returns `True` if the name attribute was changed to `name` or is already equal
-        to `name`; returns `False` and no changes are made if the name attribute is locked
-        and `name !=` locked value or `name` is not empty and
-        `ON_ModelComponent::IsValidComponentName(name)` is false.
+        """Returns ``True`` if the name attribute was changed to ``name`` or is already
+        equal to ``name``; returns ``False`` and no changes are made if the name attribute
+        is locked and ``name !=`` locked value or ``name`` is not empty and
+        ``ON_ModelComponent::IsValidComponentName(name)`` is ``False``.
 
         Notes
         -----
 
         Leading and trailing non-zero unicode code points with values lower than equal
-        `ON_wString::Space` are ignored.
+        ``ON_wString::Space`` are ignored.
 
-        If `name` is the empty string, the `name_is_state` state will still be `True`.
+        If ``name`` is the empty string, the ``name_is_state`` state will still be
+        ``True``.
         """
         ...
 
@@ -169,7 +170,7 @@ class Layer(ModelComponent):
 
 
 class LayerTable:
-    """Helper class that manages all the `Layer`s (`ON_Layer`s) added to the model.
+    """Helper class that manages all the `Layer`s (``ON_Layer``s) added to the model.
     """
     def __getitem__(self, index: int) -> Layer:...
 
@@ -178,32 +179,32 @@ class LayerTable:
     def __len__(self) -> int: ...
 
     def add(self, layer: Layer) -> UUID:
-        """Adds the `layer` to the table.
+        """Adds the ``layer`` to the table.
 
         Returns
         -------
         layer_uuid: UUID
-            If the `layer` has been successfully added, `ON_nil_uuid` otherwise.
+            If the ``layer`` has been successfully added, ``ON_nil_uuid`` otherwise.
         """
         ...
 
     def count(self) -> int:
         """Returns the number of active model components of type
-        `ON_ModelComponent::Type::Layer` in this table.
+        ``ON_ModelComponent::Type::Layer`` in this table.
 
         Notes
         -----
-        The `count()` does not include system components.
+        The ``count()`` does not include system components.
         """
         ...
 
     def delete_by_name(self, layer_name: str) -> bool:
-        """Deletes the `Layer` given its full name, e.g., `Layer 01::Nested layer 02`.
+        """Deletes the `Layer` given its full name, e.g., ``Layer 01::Nested layer 02``.
 
         Returns
         -------
         success: bool
-            `True` if successfull, `False` otherwise.
+            ``True`` if successfull, ``False`` otherwise.
         """
         ...
 
@@ -225,7 +226,7 @@ class LayerTable:
 
 
 class Line:
-    """Python bindings for the openNURBS `ON_Line` class.
+    """Python bindings for the openNURBS ``ON_Line`` class.
     """
     def __eq__(self, other: object) -> bool: ...
 
@@ -246,26 +247,26 @@ class Line:
 
         Parameters
         ----------
-        start: `Point3d`
+        start: ``Point3d``
             Point at the start of line segment
 
-        end: `Point3d`
+        end: ``Point3d``
             Point at end of line segment
 
         Returns
         -------
-        `True` if `start` and `end` are distinct points.
+        ``True`` if ``start`` and ``end`` are distinct points.
         """
         ...
 
     def distance_to(self, test_point: Point3d) -> float:
         """Returns the distance from the point on the line that is closest to the
-        `test_point`.
+        ``test_point``.
         """
         ...
 
     def is_valid(self) -> bool:
-        """Returns `True` if start `!=` end and both start and end are valid points.
+        """Returns ``True`` if start ``!=`` end and both start and end are valid points.
         """
         ...
 
@@ -276,13 +277,13 @@ class Line:
 
     def point_at(self, parameter: float) -> Point3d:
         """Returns a point on the (infinite) line, calculated as:
-        `(1 - parameter) * line.start + parameter * line.end`.
+        ``(1 - parameter) * line.start + parameter * line.end``.
         """
         ...
 
 
 class LineCurve(Geometry):
-    """Python bindings for the openNURBS `ON_LineCurve` class.
+    """Python bindings for the openNURBS ``ON_LineCurve`` class.
     """
     line: Line
 
@@ -296,17 +297,18 @@ class LineCurve(Geometry):
     def __init__(self, start: Point3d, end: Point3d) -> None: ...
 
     def dimension(self) -> int:
-        """Returns `2` or `3` (`2` so `ON_LineCurve` can be uses as a trimming curve).
+        """Returns ``2`` or ``3`` (``2`` so ``ON_LineCurve`` can be uses as a trimming
+        curve).
         """
         ...
 
     def is_valid(self, text_log: TextLog | None = None) -> bool:
-        """Returns `True` if start `!=` end and both start and end are valid points.
+        """Returns ``True`` if start ``!=`` end and both start and end are valid points.
         """
         ...
 
     def reverse(self) -> bool:
-        """Reverses the parameterization. Domain changes from `[a, b]` to `[-b, -a]`.
+        """Reverses the parameterization. Domain changes from ``[a, b]`` to ``[-b, -a]``.
         """
         ...
 
@@ -320,7 +322,7 @@ class LineCurve(Geometry):
 
         Returns
         -------
-        `True` if successful, `False` otherwise.
+        ``True`` if successful, ``False`` otherwise.
 
         Notes
         -----
@@ -338,7 +340,7 @@ class LineCurve(Geometry):
 
         Returns
         -------
-        `True` if successful, `False` otherwise.
+        ``True`` if successful, ``False`` otherwise.
 
         Notes
         -----
@@ -351,15 +353,15 @@ class LineCurve(Geometry):
 
         Returns
         -------
-        `True` if successful, `False` otherwise.
+        ``True`` if successful, ``False`` otherwise.
         """
         ...
 
 
 class Model:
-    """Python bindings for the openNURBS `ONX_Model` class, via helper class `Model`.
+    """Python bindings for the openNURBS ``ONX_Model`` class, via helper class ``Model``.
 
-    `ONX_Model`: pedagogical example of all the things in an OpenNURBS 3dm archive. The
+    ``ONX_Model``: pedagogical example of all the things in an OpenNURBS 3dm archive. The
     openNURBS examples use ONX_Model to store the information read from 3dm archives.
     """
     def __init__(self) -> None: ...
@@ -369,8 +371,8 @@ class Model:
 
         Notes
         -----
-        If the current revision is set to `0`, `ON_3dmRevisionHistory` is set to empty,
-        overriding the current settings. Refer to `../tests/test_model.py` to
+        If the current revision is set to ``0``, ``ON_3dmRevisionHistory`` is set to
+        empty, overriding the current settings. Refer to ``../tests/test_model.py`` to
         understand the proper setup order.
         """
         ...
@@ -380,13 +382,13 @@ class Model:
 
         Parameters
         ----------
-        path_to_file: `str`
+        path_to_file: ``str``
             Path to 3dm file, including file name and extension.
 
         Returns
         -------
         bool
-            `True` if the archive is read without errors, `False` otherwise.
+            ``True`` if the archive is read without errors, ``False`` otherwise.
         """
         ...
 
@@ -400,16 +402,16 @@ class Model:
 
         Parameters
         ----------
-        path_to_file: `str`
+        path_to_file: ``str``
             Path to 3dm file, including file name and extension.
 
-        version: `int`, optional default to `7`
+        version: ``int``, optional default to ``7``
             Rhinoceros major varsion.
 
         Returns
         -------
         bool
-            `True` if the archive is written without errors, `False` otherwise.
+            ``True`` if the archive is written without errors, ``False`` otherwise.
         """
         ...
 
@@ -452,9 +454,9 @@ class Model:
 
 
 class ModelComponent(OpenNURBSObject):
-    """Python bindings for the openNURBS `ON_ModelComponent` class.
+    """Python bindings for the openNURBS ``ON_ModelComponent`` class.
 
-    `ON_ModelComponent`: base class for all components in a model and manages the index,
+    ``ON_ModelComponent``: base class for all components in a model and manages the index,
     uuid and other information common to all components in a model.
     """
     def __init__(self) -> None: ...
@@ -467,9 +469,9 @@ class ModelComponent(OpenNURBSObject):
         -----
         If the component is in a model, then the index is unique for all components of
         identical type in the model and is locked. If the index has not been set,
-        `ON_UNSET_INT_INDEX` is returned. The `get_index()` value can change when saved in
-        an archive (.3dm file). Use the `get_uuid()` when you need to reference model
-        components in an archive.
+        ``ON_UNSET_INT_INDEX`` is returned. The ``get_index()`` value can change when
+        saved in an archive (.3dm file). Use the `get_uuid()` when you need to reference
+        model components in an archive.
         """
         ...
 
@@ -480,26 +482,26 @@ class ModelComponent(OpenNURBSObject):
         Parameters
         ----------
         index: int
-            Value to return if the index has not been set. `ON_UNSET_INT_INDEX` or indices
-            of default components are often used for this parameter.
+            Value to return if the index has not been set. ``ON_UNSET_INT_INDEX`` or
+            indices of default components are often used for this parameter.
 
         Notes
         -----
         If the component is in a model, then the index is unique for all components of
         identical type in the model and is locked. If the index has not been set,
-        `ON_UNSET_INT_INDEX` is returned. The `get_index()` value can change when saved in
-        an archive (.3dm file). Use the `get_uuid()` when you need to reference model
-        components in an archive.
+        ``ON_UNSET_INT_INDEX`` is returned. The ``get_index()`` value can change when
+        saved in an archive (.3dm file). Use the `get_uuid()` when you need to reference
+        model components in an archive.
         """
         ...
 
     def get_uuid(self) -> UUID:
-        """Value of the `ON_UUID` attribute.
+        """Value of the ``ON_UUID`` attribute.
 
         Notes
         -----
-        If the component is in a model, then the `ON_UUID` is unique for all components in
-        the model and is locked.
+        If the component is in a model, then the ``ON_UUID`` is unique for all components
+        in the model and is locked.
         """
         ...
 
@@ -514,21 +516,21 @@ class ModelComponent(OpenNURBSObject):
         Returns
         -------
         value: bool
-            `True` if the `ON_UUID` value was changed to `new_uuid` or is already equal to
-            component_id. `False` if the `ON_UUID` value is locked and
-            `new_uuid != locked value`.
+            ``True`` if the ``ON_UUID`` value was changed to ``new_uuid`` or is already
+            equal to component_id. ``False`` if the ``ON_UUID`` value is locked and
+            ``new_uuid != locked value``.
         """
         ...
 
     @overload
     def set_uuid(self) -> UUID:
-        """Sets the id to a new value created by `ON_CreateUuid()`.
+        """Sets the id to a new value created by ``ON_CreateUuid()``.
 
         Returns
         -------
         value: UUID
-            `ON_nil_uuid` if the `ON_UUID` was locked, otherwise the value of the new
-            `ON_UUID`.
+            ``ON_nil_uuid`` if the ``ON_UUID`` was locked, otherwise the value of the new
+            ``ON_UUID``.
         """
         ...
 
@@ -538,12 +540,12 @@ class ModelComponent(OpenNURBSObject):
 
 
 class ObjectAttributes(OpenNURBSObject):
-    """Python bindings for the openNURBS `ON_3dmObjectAttributes` class.
+    """Python bindings for the openNURBS ``ON_3dmObjectAttributes`` class.
 
-    `ON_3dmObjectAttributes`: Top level OpenNURBS objects have geometry and attributes.
-    The geometry is stored in some class derived from `ON_Geometry` and the attributes are
-    stored in an `ON_3dmObjectAttributes` class. Examples of attributes are object name,
-    object id, display attributes, group membership, layer membership, and so on.
+    ``ON_3dmObjectAttributes``: Top level OpenNURBS objects have geometry and attributes.
+    The geometry is stored in some class derived from ``ON_Geometry`` and the attributes
+    are stored in an ``ON_3dmObjectAttributes`` class. Examples of attributes are object
+    name, object id, display attributes, group membership, layer membership, and so on.
     """
     color: tuple[int, int, int, int]
 
@@ -587,9 +589,9 @@ class ObjectAttributes(OpenNURBSObject):
         ...
 
     def get_name(self) -> str:
-        """From `ON_3dmObjectAttributes`:
+        """From ``ON_3dmObjectAttributes``:
 
-        The `m_name member` is public to avoid breaking the SDK. Use `set_name` and
+        The ``m_name member`` is public to avoid breaking the SDK. Use `set_name` and
         `get_name` for proper validation. OpenNURBS object have optional text names. More
         than one object in a model can have the same name and some objects may have no
         name.
@@ -597,9 +599,9 @@ class ObjectAttributes(OpenNURBSObject):
         ...
 
     def set_name(self, name: str, fix_invalid_name: bool = False) -> bool:
-        """From `ON_3dmObjectAttributes`:
+        """From ``ON_3dmObjectAttributes``:
 
-        The `m_name member` is public to avoid breaking the SDK. Use `set_name` and
+        The ``m_name member`` is public to avoid breaking the SDK. Use `set_name` and
         `get_name` for proper validation. OpenNURBS object have optional text names. More
         than one object in a model can have the same name and some objects may have no
         name.
@@ -608,7 +610,7 @@ class ObjectAttributes(OpenNURBSObject):
 
 
 class ObjectColorSource(Enum):
-    """Python bindings for the openNURBS `object_color_source` enumerator.
+    """Python bindings for the openNURBS ``object_color_source`` enumerator.
     """
     from_layer = 0
     from_object = 1
@@ -617,7 +619,7 @@ class ObjectColorSource(Enum):
 
 
 class ObjectMode(Enum):
-    """Python bindings for the openNURBS `object_mode` enumerator.
+    """Python bindings for the openNURBS ``object_mode`` enumerator.
     """
     normal = 0
     hidden = 1
@@ -635,74 +637,74 @@ class ObjectTable:
 
     @overload
     def add_line(self, start: Point3d, end: Point3d, obj_attr: ObjectAttributes | None = None) -> UUID:
-        """Returns the `UUID` of the line in case of successful addition, or an empty
-        `UUID` otherwise. If the line is in the model, then the `UUID` is unique for all
-        components in the model and is locked.
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
         """
         ...
 
     @overload
     def add_line(self, line: Line, obj_attr: ObjectAttributes | None = None) -> UUID:
-        """Returns the `UUID` of the line in case of successful addition, or an empty
-        `UUID` otherwise. If the line is in the model, then the `UUID` is unique for all
-        components in the model and is locked.
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
         """
         ...
 
     @overload
     def add_line(self, line: LineCurve, obj_attr: ObjectAttributes | None = None) -> UUID:
-        """Returns the `UUID` of the line in case of successful addition, or an empty
-        `UUID` otherwise. If the line is in the model, then the `UUID` is unique for all
-        components in the model and is locked.
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
         """
         ...
 
     @overload
     def add_point(self, x: float, y: float, z: float, obj_attr: ObjectAttributes | None = None) -> UUID:
-        """Returns the `UUID` of the point in case of successful addition, or an empty
-        `UUID` otherwise. If the point is in the model, then the `UUID` is unique for all
-        components in the model and is locked.
+        """Returns the ``UUID`` of the point in case of successful addition, or an empty
+        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
         """
         ...
 
     @overload
     def add_point(self, point: Point3d, obj_attr: ObjectAttributes | None = None) -> UUID:
-        """Returns the `UUID` of the point in case of successful addition, or an empty
-        `UUID` otherwise. If the point is in the model, then the `UUID` is unique for all
-        components in the model and is locked.
+        """Returns the ``UUID`` of the point in case of successful addition, or an empty
+        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
         """
         ...
 
     @overload
     def add_point(self, point: PointGeometry, obj_attr: ObjectAttributes | None = None) -> UUID:
-        """Returns the `UUID` of the point in case of successful addition, or an empty
-        `UUID` otherwise. If the point is in the model, then the `UUID` is unique for all
-        components in the model and is locked.
+        """Returns the ``UUID`` of the point in case of successful addition, or an empty
+        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
         """
         ...
 
     def count(self) -> int:
         """Returns the number of active model components of type
-        `ON_ModelComponent::Type::ModelGeometry` in this table.
+        ``ON_ModelComponent::Type::ModelGeometry`` in this table.
 
         Notes
         -----
-        The `count()` does not include deleted components (for which `is_deleted() =
-        True`) and does not include system components.
+        The ``count()`` does not include deleted components (for which ``is_deleted() =
+        True``) and does not include system components.
         """
         ...
 
     def delete_by_uuid(self, object_uuid: UUID) -> bool:
-        """Returns `True` if the object with the given `object_uuid` has been removed from
-        the table.
+        """Returns ``True`` if the object with the given ``object_uuid`` has been removed
+        from the table.
         """
         ...
 
 
 class OpenNURBSObject:
-    """Python bindings for the openNURBS `ON_Object` class.
+    """Python bindings for the openNURBS ``ON_Object`` class.
 
-    `ON_Object`: pure virtual base class for all classes that must provide runtime class
+    ``ON_Object``: pure virtual base class for all classes that must provide runtime class
     id or support object level 3DM serialization. Returns
     """
     def get_user_string(self, key: str) -> str:
@@ -710,14 +712,14 @@ class OpenNURBSObject:
 
         Parameters
         ----------
-        key: `str`
+        key: ``str``
             the key used to retrieve the user string.
 
         Returns
         -------
-        value: `str`
-            the `str` to be returned if the `key` has been found. Empty `str` is returned
-            otherwise.
+        value: ``str``
+            the ``str`` to be returned if the ``key`` has been found. Empty ``str`` is
+            returned otherwise.
         """
         ...
 
@@ -726,21 +728,21 @@ class OpenNURBSObject:
 
         Parameters
         ----------
-        repair: `bool`
-            If `True`, `const_cast<>` will be used to change the corrupt data so that
+        repair: ``bool``
+            If ``True``, ``const_cast<>`` will be used to change the corrupt data so that
             crashes are less likely.
 
-        silent_error: `bool`
-            If `True`, ON_ERROR will not be called when corruption is detected.
+        silent_error: ``bool``
+            If ``True``, ON_ERROR will not be called when corruption is detected.
 
-        text_log: `TextLog`
+        text_log: ``TextLog``
             If text_log is not null, then a description of corruption is printed using
             text_log.
 
         Notes
         -----
-        Ideally, `is_corrupt` would be a virtual function on `ON_Object`, but doing that
-        at this point would break the public SDK.
+        Ideally, ``is_corrupt`` would be a virtual function on ``ON_Object``, but doing
+        that at this point would break the public SDK.
         """
         ...
 
@@ -750,49 +752,50 @@ class OpenNURBSObject:
         Parameters
         ----------
         text_log: `TextLog`, optional
-            If the object is not valid and `text_log` is not `None`, then a brief english
-            description of the reason the object is not valid is appended to the log.
-            The information appended to `text_log` is suitable for low-level debugging
-            purposes by programmers and is not intended to be useful as a high level user
-            interface tool.
+            If the object is not valid and ``text_log`` is not ``None``, then a brief
+            english description of the reason the object is not valid is appended to the
+            log. The information appended to ``text_log`` is suitable for low-level
+            debugging purposes by programmers and is not intended to be useful as a high
+            level user interface tool.
 
         Returns
         -------
-        `True` if the object is valid or `False` if the object is invalid, uninitialized,
-        etc.
+        ``True`` if the object is valid or ``False`` if the object is invalid,
+        uninitialized, etc.
         """
         ...
 
     def remove_user_string(self, key: str) -> bool:
-        """Remove a user string in the form of a `key`-`value` string pair from the
+        """Remove a user string in the form of a ``key``-``value`` string pair from the
         object.
 
         Parameters
         ----------
-        key: `str`
+        key: ``str``
             key component of the string pair.
 
         Returns
         -------
-        `True` if successful.
+        ``True`` if successful.
         """
         ...
 
     def set_user_string(self, key: str, value: str) -> bool:
-        """Attach a user string in the form of a `key`-`value` string pair to the object.
-        This information will persist through copy construction, operator `=`, and file IO.
+        """Attach a user string in the form of a ``key``-``value`` string pair to the
+        object. This information will persist through copy construction, operator ``=``,
+        and file IO.
 
         Parameters
         ----------
-        key: `str`
+        key: ``str``
             key component of the string pair.
 
-        value: `str`
+        value: ``str``
             value component of the string pair.
 
         Returns
         -------
-        `True` if successful.
+        ``True`` if successful.
         """
         ...
 
@@ -803,7 +806,7 @@ class OpenNURBSObject:
 
 
 class PlotColorSource(Enum):
-    """Python bindings for the openNURBS `plot_color_source` enumerator.
+    """Python bindings for the openNURBS ``plot_color_source`` enumerator.
     """
     from_layer = 0
     from_object = 1
@@ -812,7 +815,7 @@ class PlotColorSource(Enum):
 
 
 class PointGeometry(Geometry):
-    """Python wrapper for the openNURBS `ON_Point` class.
+    """Python wrapper for the openNURBS ``ON_Point`` class.
     """
     point: Point3d
 
@@ -826,13 +829,13 @@ class PointGeometry(Geometry):
     def __init__(self, point3d: Point3d) -> None: ...
 
     def is_valid(self, text_log: TextLog | None = None) -> bool:
-        """Returns `False` if any coordinate is infinite, a nan, or `ON_UNSET_VALUE`.
+        """Returns ``False`` if any coordinate is infinite, a nan, or ``ON_UNSET_VALUE``.
         """
         ...
 
 
 class Point3d:
-    """Python wrapper for the openNURBS `ON_3dPoint` class.
+    """Python wrapper for the openNURBS ``ON_3dPoint`` class.
     """
     def __add__(self, other: Point3d) -> Point3d: ...
 
@@ -867,19 +870,19 @@ class Point3d:
         ...
 
     def is_coincident(self, point: Point3d) -> bool:
-        """In openNURBS points within `ON_ZERO_TOLERANCE` are generally considered to be
+        """In openNURBS points within ``ON_ZERO_TOLERANCE`` are generally considered to be
         the same.
 
         Returns
         -------
-        `True` if for each coordinate pair `|a - b| <= ON_ZERO_TOLERANCE` or
-        `|a - b| <= (abs(a) + abs(b)) * ON_RELATIVE_TOLERANCE`.
+        ``True`` if for each coordinate pair ``|a - b| <= ON_ZERO_TOLERANCE`` or
+        ``|a - b| <= (abs(a) + abs(b)) * ON_RELATIVE_TOLERANCE``.
         """
         ...
 
 
 class TextLog:
-    """Python bindings for openNURBS `ON_TextLog` class.
+    """Python bindings for openNURBS ``ON_TextLog`` class.
     """
     def __init__(self) -> None: ...
 
@@ -914,7 +917,7 @@ class TextLog:
         ...
 
     def is_null(self) -> bool:
-        """Returns `True` if this `TextLog` is `ON_TextLog::Null`.
+        """Returns ``True`` if this `TextLog` is ``ON_TextLog::Null``.
         """
         ...
 
@@ -925,15 +928,15 @@ class TextLog:
 
     @staticmethod
     def null() -> TextLog:
-        """`ON_TextLog::Null` is a silent `TextLog` and can be used when no output is
-        desired but an `ON_TextLog` parameter is required.
+        """``ON_TextLog::Null`` is a silent `TextLog` and can be used when no output is
+        desired but an ``ON_TextLog`` parameter is required.
         """
         ...
 
     class LevelOfDetail(Enum):
-        """`ON_TextLog::LevelOfDetail` determines how much detail is printed. Functions
-        that have an `ON_TextLog` parameter, like the `dump` functions, may use the level
-        of detail to tailor their output.
+        """``ON_TextLog::LevelOfDetail`` determines how much detail is printed. Functions
+        that have an ``ON_TextLog`` parameter, like the ``dump`` functions, may use the
+        level of detail to tailor their output.
         """
         Minimum = 0
 
