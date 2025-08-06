@@ -177,13 +177,13 @@ class LayerTable:
 
     def __len__(self) -> int: ...
 
-    def add(self, layer: Layer) -> int:
+    def add(self, layer: Layer) -> UUID:
         """Adds the `layer` to the table.
 
         Returns
         -------
-        layer_index: int
-            If the `layer` has been successfully added, `ON_UNSET_INT_INDEX` otherwise.
+        layer_uuid: UUID
+            If the `layer` has been successfully added, `ON_nil_uuid` otherwise.
         """
         ...
 
