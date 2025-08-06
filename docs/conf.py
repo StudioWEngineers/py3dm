@@ -285,3 +285,4 @@ extensions = [
 autoapi_dirs = ['../py3dm']
 autoapi_type = 'python'
 autoapi_ignore = ['**/__init__.py']
+autoapi_keep_files = True
