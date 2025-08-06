@@ -279,7 +279,9 @@ latex_use_latex_multicolumn = True
 #primary_domain = "python"
 highlight_language = "python"
 
-extensions = ['autoapi.extension']
+extensions = [
+    'autoapi.extension',
+    "sphinx.ext.intersphinx"]
 autoapi_dirs = ['../py3dm']
 autoapi_type = 'python'
 autoapi_ignore = ['**/__init__.py']
