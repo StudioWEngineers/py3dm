@@ -29,8 +29,8 @@ class LayerTableTestSuite(TestCase):
         layer2 = Layer()
         layer2.set_name("layer 2")
 
-        model.LayerTable.add(layer1)
-        model.LayerTable.add(layer2)
+        layer_1_uuid = model.LayerTable.add(layer1)
+        layer_2_uuid = model.LayerTable.add(layer2)
 
         with self.subTest(msg="Number of layers with using Count"):
             self.assertEqual(model.LayerTable.count(), 2)
@@ -39,10 +39,16 @@ class LayerTableTestSuite(TestCase):
             self.assertEqual(len(model.LayerTable), 2)
 
         with self.subTest(msg="Name of 1st layer"):
-            self.assertEqual(model.LayerTable.get_by_index(0).get_name(), "Layer A")
+            self.assertEqual(
+                model.LayerTable.get_by_uuid(layer_1_uuid).get_name(),
+                "Layer A"
+            )
 
         with self.subTest(msg="Name of 2nd layer"):
-            self.assertEqual(model.LayerTable.get_by_index(1).get_name(), "layer 2")
+            self.assertEqual(
+                model.LayerTable.get_by_uuid(layer_2_uuid).get_name(),
+                "layer 2"
+            )
 
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(model.LayerTable.get_by_index(0).color, (255, 0, 255, 255))
@@ -90,10 +96,8 @@ class LayerTableTestSuite(TestCase):
         layer_2 = Layer()
         layer_1.set_name("New layer 1")
         layer_2.set_name("New layer 2")
-        model.LayerTable.add(layer_1)
+        layer_1_uuid = model.LayerTable.add(layer_1)
         model.LayerTable.add(layer_2)
-
-        layer_1_uuid = model.LayerTable.get_layer_uuid("New layer 1")
 
         with self.subTest("Successfull delete"):
             self.assertTrue(model.LayerTable.delete_by_uuid(layer_1_uuid))
@@ -133,11 +137,11 @@ class LayerTableTestSuite(TestCase):
         layer_2 = Layer()
         layer_2.set_name("layer 2")
 
-        index_layer_1 = model.LayerTable.add(layer_1)
-        index_layer_2 = model.LayerTable.add(layer_2)
+        model.LayerTable.add(layer_1)
+        model.LayerTable.add(layer_2)
 
-        layer_1 = model.LayerTable.get_by_index(index_layer_1)
-        layer_2 = model.LayerTable.get_by_index(index_layer_2)
+        layer_1 = model.LayerTable.get_by_index(0)
+        layer_2 = model.LayerTable.get_by_index(1)
 
         with self.subTest(msg="Retrieving not existing layer"):
             self.assertIsNone(model.LayerTable.get_by_index(3))
@@ -187,48 +191,45 @@ class LayerTableTestSuite(TestCase):
         layer_2 = Layer()
         layer_2.set_name("layer 2")
 
-        model.LayerTable.add(layer_1)
-        model.LayerTable.add(layer_2)
+        layer_1_uuid = model.LayerTable.add(layer_1)
+        layer_2_uuid = model.LayerTable.add(layer_2)
 
-        layer_1 = model.LayerTable.get_by_uuid(model.LayerTable.get_layer_uuid("Layer A"))
-        layer_2 = model.LayerTable.get_by_uuid(model.LayerTable.get_layer_uuid("layer 2"))
+        retrieved_layer_1 = model.LayerTable.get_by_uuid(layer_1_uuid)
+        retrieved_layer_2 = model.LayerTable.get_by_uuid(layer_2_uuid)
 
         with self.subTest(msg="Retrieving not existing layer"):
             self.assertIsNone(model.LayerTable.get_by_uuid(UUID(int=0)))
 
         with self.subTest(msg="Name of 2nd layer"):
-            self.assertEqual(layer_2.get_name(), "layer 2")
+            self.assertEqual(retrieved_layer_2.get_name(), "layer 2")
 
         with self.subTest(msg="Color of 1st layer"):
-            self.assertEqual(layer_1.color, (255, 0, 255, 255))
+            self.assertEqual(retrieved_layer_1.color, (255, 0, 255, 255))
 
     def test_get_layer_index(self) -> None:
         """Tests for the `get_layer_index` method.
         """
         model = Model()
 
-        layer_0_index = model.LayerTable.add(Layer())
-        layer_1_index = model.LayerTable.add(Layer())
+        model.LayerTable.add(Layer())
+        model.LayerTable.add(Layer())
 
         with self.subTest(msg="Retrieving index of not existing layer"):
             self.assertEqual(model.LayerTable.get_layer_index(""), -2147483647)
 
         with self.subTest(msg="Index of 1st layer"):
-            self.assertEqual(model.LayerTable.get_layer_index("Layer 01"), layer_0_index)
+            self.assertEqual(model.LayerTable.get_layer_index("Layer 01"), 0)
 
         with self.subTest(msg="Index of 2nd layer"):
-            self.assertEqual(model.LayerTable.get_layer_index("Layer 02"), layer_1_index)
+            self.assertEqual(model.LayerTable.get_layer_index("Layer 02"), 1)
 
     def test_get_layer_uuid(self) -> None:
         """Tests for the `get_layer_uuid` method.
         """
         model = Model()
 
-        model.LayerTable.add(Layer())
-        model.LayerTable.add(Layer())
-
-        layer_1_uuid = model.LayerTable.get_layer_uuid("Layer 01")
-        layer_2_uuid = model.LayerTable.get_layer_uuid("Layer 02")
+        layer_1_uuid = model.LayerTable.add(Layer())
+        layer_2_uuid = model.LayerTable.add(Layer())
 
         with self.subTest(msg="Retrieving uuid of not existing layer"):
             self.assertEqual(model.LayerTable.get_layer_uuid("Not existing"), UUID(int=0))

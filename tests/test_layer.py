@@ -260,8 +260,8 @@ class ExistingLayerModificationTestSuite(TestCase):
     """
     def setUp(self) -> None:
         self.model = Model()
-        layer_index = self.model.LayerTable.add(Layer())
-        self.layer = self.model.LayerTable.get_by_index(layer_index)
+        layer_uuid = self.model.LayerTable.add(Layer())
+        self.layer = self.model.LayerTable.get_by_uuid(layer_uuid)
 
     def test_get_and_set_color(self) -> None:
         """Tests for the `color` property.
