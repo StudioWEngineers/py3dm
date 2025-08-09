@@ -136,7 +136,7 @@ bool LayerTable::Has(ON_wString full_name) {
         ON_UUID parent_uuid = layer->ParentId();
         while (ON_UuidIsNotNil(parent_uuid)) {
             ON_ModelComponentReference comp_ref = m_model->LayerFromId(parent_uuid);
-            ON_Layer* layer = const_cast<ON_Layer*>(ON_Layer::Cast(comp_ref.ModelComponent()));
+            const ON_Layer* layer = ON_Layer::Cast(comp_ref.ModelComponent());
             if (layer == nullptr) {
                 break;
             }
