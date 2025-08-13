@@ -156,7 +156,7 @@ jobs:
         os: ['windows-latest']
         python: ['3.12', '3.13', '3.14-dev']
 
-    name: "Python ${{ matrix.python }} / ${{ matrix.os }} / Clang 18"
+    name: "Python ${{ matrix.python }} / ${{ matrix.os }} / Clang 20"
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -173,8 +173,6 @@ jobs:
 
       - name: install LLVM/Clang
         uses: egor-tensin/setup-clang@v1
-        with:
-          version: 18
 
       - name: install dependencies
         run: python -m pip install --upgrade pip setuptools wheel build scikit-build-core
