@@ -145,3 +145,63 @@ jobs:
           cd tests
           python -m unittest discover --verbose
         shell: bash
+
+  cpython_build_and_test_clang_on_windows:
+    needs: [check_relevant_changes]
+    if: needs.check_relevant_changes.outputs.any_changed == 'true'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['windows-latest']
+        python: ['3.12', '3.13', '3.14-dev']
+
+    name: "Python ${{ matrix.python }} / ${{ matrix.os }} / Clang 18"
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: set up python ${{ matrix.python }}
+        uses: actions/setup-python@v5.4.0
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: install the latest CMake
+        uses: lukka/get-cmake@latest
+
+      - name: install Ninja
+        run: choco install ninja
+
+      - name: install LLVM/Clang
+        uses: egor-tensin/setup-clang@v1
+        with:
+          version: 18
+
+      - name: set Clang as default compiler
+        run: |
+          echo "CC=clang" >> $GITHUB_ENV
+          echo "CXX=clang++" >> $GITHUB_ENV
+          echo "SKBUILD_CMAKE_ARGS=-G Ninja" >> $GITHUB_ENV
+
+      - name: install dependencies
+        run: python -m pip install --upgrade pip setuptools wheel build scikit-build-core
+
+      - name: checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: update submodules
+        run: git submodule update --init --recursive
+
+      - name: build ${{ matrix.python }} ${{ matrix.os }}
+        run: python -m build
+
+      - name: install package
+        run: |
+          cd dist
+          python -m pip install *.whl
+        shell: bash
+
+      - name: test ${{ matrix.python }} ${{ matrix.os }}
+        run: |
+          cd tests
+          python -m unittest discover --verbose
+        shell: bash
