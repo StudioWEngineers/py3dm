@@ -188,7 +188,11 @@ jobs:
       - name: build ${{ matrix.python }} ${{ matrix.os }}
         run: python -m build
         env:
-          SKBUILD_CMAKE_ARGS: -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+          SKBUILD_CMAKE_ARGS: >
+            -G
+            Ninja
+            -DCMAKE_C_COMPILER=clang
+            -DCMAKE_CXX_COMPILER=clang++
 
       - name: install package
         run: |
