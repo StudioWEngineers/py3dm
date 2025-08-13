@@ -180,6 +180,8 @@ jobs:
         run: |
           echo "CC=clang" >> $GITHUB_ENV
           echo "CXX=clang++" >> $GITHUB_ENV
+          echo "CMAKE_C_COMPILER=clang" >> $GITHUB_ENV
+          echo "CMAKE_CXX_COMPILER=clang++" >> $GITHUB_ENV
           echo "SKBUILD_CMAKE_ARGS=-G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++" >> $GITHUB_ENV
 
       - name: install dependencies
