@@ -52,7 +52,6 @@ Please use the following BibTeX template to cite *py3dm* in scientific discourse
 .. only:: html
 
     .. toctree::
-        :maxdepth: 2
-        :caption: API Reference
+        :maxdepth: 1
 
         autoapi/index
