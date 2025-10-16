@@ -1,11 +1,10 @@
-Introduction
-============
+py3dm documentation
+===================
 
 Welcome to py3dm v|release| documentation!
 
-*py3dm* is a small binding library that exposes openNURBS classes to Python. It is
-reminiscent of `rhino3dm <https://github.com/mcneel/rhino3dm>`__ and uses very similar
-syntax.
+*py3dm* is a small binding library that exposes openNURBS classes to Python.
+It is reminiscent of `rhino3dm <https://github.com/mcneel/rhino3dm>`__ and uses very similar syntax.
 
 .. only:: not latex
 
@@ -13,33 +12,23 @@ syntax.
     ---------------------
 
     You are reading the HTML version of the documentation. An alternative
-    `PDF version <https://py3dm.readthedocs.io/_/downloads/en/latest/pdf/>`__ is
-    also available.
-
-    Dependencies
-    ------------
+    `PDF version <https://py3dm.readthedocs.io/_/downloads/en/latest/pdf/>`__ is also available.
 
 .. only:: latex
 
     .. rubric:: Dependencies
 
-*py3dm* depends on
+*py3dm* depends on:
 
-- `nanobind <https://github.com/wjakob/nanobind>`__.
-- `openNURBS <https://github.com/mcneel/opennurbs>`__.
-- `google draco <https://github.com/google/draco>`__.
-
-.. only:: not latex
-
-    How to cite this project?
-    -------------------------
+- `nanobind <https://github.com/wjakob/nanobind>`__
+- `openNURBS <https://github.com/mcneel/opennurbs>`__
+- `Google Draco <https://github.com/google/draco>`__
 
 .. only:: latex
 
     .. rubric:: How to cite this project?
 
-Please use the following BibTeX template to cite *py3dm* in scientific
-discourse:
+Please use the following BibTeX template to cite *py3dm* in scientific discourse:
 
 .. code-block:: bibtex
 
@@ -50,14 +39,20 @@ discourse:
         title = {py3dm: Python bindings for openNURBS using nanobind}
     }
 
-.. only:: not latex
-
     Table of contents
     -----------------
 
-    .. toctree::
-        :maxdepth: 1
+.. toctree::
+    :maxdepth: 1
 
-        changelog
-        why
-        faq
+    changelog
+    why
+    faq
+
+.. only:: html
+
+    .. toctree::
+        :maxdepth: 2
+        :caption: API Reference
+
+        autoapi/index

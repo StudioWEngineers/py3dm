@@ -3,6 +3,7 @@
 
 import os
 import re
+import sys
 
 # -- General configuration ------------------------------------------------
 
@@ -17,7 +18,10 @@ extensions = [
     "sphinxcontrib.rsvgconverter",
     "sphinxcontrib.moderncmakedomain",
     "sphinx.ext.intersphinx",
+    "autoapi.extension",
+    "sphinx.ext.intersphinx"
 ]
+
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
@@ -166,6 +170,9 @@ html_title = f"{project} v{version} documentation"
 # html_use_index = True
 
 # If true, the index is split into individual pages for each letter.
+if "latex" in sys.argv:
+    html_domain_indices = True
+    latex_domain_indices = False  # Prevents module index in LaTeX
 # html_split_index = False
 
 # If true, links to the reST sources are added to the pages.
@@ -271,17 +278,13 @@ latex_elements = {
 }
 latex_docclass = {'howto': 'book'}
 latex_documents = [
-    ('index', 'py3dm.tex', 'py3dm Documentation', 'StudioWEngineers', 'manual'),
+    (master_doc, 'py3dm.tex', 'py3dm Documentation', 'StudioWEngineers', 'manual'),
 ]
 nitpicky = True
 latex_use_latex_multicolumn = True
 
 #primary_domain = "python"
 highlight_language = "python"
-
-extensions = [
-    'autoapi.extension',
-    "sphinx.ext.intersphinx"]
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
