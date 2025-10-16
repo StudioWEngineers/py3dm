@@ -39,8 +39,8 @@ Please use the following BibTeX template to cite *py3dm* in scientific discourse
         title = {py3dm: Python bindings for openNURBS using nanobind}
     }
 
-    Table of contents
-    -----------------
+Table of contents
+-----------------
 
 .. toctree::
     :maxdepth: 1
