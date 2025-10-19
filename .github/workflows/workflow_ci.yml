@@ -175,7 +175,7 @@ jobs:
         uses: egor-tensin/setup-clang@v1
 
       - name: install dependencies
-        run: python -m pip install --upgrade pip setuptools wheel build scikit-build-core
+        run: python -m pip install --upgrade pip setuptools wheel build scikit-build-core nanobind
 
       - name: checkout
         uses: actions/checkout@v4.1.1
