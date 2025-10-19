@@ -184,13 +184,13 @@ jobs:
         run: git submodule update --init --recursive
 
       - name: build ${{ matrix.python }} ${{ matrix.os }}
-        run: python -m build --no-isolation
-        env:
-          CMAKE_ARGS: -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
-          CMAKE_GENERATOR: Ninja
-          CMAKE_MAKE_PROGRAM: ninja
-          CC: clang
-          CXX: clang++
+        run: |
+          $env:SKBUILD_CMAKE_ARGS = "-G Ninja"
+          $env:SKBUILD_CMAKE_DEFINE = "CMAKE_C_COMPILER=clang;CMAKE_CXX_COMPILER=clang++"
+          $env:CC = "clang"
+          $env:CXX = "clang++"
+          python -m build --no-isolation
+        shell: pwsh
 
       - name: install package
         run: |
