@@ -103,3 +103,26 @@ class ObjectTableTestSuite(TestCase):
 
         with self.subTest(msg="test successfull delete_by_uuid"):
             self.assertEqual(self.table.count(), 0)
+
+    def test_get_by_uuid(self) -> None:
+        """Tests for the `get_by_uuid` method.
+        """
+        obj_uuid = self.table.add_point(0, 1, 0)
+
+        with self.subTest(msg="test successfull get_by_uuid"):
+            returned_point: PointGeometry = self.table.get_by_uuid(obj_uuid)
+            self.assertEqual(returned_point.point, Point3d(0, 1, 0))
+
+        returned_point.point.z = 1.5
+
+        with self.subTest(msg="test successfull get_by_uuid"):
+            self.assertEqual(returned_point.point, Point3d(0, 1, 1.5))
+        print("OK")
+
+
+class ObjectTableIteratorTestSuite(TestCase):
+    """Tests for the `ObjectTable` class, with focus on the iterator.
+    """
+    def setUp(self) -> None:
+        model = Model()
+        self.table = model.ObjectTable

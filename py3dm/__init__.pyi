@@ -700,6 +700,12 @@ class ObjectTable:
         """
         ...
 
+    def get_by_uuid(self, object_uuid: UUID) -> None | PointGeometry | LineCurve:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+        """
+        ...
+
 
 class OpenNURBSObject:
     """Python bindings for the openNURBS ``ON_Object`` class.

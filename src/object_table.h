@@ -29,6 +29,10 @@ public:
     ON_UUID AddPoint(const ON_3dPoint& point, const ON_3dmObjectAttributes* obj_attr) const;
     ON_UUID AddPoint(const ON_Point& point, const ON_3dmObjectAttributes* obj_attr) const;
 
+    /*getters*/
+    const ON_Object* GeometryWrapper(const ON_Geometry* geom);
+    ON_Object* GetbyUUID(const ON_UUID on_uuid);
+
     /*other methods*/
     int Count() const;
     bool DeleteByUUID(ON_UUID on_uuid);

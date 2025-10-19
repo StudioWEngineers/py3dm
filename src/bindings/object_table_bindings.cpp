@@ -42,7 +42,11 @@ void ObjectTableBindings(nb::module_& m) {
                 auto geom = *it;
                 ++it;
 
-                return GeometryObjectWrapper(geom);
+                if (geom != nullptr) {
+                    return GeometryObjectWrapper(geom);
+                }
+
+                return nb::none();
             }
         )
     ;
@@ -51,7 +55,7 @@ void ObjectTableBindings(nb::module_& m) {
         /*magic methods*/
         .def("__iter__", [](ObjectTable& self) {return self.Begin();}, nb::keep_alive<0, 1>())
 
-        /*other methods*/
+        /*add methods*/
         .def(
             "add_line",
             nb::overload_cast<const ON_3dPoint&, const ON_3dPoint&, const ON_3dmObjectAttributes*>(&ObjectTable::AddLine, nb::const_),
@@ -91,7 +95,12 @@ void ObjectTableBindings(nb::module_& m) {
             nb::arg("point"),
             nb::arg("obj_attr") = nullptr
         )
+
+        /*getters*/
+        .def("get_by_uuid", &ObjectTable::GetbyUUID, nb::rv_policy::reference_internal)
+
+        /*other methods*/
         .def("count", &ObjectTable::Count)
         .def("delete_by_uuid", &ObjectTable::DeleteByUUID)
-        ;
+    ;
 }

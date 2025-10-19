@@ -40,7 +40,8 @@ NB_MODULE(_py3dm, m) {
     LayerTableBindings(m);
     LineCurveBindings(m);
     ModelBindings(m);
-    ObjectTableBindings(m);
     PointGeometryBindings(m);
     TextLogBindings(m);
+
+    ObjectTableBindings(m);
 }

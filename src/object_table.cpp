@@ -45,6 +45,29 @@ ON_UUID ObjectTable::AddPoint(const ON_Point& point, const ON_3dmObjectAttribute
     return ObjectTable::AddPoint(point.point, obj_attr);
 }
 
+/*getters*/
+const ON_Object* ObjectTable::GeometryWrapper(const ON_Geometry* geom) {
+    if (const ON_Point* pt = dynamic_cast<const ON_Point*>(geom)) {
+        return pt;
+    }
+
+    if (const ON_Curve* crv = dynamic_cast<const ON_Curve*>(geom)) {
+        if (const ON_LineCurve* lc = dynamic_cast<const ON_LineCurve*>(geom)) {
+            return lc;
+        }
+        return crv;
+    }
+
+    return nullptr;
+}
+
+ON_Object* ObjectTable::GetbyUUID(const ON_UUID on_uuid) {
+    const ON_ModelComponent* mc = m_model->ComponentFromId(ON_ModelComponent::Type::ModelGeometry, on_uuid).ModelComponent();
+    const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
+
+    return const_cast<ON_Object*>(GeometryWrapper(mgc->Geometry(nullptr)));
+}
+
 /*other methods*/
 int ObjectTable::Count() const {
     return m_model->Manifest().ActiveComponentCount(ON_ModelComponent::Type::ModelGeometry);
