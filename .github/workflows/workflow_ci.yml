@@ -184,7 +184,7 @@ jobs:
         run: git submodule update --init --recursive
 
       - name: build ${{ matrix.python }} ${{ matrix.os }}
-        run: python -m build
+        run: python -m build --no-isolation
         env:
           CMAKE_ARGS: -G Ninja -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
           CMAKE_GENERATOR: Ninja
