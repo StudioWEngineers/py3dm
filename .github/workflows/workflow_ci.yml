@@ -42,6 +42,110 @@ jobs:
             echo "$file was changed"
           done
 
+  cpython_build_and_test:
+    needs: [check_relevant_changes]
+    if: needs.check_relevant_changes.outputs.any_changed == 'true'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['windows-latest', 'macos-15', 'ubuntu-latest']
+        python: ['3.12', '3.13', '3.14', '3.15.0-alpha.1']
+
+    name: "Python ${{ matrix.python }} / ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: set up python ${{ matrix.python }}
+        uses: actions/setup-python@v5.4.0
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: install the latest CMake
+        uses: lukka/get-cmake@latest
+
+      - name: install dependencies
+        run: python -m pip install --upgrade pip setuptools wheel build scikit-build-core
+
+      - name: Install libuuid (dev headers and linker support)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y uuid-dev
+
+      - name: checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: update submodules
+        run: git submodule update --init --recursive
+
+      - name: build ${{ matrix.python }} ${{ matrix.os }}
+        run: python -m build
+
+      - name: install package
+        run: |
+          cd dist
+          python -m pip install *.whl
+        shell: bash
+
+      - name: test ${{ matrix.python }} ${{ matrix.os }}
+        run: |
+          cd tests
+          python -m unittest discover --verbose
+        shell: bash
+
+  pypy_build_build_and_test:
+    needs: [check_relevant_changes]
+    if: needs.check_relevant_changes.outputs.any_changed == 'true'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest']
+        python: [pypy3.9, pypy3.10]
+
+    name: "Python ${{ matrix.python }} / ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: update submodules
+        run: git submodule update --init --recursive
+
+      - name: Set up ${{ matrix.python }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          architecture: x64
+
+      - name: Display Python version
+        run: |
+          python --version
+          python -c "import sys; print(sys.implementation)"
+
+      - name: Manually install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install scikit-build-core>=0.11.5 nanobind build
+
+      - name: Install libuuid (dev headers and linker support)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y uuid-dev
+
+      - name: Build wheel without build isolation
+        run: |
+          python -m build --wheel --no-isolation
+
+      - name: Install built wheel
+        run: |
+          pip install --no-deps --ignore-requires-python dist/*.whl
+
+      - name: test ${{ matrix.python }} / ${{ matrix.os }}"
+        run: |
+          cd tests
+          python -m unittest discover --verbose
+        shell: bash
+
   cpython_build_and_test_clang_on_windows:
     needs: [check_relevant_changes]
     if: needs.check_relevant_changes.outputs.any_changed == 'true'
@@ -50,7 +154,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['windows-latest']
-        python: ['3.12']
+        python: ['3.12', '3.13', '3.14', '3.15.0-alpha.1']
 
     name: "Python ${{ matrix.python }} / ${{ matrix.os }} / CLANG"
     runs-on: ${{ matrix.os }}
@@ -81,10 +185,10 @@ jobs:
 
       - name: build ${{ matrix.python }} ${{ matrix.os }}
         run: |
+          $env:SKBUILD_CMAKE_ARGS = "-G Ninja -DCMAKE_CXX_FLAGS='-Wno-c++11-narrowing'"
+          $env:SKBUILD_CMAKE_DEFINE = "CMAKE_C_COMPILER=clang;CMAKE_CXX_COMPILER=clang++"
           $env:CC = "clang"
           $env:CXX = "clang++"
-          $env:SKBUILD_CMAKE_ARGS = "-G Ninja"
-          $env:SKBUILD_CMAKE_DEFINE = "CMAKE_C_COMPILER=clang;CMAKE_CXX_COMPILER=clang++;CMAKE_CXX_FLAGS=-Wno-c++11-narrowing"
           python -m build --no-isolation
         shell: pwsh
 
