@@ -185,10 +185,10 @@ jobs:
 
       - name: build ${{ matrix.python }} ${{ matrix.os }}
         run: |
-          $env:SKBUILD_CMAKE_ARGS = "-G Ninja -DCMAKE_CXX_FLAGS='-Wno-c++11-narrowing'"
-          $env:SKBUILD_CMAKE_DEFINE = "CMAKE_C_COMPILER=clang;CMAKE_CXX_COMPILER=clang++"
           $env:CC = "clang"
           $env:CXX = "clang++"
+          $env:SKBUILD_CMAKE_ARGS = "-G Ninja"
+          $env:SKBUILD_CMAKE_DEFINE = "CMAKE_C_COMPILER=clang;CMAKE_CXX_COMPILER=clang++;CMAKE_CXX_FLAGS=-Wno-c++11-narrowing"
           python -m build --no-isolation
         shell: pwsh
 
