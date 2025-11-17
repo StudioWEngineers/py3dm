@@ -66,7 +66,7 @@ void ObjectTableBindings(nb::module_& m) {
         .def(
             "add_line",
             nb::overload_cast<const ON_Line&, const ON_3dmObjectAttributes*>(&ObjectTable::AddLine, nb::const_),
-            nb::arg("linet"),
+            nb::arg("line"),
             nb::arg("obj_attr") = nullptr
         )
         .def(
