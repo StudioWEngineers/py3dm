@@ -362,7 +362,7 @@ class LineTable:
     def __iter__(self) -> Iterator[Line | LineCurve]: ...
 
     @overload
-    def add(self, start: Point3d, end: Point3d, attributes: ObjectAttributes | None = None) -> UUID:
+    def add(self, start: Point3d, end: Point3d, attributes: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the line in case of successful addition, or an empty
         ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
         all components in the model and is locked.
@@ -370,7 +370,7 @@ class LineTable:
         ...
 
     @overload
-    def add(self, line: Line, obj_attr: ObjectAttributes | None = None) -> UUID:
+    def add(self, line: Line, obj_attr: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the line in case of successful addition, or an empty
         ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
         all components in the model and is locked.
@@ -378,14 +378,14 @@ class LineTable:
         ...
 
     @overload
-    def add(self, line: LineCurve, obj_attr: ObjectAttributes | None = None) -> UUID:
+    def add(self, line: LineCurve, obj_attr: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the line in case of successful addition, or an empty
         ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
         all components in the model and is locked.
         """
         ...
 
-    def get_by_uuid(self, object_uuid: UUID) -> None | PointGeometry | LineCurve:
+    def get_by_uuid(self, object_uuid: UUID) -> Line | LineCurve | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
         """
@@ -673,7 +673,7 @@ class ObjectTable:
     def __len__(self) -> int: ...
 
     @overload
-    def add_line(self, start: Point3d, end: Point3d, obj_attr: ObjectAttributes | None = None) -> UUID:
+    def add_line(self, start: Point3d, end: Point3d, obj_attr: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the line in case of successful addition, or an empty
         ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
         all components in the model and is locked.
@@ -681,7 +681,7 @@ class ObjectTable:
         ...
 
     @overload
-    def add_line(self, line: Line, obj_attr: ObjectAttributes | None = None) -> UUID:
+    def add_line(self, line: Line, obj_attr: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the line in case of successful addition, or an empty
         ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
         all components in the model and is locked.
@@ -689,7 +689,7 @@ class ObjectTable:
         ...
 
     @overload
-    def add_line(self, line: LineCurve, obj_attr: ObjectAttributes | None = None) -> UUID:
+    def add_line(self, line: LineCurve, obj_attr: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the line in case of successful addition, or an empty
         ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
         all components in the model and is locked.
@@ -697,7 +697,7 @@ class ObjectTable:
         ...
 
     @overload
-    def add_point(self, x: float, y: float, z: float, obj_attr: ObjectAttributes | None = None) -> UUID:
+    def add_point(self, x: float, y: float, z: float, obj_attr: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the point in case of successful addition, or an empty
         ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
         all components in the model and is locked.
@@ -705,7 +705,7 @@ class ObjectTable:
         ...
 
     @overload
-    def add_point(self, point: Point3d, obj_attr: ObjectAttributes | None = None) -> UUID:
+    def add_point(self, point: Point3d, obj_attr: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the point in case of successful addition, or an empty
         ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
         all components in the model and is locked.
@@ -713,7 +713,7 @@ class ObjectTable:
         ...
 
     @overload
-    def add_point(self, point: PointGeometry, obj_attr: ObjectAttributes | None = None) -> UUID:
+    def add_point(self, point: PointGeometry, obj_attr: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the point in case of successful addition, or an empty
         ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
         all components in the model and is locked.
