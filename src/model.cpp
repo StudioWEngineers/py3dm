@@ -117,6 +117,10 @@ LayerTable Model::ModelLayerTable() {
     return LayerTable(p_model);
 }
 
+LineTable Model::ModelLineTable() {
+    return LineTable(p_model);
+}
+
 ObjectTable Model::ModelObjectTable() {
     return ObjectTable(p_model);
 }

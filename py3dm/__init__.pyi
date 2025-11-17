@@ -358,6 +358,40 @@ class LineCurve(Geometry):
         ...
 
 
+class LineTable:
+    def __iter__(self) -> Iterator[Line | LineCurve]: ...
+
+    @overload
+    def add(self, start: Point3d, end: Point3d, attributes: ObjectAttributes | None = None) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, line: Line, obj_attr: ObjectAttributes | None = None) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, line: LineCurve, obj_attr: ObjectAttributes | None = None) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    def get_by_uuid(self, object_uuid: UUID) -> None | PointGeometry | LineCurve:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+        """
+        ...
+
+
 class Model:
     """Python bindings for the openNURBS ``ONX_Model`` class, via helper class ``Model``.
 
@@ -445,6 +479,9 @@ class Model:
 
     @property
     def LayerTable(self) -> LayerTable: ...
+
+    @property
+    def LineTable(self) -> LineTable: ...
 
     @property
     def ObjectTable(self) -> ObjectTable: ...
@@ -629,7 +666,7 @@ class ObjectMode(Enum):
 
 
 class ObjectTable:
-    def __getitem__(self, index: int) -> Layer:...
+    def __getitem__(self, index: int) -> Layer: ...
 
     def __iter__(self) -> Iterator[Layer]: ...
 

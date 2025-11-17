@@ -14,6 +14,7 @@
 
 // Project includes
 #include "layer_table.h"
+#include "line_table.h"
 #include "object_table.h"
 
 
@@ -46,6 +47,7 @@ public:
 
     /*tables*/
     LayerTable ModelLayerTable();
+    LineTable ModelLineTable();
     ObjectTable ModelObjectTable();
 
 private:
