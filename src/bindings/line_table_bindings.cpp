@@ -7,34 +7,22 @@
 #include "casters/uuid_caster.h"
 
 
-nb::object LineWrapper(const std::shared_ptr<ON_Object>& geom) {
-    if (ON_Curve* crv = dynamic_cast<ON_Curve*>(geom.get())) {
-
-        if (ON_LineCurve* lc = dynamic_cast<ON_LineCurve*>(geom.get())) {
-            return nb::cast(lc, nb::rv_policy::reference);
-        }
-
-        return nb::cast(crv, nb::rv_policy::reference);
-    }
-}
-
 void LineTableBindings(nb::module_& m) {
     nb::class_<LineTable::Iterator>(m, "__LineTableIterator")
-
-        .def("__iter__", [](LineTable::Iterator& it) -> LineTable::Iterator& { return it; })
-
-        .def("__next__", [](LineTable::Iterator& it) -> nb::object {
-                if (it.IsOver()) {
-                    throw nb::stop_iteration();
-                }
-
-                auto geom = *it;
+        .def("__iter__", [](LineTable::Iterator& it) -> LineTable::Iterator& {
+            return it;
+        })
+        .def("__next__", [](LineTable::Iterator& it) {
+            while (!it.IsOver()) {
+                ON_Object* object = *it;
                 ++it;
 
-                if (geom != nullptr) {
-                    return LineWrapper(geom);
+                if (object != nullptr) {
+                    return object;
                 }
             }
+            throw nb::stop_iteration();
+            }, nb::rv_policy::reference_internal
         )
     ;
 

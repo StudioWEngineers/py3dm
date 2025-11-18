@@ -359,7 +359,7 @@ class LineCurve(Geometry):
 
 
 class LineTable:
-    def __iter__(self) -> Iterator[Line | LineCurve]: ...
+    def __iter__(self) -> Iterator[LineCurve]: ...
 
     @overload
     def add(self, start: Point3d, end: Point3d, attributes: None | ObjectAttributes = None) -> UUID:
@@ -385,7 +385,7 @@ class LineTable:
         """
         ...
 
-    def get_by_uuid(self, object_uuid: UUID) -> Line | LineCurve | None:
+    def get_by_uuid(self, object_uuid: UUID) -> LineCurve | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
         """

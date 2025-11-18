@@ -1,5 +1,5 @@
 #include "line_table.h"
-
+#include<iostream>
 
 /*constructors*/
 LineTable::LineTable(std::shared_ptr<ONX_Model> model) {
@@ -27,21 +27,15 @@ ON_UUID LineTable::Add(const ON_LineCurve& line, const ON_3dmObjectAttributes* o
 }
 
 /*getters*/
-const ON_Object* LineTable::GeometryWrapper(const ON_Geometry* geom) {
-    if (const ON_Curve* crv = dynamic_cast<const ON_Curve*>(geom)) {
-        if (const ON_LineCurve* lc = dynamic_cast<const ON_LineCurve*>(geom)) {
-            return lc;
-        }
-        return crv;
-    }
-    return nullptr;
-}
-
 ON_Object* LineTable::GetbyUUID(const ON_UUID on_uuid) {
     const ON_ModelComponent* mc = m_model->ComponentFromId(ON_ModelComponent::Type::ModelGeometry, on_uuid).ModelComponent();
     const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
 
-    return const_cast<ON_Object*>(GeometryWrapper(mgc->Geometry(nullptr)));
+    if (const ON_LineCurve* lc = ON_LineCurve::Cast(mgc->Geometry(nullptr))) {
+        return const_cast<ON_LineCurve*>(lc);
+    }
+
+    return nullptr;
 }
 
 /*LineTable Iterator*/
@@ -51,17 +45,8 @@ LineTable::Iterator::Iterator(LineTable* table)
     m_current = m_iterator.FirstComponentReference();
 }
 
-std::shared_ptr<ON_Geometry> LineTable::Iterator::operator*() const {
-    if (!m_current.IsEmpty()) {
-        const ON_ModelGeometryComponent* geom = ON_ModelGeometryComponent::Cast(m_current.ModelComponent());
-        if (geom != nullptr) {
-            const ON_Geometry* geometry = geom->Geometry(nullptr);
-            if (geometry!= nullptr) {
-                return std::shared_ptr<ON_Geometry>(const_cast<ON_Geometry*>(geometry), [](ON_Geometry*){});
-            }
-        }
-    }
-    return nullptr;
+ON_Object* LineTable::Iterator::operator*() const {
+    return m_table->GetbyUUID(m_current.ModelComponentId());
 }
 
 LineTable::Iterator& LineTable::Iterator::operator++() {

@@ -27,7 +27,6 @@ public:
     ON_UUID Add(const ON_LineCurve& line, const ON_3dmObjectAttributes* obj_attr) const;
 
     /*getters*/
-    const ON_Object* GeometryWrapper(const ON_Geometry* geom);
     ON_Object* GetbyUUID(const ON_UUID on_uuid);
 
     /*ObjectTable Iterator*/
@@ -35,7 +34,7 @@ public:
     public:
         Iterator(LineTable* table);
 
-        std::shared_ptr<ON_Geometry> operator*() const;
+        ON_Object* operator*() const;
         Iterator& operator++();
         bool IsOver() const;
 
