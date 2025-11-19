@@ -10,13 +10,13 @@ name = "py3dm"
 version = "0.2.0-dev1"
 description = "Python bindings for openNURBS using nanobind."
 readme = "README.md"
+license = "BSD-3-Clause"
 requires-python = ">=3.12"
 authors = [
     { name = "Studio W Engineers", email = "studio.w.engineers@gmail.com" }
 ]
 classifiers = [
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: BSD License",
     "Programming Language :: C++",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.12",
