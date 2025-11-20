@@ -2,7 +2,7 @@
 ModelTestSuite
 --------------
 
-Tests for the `Model` class.
+Test suites for the `Model` class.
 """
 # standard library imports
 from tempfile import TemporaryDirectory
