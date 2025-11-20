@@ -49,6 +49,7 @@ Please use the following BibTeX template to cite *py3dm* in scientific discourse
 
     changelog
     why
+    tables
     faq
 
 .. only:: html
