@@ -94,13 +94,12 @@ void Model::SetLastEditedBy(ON_wString author) {
 
 /*other methods*/
 bool Model::Read(ON_wString path) {
-    p_model.reset(new ONX_Model());
+    p_model->Reset();
 
     if (p_model->Read(path)) {
         return true;
     }
 
-    p_model.reset();
     return false;
 }
 
