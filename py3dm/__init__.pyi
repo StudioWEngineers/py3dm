@@ -412,7 +412,8 @@ class Model:
         ...
 
     def read(self, path_to_file: str) -> bool:
-        """Reads an openNURBS archive and saves the information in this model.
+        """Reads an openNURBS archive and loads the information in this model.
+        Before trying to read the 3dm file, the current model is reset!
 
         Parameters
         ----------
@@ -432,7 +433,7 @@ class Model:
         ...
 
     def write(self, path_to_file: str, version: int = 7) -> bool:
-        """Writes contents of this model to an openNURBS archive.
+        """Writes the content of this model to an openNURBS archive.
 
         Parameters
         ----------
