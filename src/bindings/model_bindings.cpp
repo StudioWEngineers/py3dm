@@ -30,6 +30,7 @@ void ModelBindings(nb::module_& m) {
         /*read-only properties*/
         .def_prop_ro("archive_version", &Model::GetArchiveVersion)
         .def_prop_ro("LayerTable", &Model::ModelLayerTable)
+        .def_prop_ro("LineTable", &Model::ModelLineTable)
         .def_prop_ro("ObjectTable", &Model::ModelObjectTable)
         .def_prop_ro("revision", &Model::GetRevision)
     ;
