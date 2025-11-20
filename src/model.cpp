@@ -105,7 +105,7 @@ bool Model::Read(ON_wString path) {
 }
 
 void Model::Reset() {
-    p_model.reset();
+    p_model->Reset();
 }
 
 bool Model::Write(ON_wString path, int version) {
