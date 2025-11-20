@@ -144,6 +144,10 @@ class LayerTableTestSuite(TestCase):
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(layer_1.color, (255, 0, 255, 255))
 
+        with self.subTest(msg="Negative index"):
+            with self.assertRaises(IndexError):
+                self.model.LayerTable.get_by_index(-1)
+
     def test_get_by_name(self) -> None:
         """Tests for the `get_by_name` method.
         """
