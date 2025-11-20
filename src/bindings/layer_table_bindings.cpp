@@ -44,8 +44,8 @@ void LayerTableBindings(nb::module_& m) {
         /*other methods*/
         .def("add", &LayerTable::Add)
         .def("count", &LayerTable::Count)
-        .def("get_layer_index", &LayerTable::GetLayerIndex)
-        .def("get_layer_uuid", &LayerTable::GetLayerUUID)
+        .def("get_index", &LayerTable::GetIndex)
+        .def("get_uuid", &LayerTable::GetUUID)
         .def("has", &LayerTable::Has)
         .def("max_index", &LayerTable::MaxIndex)
     ;

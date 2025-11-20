@@ -198,42 +198,42 @@ class LayerTableTestSuite(TestCase):
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(retrieved_layer_1.color, (255, 0, 255, 255))
 
-    def test_get_layer_index(self) -> None:
-        """Tests for the `get_layer_index` method.
+    def test_get_index(self) -> None:
+        """Tests for the `get_index` method.
         """
         self.model.LayerTable.add(Layer())
         self.model.LayerTable.add(Layer())
 
         with self.subTest(msg="Retrieving index of not existing layer"):
-            self.assertEqual(self.model.LayerTable.get_layer_index(""), -2147483647)
+            self.assertEqual(self.model.LayerTable.get_index(""), -2147483647)
 
         with self.subTest(msg="Index of 1st layer"):
-            self.assertEqual(self.model.LayerTable.get_layer_index("Layer 01"), 0)
+            self.assertEqual(self.model.LayerTable.get_index("Layer 01"), 0)
 
         with self.subTest(msg="Index of 2nd layer"):
-            self.assertEqual(self.model.LayerTable.get_layer_index("Layer 02"), 1)
+            self.assertEqual(self.model.LayerTable.get_index("Layer 02"), 1)
 
-    def test_get_layer_uuid(self) -> None:
-        """Tests for the `get_layer_uuid` method.
+    def test_get_uuid(self) -> None:
+        """Tests for the `get_uuid` method.
         """
         layer_1_uuid = self.model.LayerTable.add(Layer())
         layer_2_uuid = self.model.LayerTable.add(Layer())
 
         with self.subTest(msg="Retrieving uuid of not existing layer"):
             self.assertEqual(
-                self.model.LayerTable.get_layer_uuid("Not existing"),
+                self.model.LayerTable.get_uuid("Not existing"),
                 UUID(int=0)
             )
 
         with self.subTest(msg="Index of 1st layer"):
             self.assertEqual(
-                self.model.LayerTable.get_layer_uuid("Layer 01"),
+                self.model.LayerTable.get_uuid("Layer 01"),
                 layer_1_uuid
             )
 
         with self.subTest(msg="Index of 2nd layer"):
             self.assertEqual(
-                self.model.LayerTable.get_layer_uuid("Layer 02"),
+                self.model.LayerTable.get_uuid("Layer 02"),
                 layer_2_uuid
             )
 
@@ -276,14 +276,14 @@ class NestedLayerTableTestSuite(TestCase):
 
         model = Model()
         model.LayerTable.add(Layer())
-        parent_layer_uuid = model.LayerTable.get_layer_uuid("layer 01")
+        parent_layer_uuid = model.LayerTable.get_uuid("layer 01")
 
         child_layer = Layer()
         child_layer.parent_uuid = parent_layer_uuid
         child_layer.set_name("my child layer")
 
         model.LayerTable.add(child_layer)
-        child_uuid = model.LayerTable.get_layer_uuid("my child layer")
+        child_uuid = model.LayerTable.get_uuid("my child layer")
 
         self.assertEqual(
             model.LayerTable.get_by_uuid(child_uuid).parent_uuid,

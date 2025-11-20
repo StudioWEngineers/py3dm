@@ -34,8 +34,8 @@ public:
     const ON_UUID Add(const ON_Layer& layer);
     int Count() const;
     const ON_wString GetFullPath(const ON_Layer* layer) const;
-    int GetLayerIndex(ON_wString full_name);
-    const ON_UUID GetLayerUUID(ON_wString full_name);
+    int GetIndex(ON_wString full_name);
+    const ON_UUID GetUUID(ON_wString full_name);
     bool Has(ON_wString full_name);
     int MaxIndex() const;
 

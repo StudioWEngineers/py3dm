@@ -326,7 +326,7 @@ class ExistingLayerModificationTestSuite(TestCase):
     def test_get_and_set_layer_uuid(self) -> None:
         """Tests for the `layer_uuid` property.
         """
-        layer_uuid = self.model.LayerTable.get_layer_uuid("Layer 01")
+        layer_uuid = self.model.LayerTable.get_uuid("Layer 01")
         with self.subTest(msg="Layer layer_uuid before assignment"):
             self.assertEqual(self.layer.layer_uuid, layer_uuid)
 
@@ -484,7 +484,7 @@ class ExistingLayerModificationTestSuite(TestCase):
             "\tis_expanded = true\n"
             "\tis_locked = false\n"
             "\tis_visible = true\n"
-            f"\tlayer_uuid = {self.model.LayerTable.get_layer_uuid('Layer 01')}\n"
+            f"\tlayer_uuid = {self.model.LayerTable.get_uuid('Layer 01')}\n"
             "\tline_type_index = -1\n"
             "\tname = 'Layer 01'\n"
             f"\tparent_uuid = {UUID(int=0)}\n"
