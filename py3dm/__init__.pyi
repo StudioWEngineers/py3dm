@@ -190,7 +190,7 @@ class LayerTable:
 
     def count(self) -> int:
         """Returns the number of active model components of type
-        ``ON_ModelComponent::Type::Layer`` in this table.
+        ``ON_ModelComponent::Type::Layer`` in the table.
 
         Notes
         -----
@@ -208,21 +208,62 @@ class LayerTable:
         """
         ...
 
-    def delete_by_uuid(self, layer_uuid: UUID) -> bool: ...
+    def delete_by_uuid(self, layer_uuid: UUID) -> bool:
+        """Deletes the `Layer` given its uuid.
 
-    def get_by_index(self, layer_index: int) -> Layer: ...
+        Returns
+        -------
+        success: bool
+            ``True`` if successfull, ``False`` otherwise.
+        """
+        ...
 
-    def get_by_name(self, layer_name: str) -> Layer: ...
+    def get_by_index(self, layer_index: int) -> Layer:
+        """Returns the ``Layer`` if the given ``index`` is found in the table, ``None``
+        otherwise.
 
-    def get_by_uuid(self, layer_uuid: UUID) -> Layer: ...
+        Raises
+        ------
+        IndexError
+            if ``layer_index`` is < 0
+        """
+        ...
 
-    def get_index(self, full_name: str) -> int: ...
+    def get_by_name(self, full_name: str) -> Layer:
+        """Returns the ``Layer`` if the given ``full_name`` is found in the table,
+        ``None`` otherwise.
+        """
+        ...
 
-    def get_uuid(self, full_name: str) -> UUID: ...
+    def get_by_uuid(self, layer_uuid: UUID) -> Layer:
+        """Returns the ``Layer`` if the given ``layer_uuid`` is found in the table,
+        ``None`` otherwise.
+        """
+        ...
 
-    def has(self, layer_name: str) -> bool: ...
+    def get_index(self, full_name: str) -> int:
+        """Returns the layer ``index`` if the given ``full_name`` is found in the table,
+        ``ON_UNSET_INT_INDEX`` otherwise.
+        """
+        ...
 
-    def max_index(self) -> int: ...
+    def get_uuid(self, full_name: str) -> UUID:
+        """Returns the layer ``uuid`` if the given ``full_name`` is found in the table,
+        ``ON_nil_uuid`` otherwise.
+        """
+        ...
+
+    def has(self, full_name: str) -> bool:
+        """Returns ``True`` if the given ``full_name`` is found in the table, ``False``
+        otherwise.
+        """
+        ...
+
+    def max_index(self) -> int:
+        """Returns the maximum index among all active model components of type
+        ``ON_ModelComponent::Type::Layer`` in the table.
+        """
+        ...
 
 
 class Line:
