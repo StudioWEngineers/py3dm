@@ -15,11 +15,11 @@ void LayerTableBindings(nb::module_& m) {
         })
         .def("__next__", [](LayerTable::Iterator &it) {
             while (!it.IsOver()) {
-                ON_Layer* result = *it;
+                ON_Layer* layer = *it;
                 ++it;
 
-                if (result != nullptr) {
-                    return result;
+                if (layer != nullptr) {
+                    return layer;
                 }
             }
             throw nb::stop_iteration();

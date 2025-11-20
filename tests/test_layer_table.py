@@ -109,14 +109,15 @@ class LayerTableTestSuite(TestCase):
         self.model.LayerTable.add(Layer())
         self.model.LayerTable.add(Layer())
 
-        with self.subTest(msg="Negative index"):
-            self.assertIsNone(self.model.LayerTable[-1])
-
         with self.subTest(msg="Not existing index"):
             self.assertIsNone(self.model.LayerTable[3])
 
         with self.subTest(msg="Existing index"):
             self.assertEqual(self.model.LayerTable[1].get_name(), "Layer 02")
+
+        with self.subTest(msg="Negative index"):
+            with self.assertRaises(IndexError):
+                self.model.LayerTable[-1]
 
     def test_get_by_index(self) -> None:
         """Tests for the `get_by_index` method.

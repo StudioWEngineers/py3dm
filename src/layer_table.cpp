@@ -17,6 +17,10 @@ bool LayerTable::DeleteByUUID(ON_UUID on_uuid) {
 
 /*getters*/
 ON_Layer* LayerTable::GetByIndex(int index) {
+    if (index < 0) {
+        throw std::out_of_range("index must be greater than equal to 0!");
+    }
+
     ON_ModelComponentReference comp_ref = m_model->ComponentFromIndex(ON_ModelComponent::Type::Layer, index);
     if (comp_ref.IsEmpty()) {
         return nullptr;
