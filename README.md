@@ -9,13 +9,13 @@ Python bindings for **OpenNURBS** using **nanobind**.
 
 ## Dependencies
 
-- openNURBS commit `76f86d7e68341f3c80be8fcf50f3312c112072bd` (PR #107 - version: `v8.18.25098.11001`) [OpenNURBS](https://github.com/mcneel/opennurbs/pull/107)
-- draco commit `4e12ab27d0fe690cf98e96dc33c2bd52e1485163` [google-draco](https://github.com/google/draco)
-- nanobind `2.7.0` [nanobind](https://github.com/wjakob/nanobind)
+- openNURBS commit `d38986464ebfa2dad4e572cf1c0915896d75109b` (`v8.24.25281.15001`) [OpenNURBS](https://github.com/mcneel/opennurbs/)
+- draco commit `3abbc66fdf5597b1560c44ce7840aac76900b3f7` (`1.3.0-291-g3abbc66`) [google-draco](https://github.com/google/draco)
+- nanobind commit `d145ec5a41cf2d47eed7a8d7e366c92d2b0ac5b4` (`v2.9.2-30-gd145ec5`) [nanobind](https://github.com/wjakob/nanobind)
 
 ## Documentation
 
-Please see the following links for reference documentation (currently a BIG WIP) in 
+Please see the following links for reference documentation (currently a BIG WIP) in
 [HTML](https://py3dm.readthedocs.io/en/latest/) and
 [PDF](https://py3dm.readthedocs.io/_/downloads/en/latest/pdf/) formats.
 
