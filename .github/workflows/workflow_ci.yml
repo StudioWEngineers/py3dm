@@ -243,6 +243,7 @@ jobs:
         run: |
           export INCLUDE_DRACO=ON
           python -m build
+        shell: bash
 
       - name: install package
         run: |
