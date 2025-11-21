@@ -95,12 +95,7 @@ void Model::SetLastEditedBy(ON_wString author) {
 /*other methods*/
 bool Model::Read(ON_wString path) {
     p_model->Reset();
-
-    if (p_model->Read(path)) {
-        return true;
-    }
-
-    return false;
+    return p_model->Read(path);
 }
 
 void Model::Reset() {
