@@ -203,3 +203,55 @@ jobs:
           cd tests
           python -m unittest discover --verbose
         shell: bash
+
+  cpython_build_with_draco_and_test:
+    needs: [check_relevant_changes]
+    if: needs.check_relevant_changes.outputs.any_changed == 'true'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['windows-latest', 'macos-15', 'ubuntu-latest']
+        python: ['3.14']
+
+    name: "Python ${{ matrix.python }} / ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: set up python ${{ matrix.python }}
+        uses: actions/setup-python@v5.4.0
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: install the latest CMake
+        uses: lukka/get-cmake@latest
+
+      - name: install dependencies
+        run: python -m pip install --upgrade pip setuptools wheel build scikit-build-core
+
+      - name: Install libuuid (dev headers and linker support)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y uuid-dev
+
+      - name: checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: update submodules
+        run: git submodule update --init --recursive
+
+      - name: build ${{ matrix.python }} ${{ matrix.os }}
+        run: |
+          export INCLUDE_DRACO=ON
+          python -m build
+
+      - name: install package
+        run: |
+          cd dist
+          python -m pip install *.whl
+        shell: bash
+
+      - name: test ${{ matrix.python }} ${{ matrix.os }}
+        run: |
+          cd tests
+          python -m unittest discover --verbose
+        shell: bash
