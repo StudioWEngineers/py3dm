@@ -300,9 +300,18 @@ class Line:
         """
         ...
 
+    @overload
     def distance_to(self, test_point: Point3d) -> float:
         """Returns the distance from the point on the line that is closest to the
         ``test_point``.
+        """
+        ...
+
+    @overload
+    def distance_to(self, test_point: Point3d, finite_chord: bool) -> float:
+        """Returns the distance from the point on the line that is closest to the
+        ``test_point``. If ``finite_chord`` is ``True``, the distance is reported to the
+        line as a finite chord.
         """
         ...
 

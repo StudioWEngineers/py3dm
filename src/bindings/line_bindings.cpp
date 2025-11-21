@@ -49,7 +49,9 @@ void LineBindings(nb::module_& m) {
             }
         )
 
-        .def("distance_to", &ON_Line::DistanceTo)
+        .def("distance_to", nb::overload_cast<ON_3dPoint>(&ON_Line::DistanceTo, nb::const_))
+
+        .def("distance_to", nb::overload_cast<ON_3dPoint, bool>(&ON_Line::DistanceTo, nb::const_))
 
         .def("is_valid", &ON_Line::IsValid)
 
