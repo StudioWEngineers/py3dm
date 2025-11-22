@@ -33,19 +33,17 @@ class LineTestSuite(TestCase):
             self.assertFalse(self.line.create(Point3d(1, 2, 3), Point3d(1, 2, 3)))
 
     def test_distance_to(self) -> None:
-        """Test for the `distance_to` method.
-        """
-        self.assertEqual(self.line.distance_to(Point3d(1, 0, 1)), sqrt(2 / 3))
-
-    def test_distance_to_with_finite_chord(self) -> None:
         """Test for the `distance_to` method, with `finite_chord` parameter.
         """
-        pt = Point3d(-0.4, 0.0, 0.2)
+        point = Point3d(-0.4, 0.0, 0.2)
         with self.subTest():
-            self.assertEqual(self.line.distance_to(pt, True), 0.447213595499958)
+            self.assertEqual(self.line.distance_to(point, True), 0.447213595499958)
 
         with self.subTest():
-            self.assertEqual(self.line.distance_to(pt, False), 0.4320493798938574)
+            self.assertEqual(self.line.distance_to(point), 0.4320493798938574)
+
+        with self.subTest():
+            self.assertEqual(self.line.distance_to(point, False), 0.4320493798938574)
 
     def test_getitem(self) -> None:
         """Tests for the `__getitem__` method.
