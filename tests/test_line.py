@@ -21,8 +21,6 @@ class LineTestSuite(TestCase):
         self.line = Line(Point3d(0, 0, 0), Point3d(1, 1, 1))
 
     def test_create(self) -> None:
-        """Tests for the `create` method.
-        """
         with self.subTest(msg="Successful create"):
             self.assertTrue(self.line.create(Point3d(1, 2, 3), Point3d(0, 0, 0)))
 
@@ -33,21 +31,17 @@ class LineTestSuite(TestCase):
             self.assertFalse(self.line.create(Point3d(1, 2, 3), Point3d(1, 2, 3)))
 
     def test_distance_to(self) -> None:
-        """Test for the `distance_to` method, with `finite_chord` parameter.
-        """
         point = Point3d(-0.4, 0.0, 0.2)
-        with self.subTest():
+        with self.subTest(msg="with True argument"):
             self.assertEqual(self.line.distance_to(point, True), 0.447213595499958)
 
-        with self.subTest():
+        with self.subTest(msg="with default argument"):
             self.assertEqual(self.line.distance_to(point), 0.4320493798938574)
 
-        with self.subTest():
+        with self.subTest(msg="with False argument"):
             self.assertEqual(self.line.distance_to(point, False), 0.4320493798938574)
 
     def test_getitem(self) -> None:
-        """Tests for the `__getitem__` method.
-        """
         with self.subTest(msg="Successful getitem"):
             self.assertEqual(self.line[0], Point3d(0, 0, 0))
 
@@ -55,8 +49,6 @@ class LineTestSuite(TestCase):
             self.line[2]
 
     def test_equal(self) -> None:
-        """Tests for the `__eq__` and `__ne__` methods.
-        """
         with self.subTest(msg="Negative check"):
             self.assertFalse(self.line == Line())
 
@@ -64,8 +56,6 @@ class LineTestSuite(TestCase):
             self.assertTrue(self.line == Line(Point3d(0, 0, 0), Point3d(1, 1, 1)))
 
     def test_is_valid(self) -> None:
-        """Tests for the `is_valid` method.
-        """
         with self.subTest(msg="Positive check"):
             self.assertTrue(self.line.is_valid())
 
@@ -73,18 +63,12 @@ class LineTestSuite(TestCase):
             self.assertFalse(Line().is_valid())
 
     def test_length(self) -> None:
-        """Test for the `length` method.
-        """
         self.assertEqual(self.line.length(), sqrt(3))
 
     def test_point_at(self) -> None:
-        """Test for the `point_at` method.
-        """
         self.assertEqual(self.line.point_at(0.5), Point3d(0.5, 0.5, 0.5))
 
     def test_setitem(self) -> None:
-        """Tests for the `__setitem__` method.
-        """
         self.line[0] = Point3d(-1, 0, 0)
 
         with self.subTest(msg="Successful getitem"):
