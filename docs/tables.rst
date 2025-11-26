@@ -29,12 +29,12 @@ It is highlighted that deleting the last Layer in the table and adding a new one
 not guarantee nor preserve the order of the Layers in the table in case of deletions and
 additions.
 
-.. _line_table:
+.. _curve_table:
 
-LineTable
----------
+CurveTable
+----------
 
-The ``LineTable`` class provides methods to add .
+The ``CurveTable`` class provides methods to add .
 
 .. _object_table:
 

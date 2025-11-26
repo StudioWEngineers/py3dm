@@ -1,8 +1,8 @@
 """
-LineTableTestSuite
-------------------
+CurveTableTestSuite
+-------------------
 
-Tests for the `LineTable` class.
+Tests for the `CurveTable` class.
 """
 # standard library imports
 from math import sqrt
@@ -15,12 +15,12 @@ from py3dm import Line, LineCurve, Model, ObjectAttributes, Point3d
 # local library specific imports
 
 
-class LineTableTestSuite(TestCase):
-    """Tests for the `LineTable` class.
+class CurveTableTestSuite(TestCase):
+    """Tests for the `CurveTable` class.
     """
     def setUp(self) -> None:
         model = Model()
-        self.table = model.LineTable
+        self.table = model.CurveTable
 
     def test_add_with_attributes(self) -> None:
         """Tests for the `add` methods with attributes.
@@ -80,12 +80,12 @@ class LineTableTestSuite(TestCase):
         self.assertEqual(returned_curve.line.point_at(1), Point3d(1, 1, 1))
 
 
-class LineTableIteratorTestSuite(TestCase):
-    """Tests for the `LineTable` class, with focus on the iterator.
+class CurveTableIteratorTestSuite(TestCase):
+    """Tests for the `CurveTable` class, with focus on the iterator.
     """
     def setUp(self) -> None:
         model = Model()
-        self.table = model.LineTable
+        self.table = model.CurveTable
 
         # adding few objects of different types
         model.ObjectTable.add_point(0, 1, 2)
@@ -94,6 +94,6 @@ class LineTableIteratorTestSuite(TestCase):
         model.ObjectTable.add_point(2, 1, 2)
 
     def test_line_iterator(self) -> None:
-        """Test for the `LineTable` iterator.
+        """Test for the `CurveTable` iterator.
         """
         self.assertEqual(len(list(self.table)), 2)
