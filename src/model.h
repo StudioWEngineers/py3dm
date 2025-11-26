@@ -13,8 +13,8 @@
 // External includes
 
 // Project includes
+#include "curve_table.h"
 #include "layer_table.h"
-#include "line_table.h"
 #include "object_table.h"
 
 
@@ -47,7 +47,7 @@ public:
 
     /*tables*/
     LayerTable ModelLayerTable();
-    LineTable ModelLineTable();
+    CurveTable ModelCurveTable();
     ObjectTable ModelObjectTable();
 
 private:

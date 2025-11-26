@@ -16,4 +16,4 @@
 #include "bindings.h"
 
 
-void LineTableBindings(nb::module_& m);
+void CurveTableBindings(nb::module_& m);
