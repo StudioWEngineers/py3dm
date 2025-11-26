@@ -25,6 +25,40 @@ __maintainer__: str
 __version__: str
 
 
+class CurveTable:
+    def __iter__(self) -> Iterator[LineCurve]: ...
+
+    @overload
+    def add(self, start: Point3d, end: Point3d, attributes: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, line: Line, obj_attr: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, line: LineCurve, obj_attr: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    def get_by_uuid(self, object_uuid: UUID) -> LineCurve | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+        """
+        ...
+
+
 class Geometry(OpenNURBSObject):
     """Python wrapper for the openNURBS ``ON_Geometry`` class.
 
@@ -400,40 +434,6 @@ class LineCurve(Geometry):
         ...
 
 
-class LineTable:
-    def __iter__(self) -> Iterator[LineCurve]: ...
-
-    @overload
-    def add(self, start: Point3d, end: Point3d, attributes: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or an empty
-        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add(self, line: Line, obj_attr: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or an empty
-        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add(self, line: LineCurve, obj_attr: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or an empty
-        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    def get_by_uuid(self, object_uuid: UUID) -> LineCurve | None:
-        """Returns the object with the given ``object_uuid`` or ``None`` if
-        ``object_uuid`` is not found.
-        """
-        ...
-
-
 class Model:
     """Python bindings for the openNURBS ``ONX_Model`` class, via helper class ``Model``.
 
@@ -524,7 +524,7 @@ class Model:
     def LayerTable(self) -> LayerTable: ...
 
     @property
-    def LineTable(self) -> LineTable: ...
+    def CurveTable(self) -> CurveTable: ...
 
     @property
     def ObjectTable(self) -> ObjectTable: ...
