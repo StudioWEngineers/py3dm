@@ -1,5 +1,5 @@
 /*
-    src/line_table.h: Implementation details related to CurveTable.
+    src/curve_table.h: Implementation details related to CurveTable.
 
     Copyright (c) 2025 Studio W Engineers
 
