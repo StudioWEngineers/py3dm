@@ -29,7 +29,7 @@ public:
     /*getters*/
     ON_Object* GetbyUUID(const ON_UUID on_uuid);
 
-    /*ObjectTable Iterator*/
+    /*CurveTable Iterator*/
     class Iterator {
     public:
         Iterator(CurveTable* table);
