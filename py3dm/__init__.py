@@ -3,6 +3,7 @@ from . _py3dm import (
     __doc__,
     __email__,
     __maintainer__,
+    CurveTable,
     Geometry,
     Layer,
     LayerTable,
