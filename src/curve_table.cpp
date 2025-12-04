@@ -1,5 +1,5 @@
 #include "curve_table.h"
-#include<iostream>
+
 
 /*constructors*/
 CurveTable::CurveTable(std::shared_ptr<ONX_Model> model) {
