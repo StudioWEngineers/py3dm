@@ -1,5 +1,5 @@
 /*
-    src/bindings/line_table_bindings.h: Exposing helper class LineTable to Python
+    src/bindings/line_table_bindings.h: Exposing helper class CurveTable to Python
 
     Copyright (c) 2025 Studio W Engineers
 
