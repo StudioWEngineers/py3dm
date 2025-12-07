@@ -38,6 +38,32 @@ ON_Object* CurveTable::GetbyUUID(const ON_UUID on_uuid) {
     return nullptr;
 }
 
+/*other methods*/
+int CurveTable::Count() {
+    int count = 0;
+    ONX_ModelComponentIterator mci(*m_model.get(), ON_ModelComponent::Type::ModelGeometry);
+    ON_ModelComponentReference mcr = mci.FirstComponentReference();
+
+    while (!mcr.IsEmpty()) {
+        if (CurveTable::IsCurve(mcr.ModelComponent())) {
+            ++count;
+        }
+        mcr = mci.NextComponentReference();
+    }
+
+    return count;
+}
+
+bool CurveTable::IsCurve(const ON_ModelComponent* mc) {
+    const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
+    if (mgc == nullptr) {
+        return false;
+    }
+
+    const ON_Geometry* geom = mgc->Geometry(nullptr);
+    return (geom && geom->ObjectType() == ON::curve_object);
+}
+
 /*CurveTable Iterator*/
 CurveTable::Iterator::Iterator(CurveTable* table)
     : m_table(table),

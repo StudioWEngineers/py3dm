@@ -96,4 +96,4 @@ class CurveTableIteratorTestSuite(TestCase):
     def test_line_iterator(self) -> None:
         """Test for the `CurveTable` iterator.
         """
-        self.assertEqual(len(list(self.table)), 2)
+        self.assertEqual(len(self.table), 2)

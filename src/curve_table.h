@@ -29,6 +29,10 @@ public:
     /*getters*/
     ON_Object* GetbyUUID(const ON_UUID on_uuid);
 
+    /*other methods*/
+    int Count();
+    bool IsCurve(const ON_ModelComponent* mc);
+
     /*CurveTable Iterator*/
     class Iterator {
     public:

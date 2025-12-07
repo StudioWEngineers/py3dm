@@ -29,6 +29,7 @@ void CurveTableBindings(nb::module_& m) {
     nb::class_<CurveTable>(m, "CurveTable")
         /*magic methods*/
         .def("__iter__", [](CurveTable& self) {return self.Begin();}, nb::keep_alive<0, 1>())
+        .def("__len__", &CurveTable::Count)
 
         /*add methods*/
         .def(
@@ -53,5 +54,8 @@ void CurveTableBindings(nb::module_& m) {
 
         /*getters*/
         .def("get_by_uuid", &CurveTable::GetbyUUID, nb::rv_policy::reference_internal)
+
+        /*other methods*/
+        .def("count", &CurveTable::Count)
     ;
 }

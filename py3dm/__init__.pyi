@@ -28,6 +28,8 @@ __version__: str
 class CurveTable:
     def __iter__(self) -> Iterator[LineCurve]: ...
 
+    def __len__(self) -> int: ...
+
     @overload
     def add(self, start: Point3d, end: Point3d, attributes: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the line in case of successful addition, or an empty
@@ -49,6 +51,11 @@ class CurveTable:
         """Returns the ``UUID`` of the line in case of successful addition, or an empty
         ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
         all components in the model and is locked.
+        """
+        ...
+
+    def count(self) -> int:
+        """Returns the number of objects of type ``ON::curve_object`` in the model.
         """
         ...
 
