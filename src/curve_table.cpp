@@ -29,14 +29,15 @@ ON_UUID CurveTable::Add(const ON_LineCurve& line, const ON_3dmObjectAttributes* 
 /*getters*/
 ON_Object* CurveTable::GetbyUUID(const ON_UUID on_uuid) {
     const ON_ModelComponent* mc = m_model->ComponentFromId(ON_ModelComponent::Type::ModelGeometry, on_uuid).ModelComponent();
-    const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
 
-    if (const ON_LineCurve* lc = ON_LineCurve::Cast(mgc->Geometry(nullptr))) {
-        return const_cast<ON_LineCurve*>(lc);
+    if (!IsCurve(mc)) {
+        return nullptr;
     }
 
-    return nullptr;
+    const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
+    return const_cast<ON_LineCurve*>(ON_LineCurve::Cast(mgc->Geometry(nullptr)));
 }
+
 
 /*other methods*/
 int CurveTable::Count() {
