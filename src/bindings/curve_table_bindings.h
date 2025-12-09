@@ -1,5 +1,5 @@
 /*
-    src/bindings/object_table_bindings.h: Exposing helper class ObjectTable to Python
+    src/bindings/line_table_bindings.h: Exposing helper class CurveTable to Python
 
     Copyright (c) 2025 Studio W Engineers
 
@@ -16,4 +16,4 @@
 #include "bindings.h"
 
 
-void ObjectTableBindings(nb::module_& m);
+void CurveTableBindings(nb::module_& m);

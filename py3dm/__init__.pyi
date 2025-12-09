@@ -25,6 +25,47 @@ __maintainer__: str
 __version__: str
 
 
+class CurveTable:
+    def __iter__(self) -> Iterator[LineCurve]: ...
+
+    def __len__(self) -> int: ...
+
+    @overload
+    def add(self, start: Point3d, end: Point3d, attributes: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, line: Line, obj_attr: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, line: LineCurve, obj_attr: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or an empty
+        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    def count(self) -> int:
+        """Returns the number of objects of type ``ON::curve_object`` in the model.
+        """
+        ...
+
+    def get_by_uuid(self, object_uuid: UUID) -> LineCurve | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+        """
+        ...
+
+
 class Geometry(OpenNURBSObject):
     """Python wrapper for the openNURBS ``ON_Geometry`` class.
 
@@ -300,15 +341,7 @@ class Line:
         """
         ...
 
-    @overload
-    def distance_to(self, test_point: Point3d) -> float:
-        """Returns the distance from the point on the line that is closest to the
-        ``test_point``.
-        """
-        ...
-
-    @overload
-    def distance_to(self, test_point: Point3d, finite_chord: bool) -> float:
+    def distance_to(self, test_point: Point3d, finite_chord: bool = False) -> float:
         """Returns the distance from the point on the line that is closest to the
         ``test_point``. If ``finite_chord`` is ``True``, the distance is reported to the
         line as a finite chord.
@@ -408,40 +441,6 @@ class LineCurve(Geometry):
         ...
 
 
-class LineTable:
-    def __iter__(self) -> Iterator[LineCurve]: ...
-
-    @overload
-    def add(self, start: Point3d, end: Point3d, attributes: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or an empty
-        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add(self, line: Line, obj_attr: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or an empty
-        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add(self, line: LineCurve, obj_attr: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or an empty
-        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    def get_by_uuid(self, object_uuid: UUID) -> LineCurve | None:
-        """Returns the object with the given ``object_uuid`` or ``None`` if
-        ``object_uuid`` is not found.
-        """
-        ...
-
-
 class Model:
     """Python bindings for the openNURBS ``ONX_Model`` class, via helper class ``Model``.
 
@@ -532,10 +531,10 @@ class Model:
     def LayerTable(self) -> LayerTable: ...
 
     @property
-    def LineTable(self) -> LineTable: ...
+    def CurveTable(self) -> CurveTable: ...
 
     @property
-    def ObjectTable(self) -> ObjectTable: ...
+    def PointTable(self) -> PointTable: ...
 
     @property
     def revision(self) -> int: ...
@@ -716,85 +715,6 @@ class ObjectMode(Enum):
     mode_count = 4
 
 
-class ObjectTable:
-    def __getitem__(self, index: int) -> Layer: ...
-
-    def __iter__(self) -> Iterator[Layer]: ...
-
-    def __len__(self) -> int: ...
-
-    @overload
-    def add_line(self, start: Point3d, end: Point3d, obj_attr: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or an empty
-        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add_line(self, line: Line, obj_attr: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or an empty
-        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add_line(self, line: LineCurve, obj_attr: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or an empty
-        ``UUID`` otherwise. If the line is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add_point(self, x: float, y: float, z: float, obj_attr: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the point in case of successful addition, or an empty
-        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add_point(self, point: Point3d, obj_attr: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the point in case of successful addition, or an empty
-        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add_point(self, point: PointGeometry, obj_attr: None | ObjectAttributes = None) -> UUID:
-        """Returns the ``UUID`` of the point in case of successful addition, or an empty
-        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
-        all components in the model and is locked.
-        """
-        ...
-
-    def count(self) -> int:
-        """Returns the number of active model components of type
-        ``ON_ModelComponent::Type::ModelGeometry`` in this table.
-
-        Notes
-        -----
-        The ``count()`` does not include deleted components (for which ``is_deleted() =
-        True``) and does not include system components.
-        """
-        ...
-
-    def delete_by_uuid(self, object_uuid: UUID) -> bool:
-        """Returns ``True`` if the object with the given ``object_uuid`` has been removed
-        from the table.
-        """
-        ...
-
-    def get_by_uuid(self, object_uuid: UUID) -> None | PointGeometry | LineCurve:
-        """Returns the object with the given ``object_uuid`` or ``None`` if
-        ``object_uuid`` is not found.
-        """
-        ...
-
-
 class OpenNURBSObject:
     """Python bindings for the openNURBS ``ON_Object`` class.
 
@@ -928,6 +848,47 @@ class PointGeometry(Geometry):
         ...
 
 
+class PointTable:
+    def __iter__(self) -> Iterator[PointGeometry]: ...
+
+    def __len__(self) -> int: ...
+
+    @overload
+    def add(self, x: float, y: float, z: float, attributes: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the point in case of successful addition, or an empty
+        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, point: PointGeometry, obj_attr: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the point in case of successful addition, or an empty
+        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, point: Point3d, obj_attr: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the point in case of successful addition, or an empty
+        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    def count(self) -> int:
+        """Returns the number of objects of type ``ON::point_object`` in the model.
+        """
+        ...
+
+    def get_by_uuid(self, object_uuid: UUID) -> PointGeometry | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+        """
+        ...
+
+
 class Point3d:
     """Python wrapper for the openNURBS ``ON_3dPoint`` class.
     """
@@ -1012,6 +973,11 @@ class TextLog:
 
     def is_null(self) -> bool:
         """Returns ``True`` if this `TextLog` is ``ON_TextLog::Null``.
+        """
+        ...
+
+    def level_of_detail_is_at_least(self, level: LevelOfDetail) -> bool:
+        """Returns ``True`` if this `TextLog` is ``level``.
         """
         ...
 

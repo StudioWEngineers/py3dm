@@ -111,10 +111,10 @@ LayerTable Model::ModelLayerTable() {
     return LayerTable(p_model);
 }
 
-LineTable Model::ModelLineTable() {
-    return LineTable(p_model);
+CurveTable Model::ModelCurveTable() {
+    return CurveTable(p_model);
 }
 
-ObjectTable Model::ModelObjectTable() {
-    return ObjectTable(p_model);
+PointTable Model::ModelPointTable() {
+    return PointTable(p_model);
 }

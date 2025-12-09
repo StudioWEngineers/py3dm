@@ -15,16 +15,10 @@ from py3dm import Point3d
 
 
 class Point3dTestSuite(TestCase):
-    """Tests for the `Point3d` class.
-    """
     def test_distance_to(self) -> None:
-        """Test for the `distance_to` method.
-        """
         self.assertEqual(Point3d(0, 0, 0).distance_to(Point3d(1, 1, 1)), sqrt(3))
 
     def test_division(self) -> None:
-        """Tests for the `/` operator.
-        """
         point = Point3d(0, 0, 1.1) / 2.1
 
         with self.subTest(msg="x-coordinate"):
@@ -37,18 +31,12 @@ class Point3dTestSuite(TestCase):
             self.assertEqual(point.z, 1.1 / 2.1)
 
     def test_equal(self) -> None:
-        """Test for the `==` operator.
-        """
         self.assertTrue(Point3d(0, 0, 1.1) == Point3d(0, 0, 1.1))
 
     def test_equal_not(self) -> None:
-        """Test for the `!=` operator.
-        """
         self.assertTrue(Point3d(0, 0, 1.1) != Point3d(1, 0, 1.1))
 
     def test_get_and_set_x_coordinate(self) -> None:
-        """Tests for the `x`, `y` and `z` property.
-        """
         point = Point3d(0, 0, 0)
 
         with self.subTest(msg="Get x-coordinate"):
@@ -60,8 +48,6 @@ class Point3dTestSuite(TestCase):
             self.assertEqual(point.x, 3.1)
 
     def test_get_and_set_y_coordinate(self) -> None:
-        """Tests for the `y` property.
-        """
         point = Point3d(0, 0, 0)
 
         with self.subTest(msg="Get y-coordinate"):
@@ -73,8 +59,6 @@ class Point3dTestSuite(TestCase):
             self.assertEqual(point.y, 3.1)
 
     def test_get_and_set_z_coordinate(self) -> None:
-        """Tests for the `z` property.
-        """
         point = Point3d(0, 0, 1.1)
 
         with self.subTest(msg="Get z-coordinate"):
@@ -86,13 +70,9 @@ class Point3dTestSuite(TestCase):
             self.assertEqual(point.z, 3.1)
 
     def test_is_coincident(self) -> None:
-        """Test for the `is_coincident` method.
-        """
         self.assertTrue(Point3d(1, 2, 3.1).is_coincident(Point3d(1, 2, 3.1)))
 
     def test_multiplication(self) -> None:
-        """Tests for the `*` operator.
-        """
         point = Point3d(0, 0, 1.1) * 2.1
 
         with self.subTest(msg="x-coordinate"):
@@ -105,8 +85,6 @@ class Point3dTestSuite(TestCase):
             self.assertEqual(point.z, 1.1 * 2.1)
 
     def test_sum(self) -> None:
-        """Tests for the `+` operator.
-        """
         point = Point3d(0, 0, 1.1) + Point3d(1, 2, 3)
 
         with self.subTest(msg="x-coordinate"):

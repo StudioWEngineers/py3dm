@@ -3,6 +3,7 @@ from . _py3dm import (
     __doc__,
     __email__,
     __maintainer__,
+    CurveTable,
     Geometry,
     Layer,
     LayerTable,
@@ -12,11 +13,11 @@ from . _py3dm import (
     ObjectAttributes,
     ObjectColorSource,
     ObjectMode,
-    ObjectTable,
     OpenNURBSObject,
     Model,
     PlotColorSource,
     PointGeometry,
+    PointTable,
     Point3d,
     TextLog
 )

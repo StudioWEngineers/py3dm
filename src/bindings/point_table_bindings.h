@@ -1,5 +1,5 @@
 /*
-    src/bindings/line_table_bindings.h: Exposing helper class LineTable to Python
+    src/bindings/point_table_bindings.h: Exposing helper class PointTable to Python
 
     Copyright (c) 2025 Studio W Engineers
 
@@ -16,4 +16,4 @@
 #include "bindings.h"
 
 
-void LineTableBindings(nb::module_& m);
+void PointTableBindings(nb::module_& m);

@@ -13,9 +13,9 @@
 // External includes
 
 // Project includes
+#include "curve_table.h"
 #include "layer_table.h"
-#include "line_table.h"
-#include "object_table.h"
+#include "point_table.h"
 
 
 class Model {
@@ -47,8 +47,8 @@ public:
 
     /*tables*/
     LayerTable ModelLayerTable();
-    LineTable ModelLineTable();
-    ObjectTable ModelObjectTable();
+    CurveTable ModelCurveTable();
+    PointTable ModelPointTable();
 
 private:
     std::shared_ptr<ONX_Model> p_model;

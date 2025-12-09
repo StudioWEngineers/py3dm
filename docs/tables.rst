@@ -5,13 +5,9 @@ Tables
 
 Objects can be added, deleted and retrieved from a ``Model`` using tables.
 
-All tables implement an iterator, add and getter methods.
-
-For geometrical objects, the ``ObjectTable`` is the most generic one and provides methods
-that are independent from the actual geometry type (Curves, Points, ...), while the
-specialized ones allow working on small subsets of objects. All the tables that refer to
-geometrical objects are an interface to the same container via
-``ON_ModelComponent::Type::ModelGeometry``.
+All tables implement an iterator, add and getter methods and they allow working on small
+subsets of objects (Curves, Points, ...). All the tables that refer to geometrical objects
+are an interface to the same container via ``ON_ModelComponent::Type::ModelGeometry``.
 
 .. _layer_table:
 
@@ -29,20 +25,18 @@ It is highlighted that deleting the last Layer in the table and adding a new one
 not guarantee nor preserve the order of the Layers in the table in case of deletions and
 additions.
 
-.. _line_table:
+.. _curve_table:
 
-LineTable
----------
+CurveTable
+----------
 
-The ``LineTable`` class provides methods to add .
+The ``CurveTable`` class provides methods to add .
 
-.. _object_table:
+.. _point_table:
 
-ObjectTable
------------
+PointTable
+----------
 
-The ``ObjectTable``:
-
-- **placeholder**: placeholder
-
+The ``PointTable`` class provides methods to access and modify existing ``ON_Point`` s as
+well as add new ones.
 
