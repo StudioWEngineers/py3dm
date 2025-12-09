@@ -15,14 +15,10 @@ from py3dm import Layer, Model, Point3d
 
 
 class NewModelTestSuite(TestCase):
-    """Tests for the `Model` class.
-    """
     def setUp(self) -> None:
         self.model = Model()
 
     def test_application_details(self) -> None:
-        """Tests for the `application_details` property.
-        """
         with self.subTest(msg="Before assignment"):
             self.assertEqual(self.model.application_details, "")
 
@@ -32,8 +28,6 @@ class NewModelTestSuite(TestCase):
             self.assertEqual(self.model.application_details, "custom string")
 
     def test_application_name(self) -> None:
-        """Tests for the `application_name` property.
-        """
         with self.subTest(msg="Before assignment"):
             self.assertEqual(self.model.application_name, "")
 
@@ -43,8 +37,6 @@ class NewModelTestSuite(TestCase):
             self.assertEqual(self.model.application_name, "custom string")
 
     def test_application_url(self) -> None:
-        """Tests for the `application_url` property.
-        """
         with self.subTest(msg="Before assignment"):
             self.assertEqual(self.model.application_url, "")
 
@@ -54,13 +46,9 @@ class NewModelTestSuite(TestCase):
             self.assertEqual(self.model.application_url, "custom string")
 
     def test_archive_version(self) -> None:
-        """Test for the `archive_version` property.
-        """
         self.assertEqual(self.model.archive_version, 0)
 
     def test_created_by(self) -> None:
-        """Tests for the `created_by` property.
-        """
         with self.subTest(msg="Before assignment"):
             self.assertEqual(self.model.created_by, "")
 
@@ -70,8 +58,6 @@ class NewModelTestSuite(TestCase):
             self.assertEqual(self.model.created_by, "StudioWEngineers")
 
     def test_last_edited_by(self) -> None:
-        """Tests for the `last_edited_by` property.
-        """
         with self.subTest(msg="Before assignment"):
             self.assertEqual(self.model.last_edited_by, "")
 
@@ -81,8 +67,6 @@ class NewModelTestSuite(TestCase):
             self.assertEqual(self.model.last_edited_by, "StudioWEngineers")
 
     def test_revision(self) -> None:
-        """Tests for the `revision` property.
-        """
         with self.subTest(msg="Before assignment"):
             self.assertEqual(self.model.revision, 0)
 
@@ -115,44 +99,28 @@ class WriteAndReadModelTestSuite(TestCase):
             self.model.read(temp_dir + "/WriteAndReadModelTestSuite.3dm")
 
     def test_application_details(self) -> None:
-        """Test for the `application_details` property.
-        """
         self.assertEqual(self.model.application_details, "WriteAndReadModelTestSuite")
 
     def test_application_name(self) -> None:
-        """Test for the `application_name` property.
-        """
         self.assertEqual(self.model.application_name, "Rhinoceros 7")
 
     def test_application_url(self) -> None:
-        """Test for the `application_url` property.
-        """
         self.assertEqual(self.model.application_url, "custom URL")
 
     def test_archive_version(self) -> None:
-        """Test for the `archive_version` property.
-        """
         self.assertEqual(self.model.archive_version, 70)
 
     def test_created_by(self) -> None:
-        """Test for the `created_by` property.
-        """
         self.assertEqual(self.model.created_by, "StudioWEngineers")
 
     def test_last_edited_by(self) -> None:
-        """Test for the `last_edited_by` property.
-        """
         self.assertEqual(self.model.last_edited_by, "StudioWEngineers")
 
     def test_revision(self) -> None:
-        """Test for the `revision` property.
-        """
         self.assertEqual(self.model.revision, 1)
 
 
 class ResetModelTestSuite(TestCase):
-    """Tests for the `Model` class, `reset` method.
-    """
     def setUp(self) -> None:
         # create a model with custom info, one layer and one geometrical object
         self.model = Model()
@@ -166,21 +134,13 @@ class ResetModelTestSuite(TestCase):
         self.model.reset()
 
     def test_created_by(self) -> None:
-        """Check the `created_by` property after `reset`.
-        """
         self.assertEqual(self.model.created_by, "")
 
     def test_last_edited_by(self) -> None:
-        """Check the `last_edited_by` property after `reset`.
-        """
         self.assertEqual(self.model.last_edited_by, "")
 
     def test_number_of_layers(self) -> None:
-        """Check the number of `Layer`s in the model after `reset`.
-        """
         self.assertEqual(len(list(self.model.LayerTable)), 0)
 
     def test_revision(self) -> None:
-        """Check the `revision` property after `reset`.
-        """
         self.assertEqual(self.model.revision, 0)

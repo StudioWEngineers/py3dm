@@ -15,8 +15,6 @@ from py3dm import Line, Point3d
 
 
 class LineTestSuite(TestCase):
-    """Tests for the `Line` class.
-    """
     def setUp(self) -> None:
         self.line = Line(Point3d(0, 0, 0), Point3d(1, 1, 1))
 

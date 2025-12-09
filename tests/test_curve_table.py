@@ -16,15 +16,11 @@ from py3dm import Line, LineCurve, Model, ObjectAttributes, Point3d
 
 
 class CurveTableTestSuite(TestCase):
-    """Tests for the `CurveTable` class.
-    """
     def setUp(self) -> None:
         model = Model()
         self.table = model.CurveTable
 
     def test_add_with_attributes(self) -> None:
-        """Tests for the `add` methods with attributes.
-        """
         line_id = self.table.add(
             Line(Point3d(0, 1, 0), Point3d(0, 0, 0)), ObjectAttributes()
         )
@@ -49,8 +45,6 @@ class CurveTableTestSuite(TestCase):
             )
 
     def test_add_line_without_attributes(self) -> None:
-        """Tests for the `add` methods without attributes.
-        """
         line = Line(Point3d(0, 1, 0), Point3d(0, 0, 0))
         line_id = self.table.add(line)
 
@@ -72,8 +66,6 @@ class CurveTableTestSuite(TestCase):
             self.assertEqual(retrieved_line_curve.line.length(), sqrt(2))
 
     def test_get_by_uuid(self) -> None:
-        """Tests for the `get_by_uuid` method.
-        """
         obj_uuid = self.table.add(Line(Point3d(0, 0, 0), Point3d(1, 1, 1)))
         returned_curve = self.table.get_by_uuid(obj_uuid)
 
@@ -81,8 +73,6 @@ class CurveTableTestSuite(TestCase):
 
 
 class CurveTableIteratorTestSuite(TestCase):
-    """Tests for the `CurveTable` class, with focus on the iterator.
-    """
     def setUp(self) -> None:
         model = Model()
         self.table = model.CurveTable
@@ -94,6 +84,4 @@ class CurveTableIteratorTestSuite(TestCase):
         model.PointTable.add(2, 1, 2)
 
     def test_line_iterator(self) -> None:
-        """Test for the `CurveTable` iterator.
-        """
         self.assertEqual(len(self.table), 2)

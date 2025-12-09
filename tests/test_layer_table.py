@@ -15,14 +15,10 @@ from py3dm import Layer, Model
 
 
 class LayerTableTestSuite(TestCase):
-    """Tests for the `LayerTable` class.
-    """
     def setUp(self) -> None:
         self.model = Model()
 
     def test_add(self) -> None:
-        """Tests for the `add` method.
-        """
         layer1 = Layer()
         layer1.set_name("Layer A")
         layer1.color = (255, 0, 255, 255)
@@ -55,8 +51,6 @@ class LayerTableTestSuite(TestCase):
             self.assertEqual(self.model.LayerTable.get_by_index(0).color, (255, 0, 255, 255))
 
     def test_count(self) -> None:
-        """Tests for the `count` method.
-        """
         with self.subTest(msg="Number of layers for an empty model"):
             self.assertEqual(self.model.LayerTable.count(), 0)
 
@@ -66,8 +60,6 @@ class LayerTableTestSuite(TestCase):
             self.assertEqual(self.model.LayerTable.count(), 1)
 
     def test_delete_by_name(self) -> None:
-        """Tests for the `delete_by_name` method.
-        """
         layer_1 = Layer()
         layer_2 = Layer()
         layer_1.set_name("New layer 1")
@@ -85,8 +77,6 @@ class LayerTableTestSuite(TestCase):
             self.assertEqual(self.model.LayerTable.count(), 1)
 
     def test_delete_by_uuid(self) -> None:
-        """Tests for the `delete_by_uuid` method.
-        """
         layer_1 = Layer()
         layer_2 = Layer()
         layer_1.set_name("New layer 1")
@@ -104,8 +94,6 @@ class LayerTableTestSuite(TestCase):
             self.assertEqual(self.model.LayerTable.count(), 1)
 
     def test_getitem(self) -> None:
-        """Tests for the `__getitem__` method.
-        """
         self.model.LayerTable.add(Layer())
         self.model.LayerTable.add(Layer())
 
@@ -120,8 +108,6 @@ class LayerTableTestSuite(TestCase):
                 self.model.LayerTable[-1]
 
     def test_get_by_index(self) -> None:
-        """Tests for the `get_by_index` method.
-        """
         layer_1 = Layer()
         layer_1.set_name("Layer A")
         layer_1.color = (255, 0, 255, 255)
@@ -149,8 +135,6 @@ class LayerTableTestSuite(TestCase):
                 self.model.LayerTable.get_by_index(-1)
 
     def test_get_by_name(self) -> None:
-        """Tests for the `get_by_name` method.
-        """
         layer_1 = Layer()
         layer_1.set_name("Layer A")
         layer_1.color = (255, 0, 255, 255)
@@ -174,8 +158,6 @@ class LayerTableTestSuite(TestCase):
             self.assertEqual(layer_1.color, (255, 0, 255, 255))
 
     def test_get_by_uuid(self) -> None:
-        """Tests for the `get_by_uuid` method.
-        """
         layer_1 = Layer()
         layer_1.set_name("Layer A")
         layer_1.color = (255, 0, 255, 255)
@@ -199,8 +181,6 @@ class LayerTableTestSuite(TestCase):
             self.assertEqual(retrieved_layer_1.color, (255, 0, 255, 255))
 
     def test_get_index(self) -> None:
-        """Tests for the `get_index` method.
-        """
         self.model.LayerTable.add(Layer())
         self.model.LayerTable.add(Layer())
 
@@ -214,8 +194,6 @@ class LayerTableTestSuite(TestCase):
             self.assertEqual(self.model.LayerTable.get_index("Layer 02"), 1)
 
     def test_get_uuid(self) -> None:
-        """Tests for the `get_uuid` method.
-        """
         layer_1_uuid = self.model.LayerTable.add(Layer())
         layer_2_uuid = self.model.LayerTable.add(Layer())
 
@@ -238,8 +216,6 @@ class LayerTableTestSuite(TestCase):
             )
 
     def test_has(self) -> None:
-        """Tests for the `has` method.
-        """
         self.model.LayerTable.add(Layer())
 
         with self.subTest(msg="Not existing layer"):
@@ -249,8 +225,6 @@ class LayerTableTestSuite(TestCase):
             self.assertTrue(self.model.LayerTable.has("Layer 01"))
 
     def test_max_index(self) -> None:
-        """Tests for the `max_index` method.
-        """
         with self.subTest(msg="max_index before adding layers to model"):
             self.assertEqual(self.model.LayerTable.max_index(), 0)
 
@@ -268,12 +242,7 @@ class LayerTableTestSuite(TestCase):
 
 
 class NestedLayerTableTestSuite(TestCase):
-    """Tests for the `LayerTable` class, with nested layers.
-    """
     def test_nested_layer(self) -> None:
-        """Test for creating a nested layer.
-        """
-
         model = Model()
         model.LayerTable.add(Layer())
         parent_layer_uuid = model.LayerTable.get_uuid("layer 01")
@@ -292,11 +261,7 @@ class NestedLayerTableTestSuite(TestCase):
 
 
 class LayerTableTeIteratorstSuite(TestCase):
-    """Tests for the `LayerTable` class, with focus on the iterator.
-    """
     def test_iter(self) -> None:
-        """Tests for the `__iter__` method.
-        """
         model = Model()
 
         model.LayerTable.add(Layer())
@@ -310,8 +275,6 @@ class LayerTableTeIteratorstSuite(TestCase):
                 self.assertEqual(layer.get_index(), layer_index)
 
     def test_modify_layer_in_iter(self) -> None:
-        """Tests for the `__iter__` method.
-        """
         model = Model()
 
         model.LayerTable.add(Layer())

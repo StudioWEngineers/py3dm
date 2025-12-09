@@ -15,14 +15,10 @@ from py3dm import Layer, Model
 
 
 class LayerTestSuite(TestCase):
-    """Tests for the `Layer` class.
-    """
     def setUp(self) -> None:
         self.layer = Layer()
 
     def test_get_and_set_color(self) -> None:
-        """Tests for the `color` property.
-        """
         with self.subTest(msg="Layer color before assignment"):
             self.assertEqual(self.layer.color, (0, 0, 0, 255))
 
@@ -32,8 +28,6 @@ class LayerTestSuite(TestCase):
             self.assertEqual(self.layer.color, (100, 50, 10, 255))
 
     def test_get_and_set_iges_level(self) -> None:
-        """Tests for the `iges_level` property.
-        """
         with self.subTest(msg="Layer iges_level before assignment"):
             self.assertEqual(self.layer.iges_level, -1)
 
@@ -43,13 +37,9 @@ class LayerTestSuite(TestCase):
             self.assertEqual(self.layer.iges_level, 10)
 
     def test_get_index(self) -> None:
-        """Tests for the `index` property.
-        """
         self.assertEqual(self.layer.get_index(), -2147483647)
 
     def test_get_and_set_is_expanded(self) -> None:
-        """Tests for the `is_expanded` property.
-        """
         with self.subTest(msg="Layer is_expanded before assignment"):
             self.assertTrue(self.layer.is_expanded)
 
@@ -59,8 +49,6 @@ class LayerTestSuite(TestCase):
             self.assertFalse(self.layer.is_expanded)
 
     def test_get_and_set_is_locked(self) -> None:
-        """Tests for the `is_locked` property.
-        """
         with self.subTest(msg="Layer is_locked before assignment"):
             self.assertFalse(self.layer.is_locked)
 
@@ -70,8 +58,6 @@ class LayerTestSuite(TestCase):
             self.assertTrue(self.layer.is_locked)
 
     def test_get_and_set_is_visible(self) -> None:
-        """Tests for the `is_visible` property.
-        """
         with self.subTest(msg="Layer is_visible before assignment"):
             self.assertTrue(self.layer.is_visible)
 
@@ -81,8 +67,6 @@ class LayerTestSuite(TestCase):
             self.assertFalse(self.layer.is_visible)
 
     def test_get_and_set_layer_uuid(self) -> None:
-        """Tests for the `layer_uuid` property.
-        """
         with self.subTest(msg="Layer layer_uuid before assignment"):
             self.assertEqual(self.layer.layer_uuid, UUID(int=0))
 
@@ -93,8 +77,6 @@ class LayerTestSuite(TestCase):
             self.assertEqual(self.layer.layer_uuid, new_id)
 
     def test_get_and_set_line_type_index(self) -> None:
-        """Tests for the `line_type_index` property.
-        """
         with self.subTest(msg="Layer line_type_index before assignment"):
             self.assertEqual(self.layer.line_type_index, -1)
 
@@ -104,8 +86,6 @@ class LayerTestSuite(TestCase):
             self.assertEqual(self.layer.line_type_index, 3)
 
     def test_get_and_set_name(self) -> None:
-        """Tests for the `name` property.
-        """
         with self.subTest(msg="Layer name before assignment"):
             self.assertEqual(self.layer.get_name(), "")
 
@@ -116,8 +96,6 @@ class LayerTestSuite(TestCase):
             self.assertEqual(self.layer.get_name(), "My new layer")
 
     def test_get_and_set_parent_uuid(self) -> None:
-        """Tests for the `parent_uuid` property.
-        """
         with self.subTest(msg="Layer parent_uuid before assignment"):
             self.assertEqual(self.layer.parent_uuid, UUID(int=0))
 
@@ -127,8 +105,6 @@ class LayerTestSuite(TestCase):
             self.assertEqual(self.layer.parent_uuid, UUID(int=3))
 
     def test_get_and_set_persistent_locking(self) -> None:
-        """Tests for the `persistent_locking` property.
-        """
         with self.subTest(msg="Layer persistent_locking before assignment"):
             self.assertFalse(self.layer.persistent_locking)
 
@@ -146,8 +122,6 @@ class LayerTestSuite(TestCase):
             self.assertTrue(self.layer.persistent_locking)
 
     def test_get_and_set_persistent_visibility(self) -> None:
-        """Tests for the `persistent_visibility` property.
-        """
         with self.subTest(msg="Layer persistent_visibility before assignment"):
             self.assertTrue(self.layer.persistent_visibility)
 
@@ -165,8 +139,6 @@ class LayerTestSuite(TestCase):
             self.assertFalse(self.layer.persistent_visibility)
 
     def test_get_and_set_plot_color(self) -> None:
-        """Tests for the `plot_color` property.
-        """
         with self.subTest(msg="Layer plot_color before assignment"):
             self.assertEqual(self.layer.plot_color, (0, 0, 0, 255))
 
@@ -176,8 +148,6 @@ class LayerTestSuite(TestCase):
             self.assertEqual(self.layer.plot_color, (100, 50, 10, 255))
 
     def test_get_and_set_plot_weight(self) -> None:
-        """Tests for the `plot_weight` property.
-        """
         with self.subTest(msg="Layer plot_weight before assignment"):
             self.assertEqual(self.layer.plot_weight, 0)
 
@@ -187,8 +157,6 @@ class LayerTestSuite(TestCase):
             self.assertEqual(self.layer.plot_weight, 1.1)
 
     def test_get_and_set_render_material_index(self) -> None:
-        """Tests for the `render_material_index` property.
-        """
         with self.subTest(msg="Layer render_material_index before assignment"):
             self.assertEqual(self.layer.render_material_index, -1)
 
@@ -198,8 +166,6 @@ class LayerTestSuite(TestCase):
             self.assertEqual(self.layer.render_material_index, 2)
 
     def test_get_parent_uuid_is_not_null(self) -> None:
-        """Tests for the `parent_uuid_is_not_null` read-only property.
-        """
         with self.subTest(msg="Before assignment"):
             self.assertFalse(self.layer.parent_uuid_is_not_null())
 
@@ -209,8 +175,6 @@ class LayerTestSuite(TestCase):
             self.assertTrue(self.layer.parent_uuid_is_not_null())
 
     def test_get_parent_uuid_is_null(self) -> None:
-        """Tests for the `parent_uuid_is_null` read-only property.
-        """
         with self.subTest(msg="Before assignment"):
             self.assertTrue(self.layer.parent_uuid_is_null())
 
@@ -220,18 +184,12 @@ class LayerTestSuite(TestCase):
             self.assertFalse(self.layer.parent_uuid_is_null())
 
     def test_get_path_separator(self) -> None:
-        """Tests for the `path_separator` read-only property.
-        """
         self.assertEqual(self.layer.path_separator, "::")
 
     def test_is_valid(self) -> None:
-        """Tests for the `is_valid` method.
-        """
         self.assertFalse(self.layer.is_valid())
 
     def test_repr(self) -> None:
-        """Tests for the `__repr__` method.
-        """
         expected_repr = (
             "Layer with properties:\n"
             "\tcolor = (0, 0, 0, 255)\n"
@@ -256,16 +214,12 @@ class LayerTestSuite(TestCase):
 
 
 class ExistingLayerModificationTestSuite(TestCase):
-    """Tests for the `Layer` class.
-    """
     def setUp(self) -> None:
         self.model = Model()
         layer_uuid = self.model.LayerTable.add(Layer())
         self.layer = self.model.LayerTable.get_by_uuid(layer_uuid)
 
     def test_get_and_set_color(self) -> None:
-        """Tests for the `color` property.
-        """
         with self.subTest(msg="Layer color before assignment"):
             self.assertEqual(self.layer.color, (0, 0, 0, 255))
 
@@ -275,8 +229,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertEqual(self.layer.color, (100, 50, 10, 255))
 
     def test_get_and_set_iges_level(self) -> None:
-        """Tests for the `iges_level` property.
-        """
         with self.subTest(msg="Layer iges_level before assignment"):
             self.assertEqual(self.layer.iges_level, -1)
 
@@ -286,13 +238,9 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertEqual(self.layer.iges_level, 10)
 
     def test_get_index(self) -> None:
-        """Tests for the `index` property.
-        """
         self.assertEqual(self.layer.get_index(), 0)
 
     def test_get_and_set_is_expanded(self) -> None:
-        """Tests for the `is_expanded` property.
-        """
         with self.subTest(msg="Layer is_expanded before assignment"):
             self.assertTrue(self.layer.is_expanded)
 
@@ -302,8 +250,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertFalse(self.layer.is_expanded)
 
     def test_get_and_set_is_locked(self) -> None:
-        """Tests for the `is_locked` property.
-        """
         with self.subTest(msg="Layer is_locked before assignment"):
             self.assertFalse(self.layer.is_locked)
 
@@ -313,8 +259,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertTrue(self.layer.is_locked)
 
     def test_get_and_set_is_visible(self) -> None:
-        """Tests for the `is_visible` property.
-        """
         with self.subTest(msg="Layer is_visible before assignment"):
             self.assertTrue(self.layer.is_visible)
 
@@ -324,8 +268,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertFalse(self.layer.is_visible)
 
     def test_get_and_set_layer_uuid(self) -> None:
-        """Tests for the `layer_uuid` property.
-        """
         layer_uuid = self.model.LayerTable.get_uuid("Layer 01")
         with self.subTest(msg="Layer layer_uuid before assignment"):
             self.assertEqual(self.layer.layer_uuid, layer_uuid)
@@ -337,8 +279,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertEqual(self.layer.layer_uuid, new_id)
 
     def test_get_and_set_line_type_index(self) -> None:
-        """Tests for the `line_type_index` property.
-        """
         with self.subTest(msg="Layer line_type_index before assignment"):
             self.assertEqual(self.layer.line_type_index, -1)
 
@@ -348,8 +288,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertEqual(self.layer.line_type_index, 3)
 
     def test_get_and_set_name(self) -> None:
-        """Tests for the `name` property.
-        """
         with self.subTest(msg="Layer name before assignment"):
             self.assertEqual(self.layer.get_name(), "Layer 01")
 
@@ -360,8 +298,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertEqual(self.layer.get_name(), "My new layer")
 
     def test_get_and_set_parent_uuid(self) -> None:
-        """Tests for the `parent_uuid` property.
-        """
         with self.subTest(msg="Layer parent_uuid before assignment"):
             self.assertEqual(self.layer.parent_uuid, UUID(int=0))
 
@@ -371,8 +307,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertEqual(self.layer.parent_uuid, UUID(int=3))
 
     def test_get_and_set_persistent_locking(self) -> None:
-        """Tests for the `persistent_locking` property.
-        """
         with self.subTest(msg="Layer persistent_locking before assignment"):
             self.assertFalse(self.layer.persistent_locking)
 
@@ -390,8 +324,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertTrue(self.layer.persistent_locking)
 
     def test_get_and_set_persistent_visibility(self) -> None:
-        """Tests for the `persistent_visibility` property.
-        """
         with self.subTest(msg="Layer persistent_visibility before assignment"):
             self.assertTrue(self.layer.persistent_visibility)
 
@@ -409,8 +341,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertFalse(self.layer.persistent_visibility)
 
     def test_get_and_set_plot_color(self) -> None:
-        """Tests for the `plot_color` property.
-        """
         with self.subTest(msg="Layer plot_color before assignment"):
             self.assertEqual(self.layer.plot_color, (0, 0, 0, 255))
 
@@ -420,8 +350,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertEqual(self.layer.plot_color, (100, 50, 10, 255))
 
     def test_get_and_set_plot_weight(self) -> None:
-        """Tests for the `plot_weight` property.
-        """
         with self.subTest(msg="Layer plot_weight before assignment"):
             self.assertEqual(self.layer.plot_weight, 0)
 
@@ -431,8 +359,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertEqual(self.layer.plot_weight, 1.1)
 
     def test_get_and_set_render_material_index(self) -> None:
-        """Tests for the `render_material_index` property.
-        """
         with self.subTest(msg="Layer render_material_index before assignment"):
             self.assertEqual(self.layer.render_material_index, -1)
 
@@ -442,8 +368,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertEqual(self.layer.render_material_index, 2)
 
     def test_get_parent_uuid_is_not_null(self) -> None:
-        """Tests for the `parent_uuid_is_not_null` read-only property.
-        """
         with self.subTest(msg="Before assignment"):
             self.assertFalse(self.layer.parent_uuid_is_not_null())
 
@@ -453,8 +377,6 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertTrue(self.layer.parent_uuid_is_not_null())
 
     def test_get_parent_uuid_is_null(self) -> None:
-        """Tests for the `parent_uuid_is_null` read-only property.
-        """
         with self.subTest(msg="Before assignment"):
             self.assertTrue(self.layer.parent_uuid_is_null())
 
@@ -464,18 +386,12 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertFalse(self.layer.parent_uuid_is_null())
 
     def test_get_path_separator(self) -> None:
-        """Tests for the `path_separator` read-only property.
-        """
         self.assertEqual(self.layer.path_separator, "::")
 
     def test_is_valid(self) -> None:
-        """Tests for the `is_valid` method.
-        """
         self.assertTrue(self.layer.is_valid())
 
     def test_repr(self) -> None:
-        """Tests for the `__repr__` method.
-        """
         expected_repr = (
             "Layer with properties:\n"
             "\tcolor = (0, 0, 0, 255)\n"
