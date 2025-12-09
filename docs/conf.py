@@ -236,7 +236,7 @@ latex_maketitle = r'''
     Corresponding author: & studio.w.engineers@gmail.com \\
     First issue: & July, 2025 \\
     Last editing: & \today \\
-    py3dm version: & v0.2.0 \\
+    py3dm version: & v{version} \\
     \vspace*{1cm}
   \end{tabular}
 \end{tabular}
