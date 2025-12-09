@@ -18,6 +18,7 @@ from . _py3dm import (
     Model,
     PlotColorSource,
     PointGeometry,
+    PointTable,
     Point3d,
     TextLog
 )

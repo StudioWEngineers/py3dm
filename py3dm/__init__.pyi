@@ -537,6 +537,9 @@ class Model:
     def ObjectTable(self) -> ObjectTable: ...
 
     @property
+    def PointTable(self) -> PointTable: ...
+
+    @property
     def revision(self) -> int: ...
 
 
@@ -923,6 +926,47 @@ class PointGeometry(Geometry):
 
     def is_valid(self, text_log: TextLog | None = None) -> bool:
         """Returns ``False`` if any coordinate is infinite, a nan, or ``ON_UNSET_VALUE``.
+        """
+        ...
+
+
+class PointTable:
+    def __iter__(self) -> Iterator[PointGeometry]: ...
+
+    def __len__(self) -> int: ...
+
+    @overload
+    def add(self, x: float, y: float, z: float, attributes: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the point in case of successful addition, or an empty
+        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, point: PointGeometry, obj_attr: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the point in case of successful addition, or an empty
+        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, point: Point3d, obj_attr: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the point in case of successful addition, or an empty
+        ``UUID`` otherwise. If the point is in the model, then the ``UUID`` is unique for
+        all components in the model and is locked.
+        """
+        ...
+
+    def count(self) -> int:
+        """Returns the number of objects of type ``ON::point_object`` in the model.
+        """
+        ...
+
+    def get_by_uuid(self, object_uuid: UUID) -> PointGeometry | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
         """
         ...
 

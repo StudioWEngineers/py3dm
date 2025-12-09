@@ -118,3 +118,7 @@ CurveTable Model::ModelCurveTable() {
 ObjectTable Model::ModelObjectTable() {
     return ObjectTable(p_model);
 }
+
+PointTable Model::ModelPointTable() {
+    return PointTable(p_model);
+}
