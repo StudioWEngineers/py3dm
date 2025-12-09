@@ -976,6 +976,11 @@ class TextLog:
         """
         ...
 
+    def level_of_detail_is_at_least(self, level: LevelOfDetail) -> bool:
+        """Returns ``True`` if this `TextLog` is ``level``.
+        """
+        ...
+
     def set_level_of_detail(self, level: LevelOfDetail) -> None:
         """Sets the level of detail.
         """
