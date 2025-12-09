@@ -37,6 +37,6 @@ The ``CurveTable`` class provides methods to add .
 PointTable
 ----------
 
-The ``PointTable`` class provides methods to access and modify existing ``ON_Point``s as
+The ``PointTable`` class provides methods to access and modify existing ``ON_Point`` s as
 well as add new ones.
 
