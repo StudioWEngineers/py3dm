@@ -92,6 +92,14 @@ def write_version(root: str, semver: str) -> None:
         f.truncate()
         f.write(contents)
 
+    # Write to index.rst
+    with open(os.path.join(root, "docs/index.rst"), "r+") as f:
+        contents = f.read()
+        updated = re.sub(r"(py3dm\s+)(\d+\.\d+\.\d+(?:-dev\d+)?)", rf"\g<1>{semver}", contents)
+        f.seek(0)
+        f.truncate()
+        f.write(updated)
+
 
 def main() -> None:
     root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
