@@ -88,10 +88,10 @@ class CurveTableIteratorTestSuite(TestCase):
         self.table = model.CurveTable
 
         # adding few objects of different types
-        model.ObjectTable.add_point(0, 1, 2)
+        model.PointTable.add(0, 1, 2)
         self.table.add(Point3d(0, 0, 1), Point3d(1, 1, 1))
         self.table.add(Point3d(2, 0, 1), Point3d(2, 1, 1))
-        model.ObjectTable.add_point(2, 1, 2)
+        model.PointTable.add(2, 1, 2)
 
     def test_line_iterator(self) -> None:
         """Test for the `CurveTable` iterator.

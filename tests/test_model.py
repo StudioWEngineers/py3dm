@@ -180,11 +180,6 @@ class ResetModelTestSuite(TestCase):
         """
         self.assertEqual(len(list(self.model.LayerTable)), 0)
 
-    def test_number_of_objects(self) -> None:
-        """Check the number of objects in the model after `reset`.
-        """
-        self.assertEqual(len(list(self.model.ObjectTable)), 0)
-
     def test_revision(self) -> None:
         """Check the `revision` property after `reset`.
         """

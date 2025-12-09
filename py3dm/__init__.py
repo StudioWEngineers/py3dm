@@ -13,7 +13,6 @@ from . _py3dm import (
     ObjectAttributes,
     ObjectColorSource,
     ObjectMode,
-    ObjectTable,
     OpenNURBSObject,
     Model,
     PlotColorSource,

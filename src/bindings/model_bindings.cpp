@@ -34,7 +34,6 @@ void ModelBindings(nb::module_& m) {
         /*tables*/
         .def_prop_ro("LayerTable", &Model::ModelLayerTable)
         .def_prop_ro("CurveTable", &Model::ModelCurveTable)
-        .def_prop_ro("ObjectTable", &Model::ModelObjectTable)
         .def_prop_ro("PointTable", &Model::ModelPointTable)
     ;
 }

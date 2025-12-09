@@ -15,7 +15,6 @@
 #include "model_component_bindings.h"
 #include "object_attributes_bindings.h"
 #include "object_bindings.h"
-#include "object_table_bindings.h"
 #include "point_geometry_bindings.h"
 #include "point_table_bindings.h"
 #include "point3d_bindings.h"
@@ -47,5 +46,4 @@ NB_MODULE(_py3dm, m) {
 
     CurveTableBindings(m);
     PointTableBindings(m);
-    ObjectTableBindings(m);
 }
