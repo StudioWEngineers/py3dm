@@ -5,10 +5,11 @@ build:
   tools:
     python: "3.12"
 
-  commands:
-    - python -m pip install --upgrade pip setuptools wheel
-    - python -m pip install sphinx sphinxcontrib.moderncmakedomain
-    - git submodule update --init --recursive
-    - python -m pip install -e .
-    - python -m pip install -r docs/requirements.txt
-    - sphinx-build -b html docs $READTHEDOCS_OUTPUT/html
+python:
+  install:
+    - method: pip
+      path: .
+    - requirements: docs/requirements.txt
+
+sphinx:
+  configuration: docs/conf.py
