@@ -7,6 +7,12 @@
 
 Python bindings for **OpenNURBS** using **nanobind**.
 
+> [!IMPORTANT]  
+> **OpenNURBS and Rhinoceros are registered trademarks of Robert McNeel & Associates.**
+>
+> *py3dm* is an independent, open-source project not affiliated with, endorsed by, or vetted by Robert McNeel & Associates. It provides tools that utilize the publicly available OpenNURBS APIs. *py3dm* is distributed under the BSD 3-Clause License. Users should refer to the OpenNURBS's [Terms of Use](https://www.rhino3d.com/features/developer/opennurbs/) for further details.
+>
+
 ## Dependencies
 
 - [OpenNURBS](https://github.com/mcneel/opennurbs/) commit `d38986464ebfa2dad4e572cf1c0915896d75109b` (`v8.24.25281.15001`) 
