@@ -1,5 +1,5 @@
 furo>=2024.07.15
-sphinx>=7.2.0,<8
+sphinx>=9.0.0
 sphinx-copybutton==0.5.1
 sphinx-autoapi>=3.6.0
 sphinxcontrib-moderncmakedomain==3.25.0
