@@ -7,7 +7,7 @@ build:
 
   commands:
     - python -m pip install --upgrade pip setuptools wheel
-    - python -m pip install sphinx
+    - python -m pip install sphinx sphinxcontrib.moderncmakedomain
     - git submodule update --init --recursive
     - python -m pip install -e .
     - python -m pip install -r docs/requirements.txt
