@@ -11,4 +11,4 @@ build:
     - git submodule update --init --recursive
     - python -m pip install -e .
     - python -m pip install -r docs/requirements.txt
-    - python -m sphinx-build -b html docs $READTHEDOCS_OUTPUT/html
+    - sphinx-build -b html docs $READTHEDOCS_OUTPUT/html
