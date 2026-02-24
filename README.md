@@ -1,16 +1,18 @@
 # py3dm
-[![Tests](https://github.com/StudioWEngineers/py3dm/actions/workflows/workflow_ci.yml/badge.svg)](https://github.com/StudioWEngineers/py3dm/actions/workflows/workflow_ci.yml)
-[![PyPI](https://github.com/StudioWEngineers/py3dm/actions/workflows/build_and_publish.yml/badge.svg)](https://github.com/StudioWEngineers/py3dm/actions/workflows/build_and_publish.yml)
-[![Documentation Status](https://readthedocs.org/projects/py3dm/badge/?version=latest)](https://py3dm.readthedocs.io/en/latest/?badge=latest)
-[![GitHub Release](https://img.shields.io/github/v/release/StudioWEngineers/py3dm)](https://github.com/StudioWEngineers/py3dm/releases)
+[![Continuous Integration](https://img.shields.io/github/actions/workflow/status/StudioWEngineers/py3dm/workflow_ci.yml?label=tests)](https://github.com/StudioWEngineers/py3dm/actions/workflows/workflow_ci.yml) 
+[![PyPI Publish](https://img.shields.io/github/actions/workflow/status/StudioWEngineers/py3dm/build_and_publish.yml?label=publish)](https://github.com/StudioWEngineers/py3dm/actions/workflows/build_and_publish.yml)
+[![Documentation](https://img.shields.io/readthedocs/py3dm/latest)](https://py3dm.readthedocs.io/en/latest/)
+[![](https://img.shields.io/pypi/v/py3dm.svg?color=brightgreen)](https://pypi.org/pypi/py3dm/)
+![](https://img.shields.io/pypi/l/py3dm.svg?color=brightgreen)
+[![](https://img.shields.io/badge/Changelog-Link-brightgreen)](https://py3dm.readthedocs.io/en/latest/changelog.html)
 
 
-Python bindings for **OpenNURBS** using **nanobind**.
+The Studio W Python bindings for *OpenNURBS* using *nanobind*.
 
 > [!IMPORTANT]  
 > **OpenNURBS and Rhinoceros are registered trademarks of Robert McNeel & Associates.**
 >
-> *py3dm* is an independent, open-source project not affiliated with, endorsed by, or vetted by Robert McNeel & Associates. It provides tools that utilize the publicly available OpenNURBS APIs. *py3dm* is distributed under the BSD 3-Clause License. Users should refer to the OpenNURBS's [Terms of Use](https://www.rhino3d.com/features/developer/opennurbs/) for further details.
+> *py3dm* is an independent, open-source project not affiliated with, endorsed by, or vetted by Robert McNeel & Associates. It provides tools that utilize the publicly available OpenNURBS APIs. *py3dm* is distributed under the BSD 3-Clause License. Users should refer to the OpenNURBS [Terms of Use](https://www.rhino3d.com/features/developer/opennurbs/) for further details.
 >
 
 ## Dependencies
@@ -21,21 +23,20 @@ Python bindings for **OpenNURBS** using **nanobind**.
 
 ## Documentation
 
-Please see the following link for reference documentation (currently a BIG WIP) in
-[HTML](https://py3dm.readthedocs.io/en/latest/) format.
+Reference documentation is available in [HTML](https://py3dm.readthedocs.io/en/latest/) format.
 
 ## License and attribution
 
 All material in this repository is licensed under a three-clause [BSD
 license](LICENSE).
 
-Please use the following BibTeX template to cite py3dm:
+Please use the following BibTeX template to cite *py3dm*:
 
 ```bibtex
 @misc{py3dm,
    author = {Studio W Engineers},
+   title = {py3dm: Python bindings for openNURBS using nanobind},
    year = {2025},
-   note = {https://github.com/StudioWEngineers/py3dm},
-   title = {py3dm: Python bindings for openNURBS using nanobind}
+   url = {https://github.com/StudioWEngineers/py3dm},
 }
 ```
