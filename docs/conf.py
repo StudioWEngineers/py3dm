@@ -1,7 +1,3 @@
-import os
-import re
-
-
 # -- Project information --
 project = "py3dm"
 copyright = "2025, StudioWEngineers"
@@ -24,18 +20,8 @@ source_suffix = {'.rst': 'restructuredtext'}
 
 master_doc = "index"
 
-VERSION_REGEX = re.compile(
-    r"^\s*#\s*define\s+PY3DM_VERSION_([A-Z]+)\s+(.*)$", re.MULTILINE)
-
-repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-version_file = os.path.join(repo_root, "src", "bindings", "bindings.h")
-
-with open(version_file) as f:
-    matches = dict(VERSION_REGEX.findall(f.read()))
-    version = "{MAJOR}.{MINOR}.{PATCH}".format(**matches)
-
 html_theme = "furo"
-html_title = f"{project} v{version} documentation"
+html_title = f"{project} documentation"
 
 highlight_language = "python"
 
