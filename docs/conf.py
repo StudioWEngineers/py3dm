@@ -45,7 +45,5 @@ autoapi_options = [
 ]
 
 autoapi_own_page_level = "class"
-templates_path = ["_templates"]
-
 templates_path = ['_templates']
 autoapi_template_dir = '_templates/autoapi'
