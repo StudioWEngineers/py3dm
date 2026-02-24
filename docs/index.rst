@@ -1,60 +1,64 @@
-py3dm documentation
-===================
+Introduction
+============
 
 This is the py3dm 0.2.0-dev1 documentation.
 
 *py3dm* is a small binding library that exposes openNURBS classes to Python.
-It is reminiscent of `rhino3dm <https://github.com/mcneel/rhino3dm>`__ and uses very similar syntax.
+It is reminiscent of `rhino3dm <https://github.com/mcneel/rhino3dm>`__ and uses very
+similar syntax.
 
-.. only:: not latex
+.. important::
 
-    Documentation formats
-    ---------------------
+    **OpenNURBS and Rhinoceros are registered trademarks of Robert McNeel & Associates.**
 
-    You are reading the HTML version of the documentation. An alternative
-    `PDF version <https://py3dm.readthedocs.io/_/downloads/en/latest/pdf/>`__ is also available.
+    *py3dm* is an independent, open-source project not affiliated with, endorsed by, or
+    vetted by Robert McNeel & Associates. It provides Python bindings that utilize the
+    publicly available OpenNURBS APIs. Users should refer to the OpenNURBS
+    `Terms of Use <https://www.rhino3d.com/features/developer/opennurbs/>`__ for further
+    details.
 
-.. only:: latex
+How to cite this project?
+-------------------------
 
-    .. rubric:: Dependencies
-
-*py3dm* depends on:
-
-- `nanobind <https://github.com/wjakob/nanobind>`__
-- `openNURBS <https://github.com/mcneel/opennurbs>`__
-- `Google Draco <https://github.com/google/draco>`__
-
-.. only:: latex
-
-    .. rubric:: How to cite this project?
-
-Please use the following BibTeX template to cite *py3dm* in scientific discourse:
+Please use the following BibTeX template to cite *py3dm*:
 
 .. code-block:: bibtex
 
     @misc{py3dm,
         author = {StudioWEngineers},
+        title = {py3dm: Python bindings for openNURBS using nanobind},
         year = {2025},
-        note = {https://github.com/StudioWEngineers/py3dm},
-        title = {py3dm: Python bindings for openNURBS using nanobind}
+        url = {https://github.com/StudioWEngineers/py3dm}
     }
 
-.. only:: not latex
+Disclaimer
+----------
 
-    Table of contents
-    -----------------
+*py3dm* is an open-source set of bindings that benefits from the collaboration
+of many contributors. While efforts have been made to ensure the implementation is
+correct, it remains the user's responsibility to verify and accept the results.
+
+Please refer to the `license <https://github.com/StudioWEngineers/py3dm/blob/main/LICENSE>`__
+for the terms and conditions of use.
 
 .. toctree::
     :maxdepth: 1
+    :hidden:
 
     changelog
     why
-    tables
     faq
 
-.. only:: html
+.. toctree::
+    :caption: Basics
+    :hidden:
 
-    .. toctree::
-        :maxdepth: 1
+    installation
+    tables
 
-        autoapi/index
+.. toctree::
+    :caption: API Reference
+    :maxdepth: 1
+    :hidden:
+
+    autoapi/py3dm/index

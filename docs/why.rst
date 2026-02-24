@@ -1,7 +1,7 @@
 .. _why:
 
-Why another binding library for openNURBS?
-==========================================
+Why another binding library?
+============================
 
 The official Python bindings for openNURBS are provided by McNeel in the
 `rhino3dm <https://github.com/mcneel/rhino3dm>`_ package. This is an open-source, large
