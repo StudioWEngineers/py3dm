@@ -271,7 +271,7 @@ class LayerTable:
         """
         ...
 
-    def get_by_index(self, layer_index: int) -> Layer:
+    def get_by_index(self, layer_index: int) -> Layer | None:
         """Returns the ``Layer`` if the given ``index`` is found in the table,
         ``None`` otherwise.
 
@@ -282,13 +282,13 @@ class LayerTable:
         """
         ...
 
-    def get_by_name(self, full_name: str) -> Layer:
+    def get_by_name(self, full_name: str) -> Layer | None:
         """Returns the ``Layer`` if the given ``full_name`` is found in the
         table, ``None`` otherwise.
         """
         ...
 
-    def get_by_uuid(self, layer_uuid: UUID) -> Layer:
+    def get_by_uuid(self, layer_uuid: UUID) -> Layer | None:
         """Returns the ``Layer`` if the given ``layer_uuid`` is found in the
         table, ``None`` otherwise.
         """
