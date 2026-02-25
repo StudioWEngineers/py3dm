@@ -20,6 +20,15 @@ __version__: str
 
 
 class CurveTable:
+    """Python wrapper providing access to objects of type ``ON::curve_object``
+    stored in an ``ONX_Model``.
+
+    This class offers a convenient interface for adding, retrieving, counting,
+    and iterating over curve objects.
+
+    ``CurveTable`` does not own the underlying data; it operates on the
+    associated ``ONX_Model`` instance.
+    """
     def __iter__(self) -> Iterator[LineCurve]: ...
 
     def __len__(self) -> int: ...
@@ -220,8 +229,14 @@ class Layer(ModelComponent):
 
 
 class LayerTable:
-    """Helper class that manages all the `Layer` (``ON_Layer``) added to the
-    model.
+    """Python wrapper providing access to objects of type ``ON::Layer``
+    stored in an ``ONX_Model``.
+
+    This class offers a convenient interface for adding, retrieving, counting,
+    and iterating over layer objects.
+
+    ``LayerTable`` does not own the underlying data; it operates on the
+    associated ``ONX_Model`` instance.
     """
     def __getitem__(self, index: int) -> Layer: ...
 
@@ -890,6 +905,15 @@ class PointGeometry(Geometry):
 
 
 class PointTable:
+    """Python wrapper providing access to ``ON_Point`` objects stored in an
+    ``ONX_Model``.
+
+    This class offers a convenient interface for adding, retrieving, counting,
+    and iterating over points objects.
+
+    ``PointTable`` does not own the underlying data; it operates on the
+    associated ``ONX_Model`` instance.
+    """
     def __iter__(self) -> Iterator[PointGeometry]: ...
 
     def __len__(self) -> int: ...
