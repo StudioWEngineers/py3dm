@@ -465,8 +465,7 @@ class LineCurve(Geometry):
 
 
 class Model:
-    """Python bindings for the openNURBS ``ONX_Model`` class, via helper class
-    ``Model``.
+    """Python bindings for the openNURBS ``ONX_Model`` class.
 
     ``ONX_Model``: pedagogical example of all the things in an OpenNURBS 3dm
     archive. The openNURBS examples use ONX_Model to store the information read
