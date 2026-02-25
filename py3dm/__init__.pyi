@@ -6,8 +6,9 @@ Python bindings for ``OpenNURBS`` using ``nanobind``.
 
 """
 # standard library imports
+from collections.abc import Iterator
 from enum import Enum
-from typing import Iterator, overload
+from typing import overload
 from uuid import UUID
 
 # third party library imports
