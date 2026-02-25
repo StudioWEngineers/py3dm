@@ -176,12 +176,9 @@ class Layer(ModelComponent):
 
         Notes
         -----
-
         Leading and trailing non-zero unicode code points with values lower
-        than equal ``ON_wString::Space`` are ignored.
-
-        If ``name`` is the empty string, the ``name_is_state`` state will still
-        be ``True``.
+        than equal ``ON_wString::Space`` are ignored. If ``name`` is the empty
+        string, the ``name_is_state`` state will still be ``True``.
         """
         ...
 
@@ -341,15 +338,16 @@ class Line:
 
         Parameters
         ----------
-        start: ``Point3d``
+        start: Point3d
             Point at the start of line segment
 
-        end: ``Point3d``
+        end: Point3d
             Point at end of line segment
 
         Returns
         -------
-        ``True`` if ``start`` and ``end`` are distinct points.
+        success: bool
+            ``True`` if ``start`` and ``end`` are distinct points.
         """
         ...
 
@@ -424,7 +422,8 @@ class LineCurve(Geometry):
 
         Returns
         -------
-        ``True`` if successful, ``False`` otherwise.
+        success: bool
+            ``True`` if successful, ``False`` otherwise.
 
         Notes
         -----
@@ -442,7 +441,8 @@ class LineCurve(Geometry):
 
         Returns
         -------
-        ``True`` if successful, ``False`` otherwise.
+        success: bool
+            ``True`` if successful, ``False`` otherwise.
 
         Notes
         -----
@@ -455,7 +455,8 @@ class LineCurve(Geometry):
 
         Returns
         -------
-        ``True`` if successful, ``False`` otherwise.
+        success: bool
+            ``True`` if successful, ``False`` otherwise.
         """
         ...
 
@@ -487,12 +488,12 @@ class Model:
 
         Parameters
         ----------
-        path_to_file: ``str``
+        path_to_file: str
             Path to 3dm file, including file name and extension.
 
         Returns
         -------
-        bool
+        success: bool
             ``True`` if the archive is read without error, ``False`` otherwise.
         """
         ...
@@ -507,7 +508,7 @@ class Model:
 
         Parameters
         ----------
-        path_to_file: ``str``
+        path_to_file: str
             Path to 3dm file, including file name and extension.
 
         version: ``int``, optional default to ``7``
@@ -515,7 +516,7 @@ class Model:
 
         Returns
         -------
-        bool
+        success: bool
             ``True`` if the archive is written without errors, ``False``
             otherwise.
         """
@@ -753,12 +754,12 @@ class OpenNURBSObject:
 
         Parameters
         ----------
-        key: ``str``
+        key: str
             the key used to retrieve the user string.
 
         Returns
         -------
-        value: ``str``
+        value: str
             the ``str`` to be returned if the ``key`` has been found. Empty
             ``str`` is returned otherwise.
         """
@@ -774,15 +775,15 @@ class OpenNURBSObject:
 
         Parameters
         ----------
-        repair: ``bool``
+        repair: bool
             If ``True``, ``const_cast<>`` will be used to change the corrupt
             data so that crashes are less likely.
 
-        silent_error: ``bool``
+        silent_error: bool
             If ``True``, ON_ERROR will not be called when corruption is
             detected.
 
-        text_log: ``TextLog``
+        text_log: TextLog
             If text_log is not null, then a description of corruption is
             printed using text_log.
 
@@ -808,8 +809,9 @@ class OpenNURBSObject:
 
         Returns
         -------
-        ``True`` if the object is valid or ``False`` if the object is invalid,
-        uninitialized, etc.
+        success: bool
+            ``True`` if the object is valid or ``False`` if the object is
+            invalid, uninitialized, etc.
         """
         ...
 
@@ -819,12 +821,13 @@ class OpenNURBSObject:
 
         Parameters
         ----------
-        key: ``str``
+        key: str
             key component of the string pair.
 
         Returns
         -------
-        ``True`` if successful.
+        success: bool
+            ``True`` if successful.
         """
         ...
 
@@ -835,15 +838,16 @@ class OpenNURBSObject:
 
         Parameters
         ----------
-        key: ``str``
+        key: str
             key component of the string pair.
 
-        value: ``str``
+        value: str
             value component of the string pair.
 
         Returns
         -------
-        ``True`` if successful.
+        success: bool
+            ``True`` if successful.
         """
         ...
 
@@ -980,8 +984,10 @@ class Point3d:
 
         Returns
         -------
-        ``True`` if for each coordinate pair ``|a - b| <= ON_ZERO_TOLERANCE``
-        or ``|a - b| <= (abs(a) + abs(b)) * ON_RELATIVE_TOLERANCE``.
+        is_coindent: bool
+            ``True`` if for each coordinate pair
+            ``|a - b| <= ON_ZERO_TOLERANCE`` or
+            ``|a - b| <= (abs(a) + abs(b)) * ON_RELATIVE_TOLERANCE``.
         """
         ...
 
