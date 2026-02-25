@@ -9,6 +9,7 @@ extensions = [
     "sphinxcontrib.moderncmakedomain",
     "sphinx.ext.intersphinx",
     "autoapi.extension",
+    "sphinx.ext.napoleon"
 ]
 
 source_suffix = {'.rst': 'restructuredtext'}
@@ -41,7 +42,7 @@ autoapi_options = [
     "show-inheritance",
     "show-module-summary",
     "special-members",
-    "imported-members",
+    "imported-members"
 ]
 
 autoapi_own_page_level = "class"
