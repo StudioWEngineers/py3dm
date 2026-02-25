@@ -85,7 +85,7 @@ class CurveTable:
 
 
 class Geometry(OpenNURBSObject):
-    """Python wrapper for the openNURBS ``ON_Geometry`` class.
+    """Python bindings for the openNURBS ``ON_Geometry`` class.
 
         ``ON_Geometry``: base class for all geometry classes that must provide
         runtime class id. It provides interface for common geometric operations
@@ -117,7 +117,7 @@ class Geometry(OpenNURBSObject):
 
 
 class Layer(ModelComponent):
-    """Python wrapper for the openNURBS ``ON_Layer`` class.
+    """Python bindings for the openNURBS ``ON_Layer`` class.
     """
     def __init__(self) -> None: ...
     def __repr__(self) -> str: ...
@@ -884,7 +884,7 @@ class PlotColorSource(Enum):
 
 
 class PointGeometry(Geometry):
-    """Python wrapper for the openNURBS ``ON_Point`` class.
+    """Python bindings for the openNURBS ``ON_Point`` class.
     """
     point: Point3d
 
@@ -970,7 +970,7 @@ class PointTable:
 
 
 class Point3d:
-    """Python wrapper for the openNURBS ``ON_3dPoint`` class.
+    """Python bindings for the openNURBS ``ON_3dPoint`` class.
     """
     def __add__(self, other: Point3d) -> Point3d: ...
 
