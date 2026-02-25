@@ -1,9 +1,3 @@
-"""
-GeometryTestSuite
------------------
-
-Tests for the `Geometry` class.
-"""
 # standard library imports
 from unittest import TestCase
 

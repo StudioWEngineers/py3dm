@@ -1,9 +1,3 @@
-"""
-LayerTableTestSuite
--------------------
-
-Tests for the `LayerTable` class.
-"""
 # standard library imports
 from unittest import TestCase
 from uuid import UUID
@@ -48,7 +42,10 @@ class LayerTableTestSuite(TestCase):
             )
 
         with self.subTest(msg="Color of 1st layer"):
-            self.assertEqual(self.model.LayerTable.get_by_index(0).color, (255, 0, 255, 255))
+            self.assertEqual(
+                self.model.LayerTable.get_by_index(0).color,
+                (255, 0, 255, 255)
+            )
 
     def test_count(self) -> None:
         with self.subTest(msg="Number of layers for an empty model"):
@@ -62,16 +59,16 @@ class LayerTableTestSuite(TestCase):
     def test_delete_by_name(self) -> None:
         layer_1 = Layer()
         layer_2 = Layer()
-        layer_1.set_name("New layer 1")
-        layer_2.set_name("New layer 2")
+        layer_1.set_name("New 1")
+        layer_2.set_name("New 2")
         self.model.LayerTable.add(layer_1)
         self.model.LayerTable.add(layer_2)
 
         with self.subTest("Successfull delete"):
-            self.assertTrue(self.model.LayerTable.delete_by_name("New layer 1"))
+            self.assertTrue(self.model.LayerTable.delete_by_name("New 1"))
 
         with self.subTest("Unsuccessfull delete"):
-            self.assertFalse(self.model.LayerTable.delete_by_name("New layer 3"))
+            self.assertFalse(self.model.LayerTable.delete_by_name("New 3"))
 
         with self.subTest(msg="Current number of layers"):
             self.assertEqual(self.model.LayerTable.count(), 1)
@@ -149,7 +146,7 @@ class LayerTableTestSuite(TestCase):
         layer_2 = self.model.LayerTable.get_by_name("layer 2")
 
         with self.subTest(msg="Retrieving not existing layer"):
-            self.assertIsNone(self.model.LayerTable.get_by_name("not existing"))
+            self.assertIsNone(self.model.LayerTable.get_by_name("dummy"))
 
         with self.subTest(msg="Name of 2nd layer"):
             self.assertEqual(layer_2.get_name(), "layer 2")
@@ -237,7 +234,7 @@ class LayerTableTestSuite(TestCase):
         self.model.LayerTable.delete_by_name("Layer 02")
         self.model.LayerTable.add(Layer())
 
-        with self.subTest(msg="max_index after adding and deleting layers to model"):
+        with self.subTest(msg="max_index after add delete layers to model"):
             self.assertEqual(self.model.LayerTable.max_index(), 3)
 
 
@@ -268,10 +265,10 @@ class LayerTableTeIteratorstSuite(TestCase):
         model.LayerTable.add(Layer())
 
         for layer_index, layer in enumerate(model.LayerTable):
-            with self.subTest(layer_index = layer_index):
+            with self.subTest(layer_index=layer_index):
                 self.assertEqual(layer.get_name(), f"Layer 0{layer_index + 1}")
 
-            with self.subTest(layer_index = layer_index):
+            with self.subTest(layer_index=layer_index):
                 self.assertEqual(layer.get_index(), layer_index)
 
     def test_modify_layer_in_iter(self) -> None:
@@ -281,8 +278,8 @@ class LayerTableTeIteratorstSuite(TestCase):
         model.LayerTable.add(Layer())
 
         for layer_index, layer in enumerate(model.LayerTable):
-            with self.subTest(layer_index = layer_index):
+            with self.subTest(layer_index=layer_index):
                 layer.set_name(f"new_layer_{layer_index}")
 
-            with self.subTest(layer_index = layer_index):
+            with self.subTest(layer_index=layer_index):
                 self.assertEqual(layer.get_name(), f"new_layer_{layer_index}")

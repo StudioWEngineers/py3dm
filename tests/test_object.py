@@ -1,9 +1,3 @@
-"""
-OpenNURBSObjectTestSuite
-------------------------
-
-Tests for the `OpenNURBSObject` class.
-"""
 # standard library imports
 from unittest import TestCase
 

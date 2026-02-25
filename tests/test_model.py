@@ -1,9 +1,3 @@
-"""
-ModelTestSuite
---------------
-
-Test suites for the `Model` class.
-"""
 # standard library imports
 from tempfile import TemporaryDirectory
 from unittest import TestCase
@@ -78,8 +72,8 @@ class NewModelTestSuite(TestCase):
 
 
 class WriteAndReadModelTestSuite(TestCase):
-    """Tests for the `Model` class. A new model is created from scratch, then written and
-    lastly read to ensure the correctness of the workflow.
+    """Tests for the `Model` class. A new model is created from scratch, then
+    written and lastly read to ensure the correctness of the workflow.
     """
     def setUp(self) -> None:
         # create a model with custom info
@@ -99,7 +93,10 @@ class WriteAndReadModelTestSuite(TestCase):
             self.model.read(temp_dir + "/WriteAndReadModelTestSuite.3dm")
 
     def test_application_details(self) -> None:
-        self.assertEqual(self.model.application_details, "WriteAndReadModelTestSuite")
+        self.assertEqual(
+            self.model.application_details,
+            "WriteAndReadModelTestSuite"
+        )
 
     def test_application_name(self) -> None:
         self.assertEqual(self.model.application_name, "Rhinoceros 7")

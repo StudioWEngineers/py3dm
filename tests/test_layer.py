@@ -1,9 +1,3 @@
-"""
-LayerTestSuite
---------------
-
-Tests for the `Layer` class.
-"""
 # standard library imports
 from unittest import TestCase
 from uuid import UUID, uuid4
@@ -108,9 +102,9 @@ class LayerTestSuite(TestCase):
         with self.subTest(msg="Layer persistent_locking before assignment"):
             self.assertFalse(self.layer.persistent_locking)
 
-        # NOTE: persistent_locking has effect only if parent_uuid is not null and
-        # is_locked is True. In this case the following set has no effect and
-        # persistent_locking is False
+        # NOTE: persistent_locking has effect only if parent_uuid is not null
+        # and is_locked is True. In this case the following set has no effect
+        # and persistent_locking is False
         self.layer.persistent_locking = True
         with self.subTest(msg="Layer persistent_locking after assignment"):
             self.assertFalse(self.layer.persistent_locking)
@@ -125,9 +119,9 @@ class LayerTestSuite(TestCase):
         with self.subTest(msg="Layer persistent_visibility before assignment"):
             self.assertTrue(self.layer.persistent_visibility)
 
-        # NOTE: persistent_visibility has effect only if parent_uuid is not null and
-        # is_visible is False. In this case the following set has no effect and
-        # persistent_visibility is False
+        # NOTE: persistent_visibility has effect only if parent_uuid is not
+        # null and is_visible is False. In this case the following set has no
+        # effect and persistent_visibility is False
         self.layer.persistent_visibility = False
         with self.subTest(msg="Layer persistent_visibility after assignment"):
             self.assertTrue(self.layer.persistent_visibility)
@@ -310,9 +304,9 @@ class ExistingLayerModificationTestSuite(TestCase):
         with self.subTest(msg="Layer persistent_locking before assignment"):
             self.assertFalse(self.layer.persistent_locking)
 
-        # NOTE: persistent_locking has effect only if parent_uuid is not null and
-        # is_locked is True. In this case the following set has no effect and
-        # persistent_locking is False
+        # NOTE: persistent_locking has effect only if parent_uuid is not null
+        # and is_locked is True. In this case the following set has no effect
+        # and persistent_locking is False
         self.layer.persistent_locking = True
         with self.subTest(msg="Layer persistent_locking after assignment"):
             self.assertFalse(self.layer.persistent_locking)
@@ -327,9 +321,9 @@ class ExistingLayerModificationTestSuite(TestCase):
         with self.subTest(msg="Layer persistent_visibility before assignment"):
             self.assertTrue(self.layer.persistent_visibility)
 
-        # NOTE: persistent_visibility has effect only if parent_uuid is not null and
-        # is_visible is False. In this case the following set has no effect and
-        # persistent_visibility is False
+        # NOTE: persistent_visibility has effect only if parent_uuid is not
+        # null and is_visible is False. In this case the following set has no
+        # effect and persistent_visibility is False
         self.layer.persistent_visibility = False
         with self.subTest(msg="Layer persistent_visibility after assignment"):
             self.assertTrue(self.layer.persistent_visibility)

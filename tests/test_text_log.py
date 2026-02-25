@@ -1,9 +1,3 @@
-"""
-TextLogTestSuite
------------------
-
-Tests for the `TextLog` class.
-"""
 # standard library imports
 from unittest import TestCase
 
@@ -22,13 +16,13 @@ class TextLogTestSuite(TestCase):
             self.assertEqual(
                 self.text_log.decrease_level_of_detail(),
                 TextLog.LevelOfDetail.Medium
-        )
+            )
 
         with self.subTest(msg="Test updated value"):
             self.assertEqual(
                 self.text_log.get_level_of_detail(),
                 TextLog.LevelOfDetail.Minimum
-        )
+            )
 
     def test_get_level_of_detail(self) -> None:
         self.assertEqual(
@@ -41,13 +35,13 @@ class TextLogTestSuite(TestCase):
             self.assertEqual(
                 self.text_log.increase_level_of_detail(),
                 TextLog.LevelOfDetail.Medium
-        )
+            )
 
         with self.subTest(msg="Test updated value"):
             self.assertEqual(
                 self.text_log.get_level_of_detail(),
                 TextLog.LevelOfDetail.Maximum
-        )
+            )
 
     def test_is_null(self) -> None:
         with self.subTest(msg="Test not null TextLog"):
@@ -58,7 +52,9 @@ class TextLogTestSuite(TestCase):
 
     def test_level_of_detail_is_at_least(self) -> None:
         self.assertTrue(
-            self.text_log.level_of_detail_is_at_least(TextLog.LevelOfDetail.Medium)
+            self.text_log.level_of_detail_is_at_least(
+                TextLog.LevelOfDetail.Medium
+            )
         )
 
     def test_null(self) -> None:
