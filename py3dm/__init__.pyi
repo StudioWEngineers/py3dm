@@ -16,6 +16,9 @@ from uuid import UUID
 # local library specific imports
 
 
+__version__: str
+
+
 class CurveTable:
     def __iter__(self) -> Iterator[LineCurve]: ...
 
