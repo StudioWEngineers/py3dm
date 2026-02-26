@@ -125,8 +125,8 @@ class ResetModelTestSuite(TestCase):
         self.model.created_by = "StudioWEngineers"
         self.model.last_edited_by = "StudioWEngineers"
 
-        self.model.LayerTable.add(Layer())
-        self.model.CurveTable.add(Point3d(0, 1, 2), Point3d(0, 1, 0))
+        self.model.layer_table.add(Layer())
+        self.model.curve_table.add(Point3d(0, 1, 2), Point3d(0, 1, 0))
 
         self.model.reset()
 
@@ -137,7 +137,7 @@ class ResetModelTestSuite(TestCase):
         self.assertEqual(self.model.last_edited_by, "")
 
     def test_number_of_layers(self) -> None:
-        self.assertEqual(len(list(self.model.LayerTable)), 0)
+        self.assertEqual(len(list(self.model.layer_table)), 0)
 
     def test_revision(self) -> None:
         self.assertEqual(self.model.revision, 0)

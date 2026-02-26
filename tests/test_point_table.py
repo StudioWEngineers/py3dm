@@ -11,7 +11,7 @@ from py3dm import Model, ObjectAttributes, PointGeometry, Point3d
 class PointTableTestSuite(TestCase):
     def setUp(self) -> None:
         model = Model()
-        self.table = model.PointTable
+        self.table = model.point_table
 
     def test_add_with_attributes(self) -> None:
         point_id = self.table.add(Point3d(0, 1, 0), ObjectAttributes())
@@ -53,15 +53,15 @@ class PointTableIteratorTestSuite(TestCase):
     def setUp(self) -> None:
         self.model = Model()
 
-        self.model.PointTable.add(0, 1, 2)
-        self.model.CurveTable.add(Point3d(0, 0, 1), Point3d(1, 1, 1))
-        self.model.CurveTable.add(Point3d(2, 0, 1), Point3d(2, 1, 1))
-        self.model.PointTable.add(2, 1, 2)
+        self.model.point_table.add(0, 1, 2)
+        self.model.curve_table.add(Point3d(0, 0, 1), Point3d(1, 1, 1))
+        self.model.curve_table.add(Point3d(2, 0, 1), Point3d(2, 1, 1))
+        self.model.point_table.add(2, 1, 2)
 
     def test_point_iterator(self) -> None:
-        for point in self.model.PointTable:
+        for point in self.model.point_table:
             point.point.x = 1
 
-        for point_index, point in enumerate(self.model.PointTable):
+        for point_index, point in enumerate(self.model.point_table):
             with self.subTest(point_index=point_index):
                 self.assertEqual(point.point.x, 1)

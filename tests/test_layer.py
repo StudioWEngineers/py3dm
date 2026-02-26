@@ -1,4 +1,5 @@
 # standard library imports
+from typing import cast
 from unittest import TestCase
 from uuid import UUID, uuid4
 
@@ -210,8 +211,11 @@ class LayerTestSuite(TestCase):
 class ExistingLayerModificationTestSuite(TestCase):
     def setUp(self) -> None:
         self.model = Model()
-        layer_uuid = self.model.LayerTable.add(Layer())
-        self.layer = self.model.LayerTable.get_by_uuid(layer_uuid)
+        layer_uuid = self.model.layer_table.add(Layer())
+
+        # workaround to silent mypy complains
+        layer = self.model.layer_table.get_by_uuid(layer_uuid)
+        self.layer = cast(Layer, layer)
 
     def test_get_and_set_color(self) -> None:
         with self.subTest(msg="Layer color before assignment"):
@@ -262,7 +266,7 @@ class ExistingLayerModificationTestSuite(TestCase):
             self.assertFalse(self.layer.is_visible)
 
     def test_get_and_set_layer_uuid(self) -> None:
-        layer_uuid = self.model.LayerTable.get_uuid("Layer 01")
+        layer_uuid = self.model.layer_table.get_uuid("Layer 01")
         with self.subTest(msg="Layer layer_uuid before assignment"):
             self.assertEqual(self.layer.layer_uuid, layer_uuid)
 
@@ -394,7 +398,7 @@ class ExistingLayerModificationTestSuite(TestCase):
             "\tis_expanded = true\n"
             "\tis_locked = false\n"
             "\tis_visible = true\n"
-            f"\tlayer_uuid = {self.model.LayerTable.get_uuid('Layer 01')}\n"
+            f"\tlayer_uuid = {self.model.layer_table.get_uuid('Layer 01')}\n"
             "\tline_type_index = -1\n"
             "\tname = 'Layer 01'\n"
             f"\tparent_uuid = {UUID(int=0)}\n"

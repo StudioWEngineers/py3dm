@@ -12,7 +12,7 @@ from py3dm import Line, LineCurve, Model, ObjectAttributes, Point3d
 class CurveTableTestSuite(TestCase):
     def setUp(self) -> None:
         model = Model()
-        self.table = model.CurveTable
+        self.table = model.curve_table
 
     def test_add_with_attributes(self) -> None:
         line_id = self.table.add(
@@ -76,13 +76,13 @@ class CurveTableTestSuite(TestCase):
 class CurveTableIteratorTestSuite(TestCase):
     def setUp(self) -> None:
         model = Model()
-        self.table = model.CurveTable
+        self.table = model.curve_table
 
         # adding few objects of different types
-        model.PointTable.add(0, 1, 2)
+        model.point_table.add(0, 1, 2)
         self.table.add(Point3d(0, 0, 1), Point3d(1, 1, 1))
         self.table.add(Point3d(2, 0, 1), Point3d(2, 1, 1))
-        model.PointTable.add(2, 1, 2)
+        model.point_table.add(2, 1, 2)
 
     def test_line_iterator(self) -> None:
         self.assertEqual(len(self.table), 2)
