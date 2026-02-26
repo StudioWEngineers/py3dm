@@ -8,7 +8,7 @@
 
 
 void PointTableBindings(nb::module_& m) {
-    nb::class_<PointTable::Iterator>(m, "__CurveTableIterator")
+    nb::class_<PointTable::Iterator>(m, "__PointTableIterator")
         .def("__iter__", [](PointTable::Iterator& it) -> PointTable::Iterator& {
             return it;
         })
