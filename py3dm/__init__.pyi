@@ -119,9 +119,12 @@ class Geometry(OpenNURBSObject):
 class Layer(ModelComponent):
     """Python bindings for the openNURBS ``ON_Layer`` class.
     """
+    # dunder methods
     def __init__(self) -> None: ...
+
     def __repr__(self) -> str: ...
 
+    # properties
     @property
     def color(self) -> tuple[int, int, int, int]: ...
     @color.setter
@@ -145,8 +148,6 @@ class Layer(ModelComponent):
     @is_locked.setter
     def is_locked(self, is_locked: bool) -> None: ...
 
-    def is_valid(self, text_log: TextLog | None = None) -> bool: ...
-
     @property
     def is_visible(self) -> bool: ...
     @is_visible.setter
@@ -162,45 +163,13 @@ class Layer(ModelComponent):
     @line_type_index.setter
     def line_type_index(self, index: int) -> None: ...
 
-    def get_name(self) -> str:
-        """Returns the value of the name attribute.
-
-        Notes
-        -----
-        If the component is in a model, then the name is unique among all
-        components in the model. Names are formatted as reference :
-        parent::leaf. For example in ``A.3dm : Z``, ``A.3dm`` is the reference
-        and ``Z`` is the leaf. For a layer full path ``X::Y::Z``, ``X::Y`` is
-        the parent and ``Z`` is the leaf. For most models, only the leaf is
-        present in the name. The reference portion appears when a model
-        component originates in a reference file (a linked instance definition
-        with reference component names or a worksession reference). Components
-        with a tree hierarchy, like layers, can have a parent and leaf.
-        """
-        ...
-
-    def set_name(self, name: str) -> bool:
-        """Returns ``True`` if the name attribute was changed to ``name`` or is
-        already equal to ``name``; returns ``False`` and no changes are made if
-        the name attribute is locked and ``name !=`` locked value or ``name``
-        is not empty and ``ON_ModelComponent::IsValidComponentName(name)`` is
-        ``False``.
-
-        Notes
-        -----
-        Leading and trailing non-zero unicode code points with values lower
-        than equal ``ON_wString::Space`` are ignored. If ``name`` is the empty
-        string, the ``name_is_state`` state will still be ``True``.
-        """
-        ...
-
-    @property
-    def path_separator(self) -> str: ...
-
     @property
     def parent_uuid(self) -> UUID: ...
     @parent_uuid.setter
     def parent_uuid(self, parent_uuid: UUID) -> None: ...
+
+    @property
+    def path_separator(self) -> str: ...
 
     @property
     def persistent_locking(self) -> bool: ...
@@ -226,6 +195,41 @@ class Layer(ModelComponent):
     def render_material_index(self) -> int: ...
     @render_material_index.setter
     def render_material_index(self, index: int) -> None: ...
+
+    # public methods
+    def get_name(self) -> str:
+        """Returns the value of the name attribute.
+
+        Notes
+        -----
+        If the component is in a model, then the name is unique among all
+        components in the model. Names are formatted as reference :
+        parent::leaf. For example in ``A.3dm : Z``, ``A.3dm`` is the reference
+        and ``Z`` is the leaf. For a layer full path ``X::Y::Z``, ``X::Y`` is
+        the parent and ``Z`` is the leaf. For most models, only the leaf is
+        present in the name. The reference portion appears when a model
+        component originates in a reference file (a linked instance definition
+        with reference component names or a worksession reference). Components
+        with a tree hierarchy, like layers, can have a parent and leaf.
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool: ...
+
+    def set_name(self, name: str) -> bool:
+        """Returns ``True`` if the name attribute was changed to ``name`` or is
+        already equal to ``name``; returns ``False`` and no changes are made if
+        the name attribute is locked and ``name !=`` locked value or ``name``
+        is not empty and ``ON_ModelComponent::IsValidComponentName(name)`` is
+        ``False``.
+
+        Notes
+        -----
+        Leading and trailing non-zero unicode code points with values lower
+        than equal ``ON_wString::Space`` are ignored. If ``name`` is the empty
+        string, the ``name_is_state`` state will still be ``True``.
+        """
+        ...
 
 
 class LayerTable:
@@ -486,8 +490,51 @@ class Model:
     archive. The openNURBS examples use ONX_Model to store the information read
     from 3dm archives.
     """
+    # dunder methods
     def __init__(self) -> None: ...
 
+    # properties
+    @property
+    def application_details(self) -> str: ...
+    @application_details.setter
+    def application_details(self, details: str) -> None: ...
+
+    @property
+    def application_name(self) -> str: ...
+    @application_name.setter
+    def application_name(self, name: str) -> None: ...
+
+    @property
+    def application_url(self) -> str: ...
+    @application_url.setter
+    def application_url(self, url: str) -> None: ...
+
+    @property
+    def archive_version(self) -> int: ...
+
+    @property
+    def created_by(self) -> str: ...
+    @created_by.setter
+    def created_by(self, author: str) -> None: ...
+
+    @property
+    def curve_table(self) -> CurveTable: ...
+
+    @property
+    def layer_table(self) -> LayerTable: ...
+
+    @property
+    def last_edited_by(self) -> str: ...
+    @last_edited_by.setter
+    def last_edited_by(self, author: str) -> None: ...
+
+    @property
+    def point_table(self) -> PointTable: ...
+
+    @property
+    def revision(self) -> int: ...
+
+    # public methods
     def new_revision(self) -> int:
         """Returns the updated revision count.
 
@@ -538,46 +585,6 @@ class Model:
             otherwise.
         """
         ...
-
-    @property
-    def application_details(self) -> str: ...
-    @application_details.setter
-    def application_details(self, details: str) -> None: ...
-
-    @property
-    def application_name(self) -> str: ...
-    @application_name.setter
-    def application_name(self, name: str) -> None: ...
-
-    @property
-    def application_url(self) -> str: ...
-    @application_url.setter
-    def application_url(self, url: str) -> None: ...
-
-    @property
-    def created_by(self) -> str: ...
-    @created_by.setter
-    def created_by(self, author: str) -> None: ...
-
-    @property
-    def last_edited_by(self) -> str: ...
-    @last_edited_by.setter
-    def last_edited_by(self, author: str) -> None: ...
-
-    @property
-    def archive_version(self) -> int: ...
-
-    @property
-    def curve_table(self) -> CurveTable: ...
-
-    @property
-    def layer_table(self) -> LayerTable: ...
-
-    @property
-    def point_table(self) -> PointTable: ...
-
-    @property
-    def revision(self) -> int: ...
 
 
 class ModelComponent(OpenNURBSObject):
@@ -679,6 +686,14 @@ class ObjectAttributes(OpenNURBSObject):
     object id, display attributes, group membership, layer membership, and so
     on.
     """
+    # dunder methods
+    def __init__(self) -> None: ...
+
+    def __eq__(self, other: object) -> bool: ...
+
+    def __ne__(self, other: object) -> bool: ...
+
+    # read-write member variables
     color: tuple[int, int, int, int]
 
     layer_index: int
@@ -689,12 +704,7 @@ class ObjectAttributes(OpenNURBSObject):
 
     plot_color: tuple[int, int, int, int]
 
-    def __init__(self) -> None: ...
-
-    def __eq__(self, other: object) -> bool: ...
-
-    def __ne__(self, other: object) -> bool: ...
-
+    # properties
     @property
     def color_source(self) -> ObjectColorSource: ...
     @color_source.setter
@@ -715,6 +725,7 @@ class ObjectAttributes(OpenNURBSObject):
     @plot_color_source.setter
     def plot_color_source(self, plot_color_source: PlotColorSource) -> None: ...
 
+    # public methods
     def default(self) -> None:
         """Initializes all attributes to the default values.
         """
@@ -886,8 +897,10 @@ class PlotColorSource(Enum):
 class PointGeometry(Geometry):
     """Python bindings for the openNURBS ``ON_Point`` class.
     """
+    # read-write member variables
     point: Point3d
 
+    # dunder methods
     @overload
     def __init__(self) -> None: ...
 
@@ -897,6 +910,7 @@ class PointGeometry(Geometry):
     @overload
     def __init__(self, point3d: Point3d) -> None: ...
 
+    # public methods
     def is_valid(self, text_log: TextLog | None = None) -> bool:
         """Returns ``False`` if any coordinate is infinite, a nan, or
         ``ON_UNSET_VALUE``.
@@ -914,10 +928,12 @@ class PointTable:
     ``PointTable`` does not own the underlying data; it operates on the
     associated ``ONX_Model`` instance.
     """
+    # dunder methods
     def __iter__(self) -> Iterator[PointGeometry]: ...
 
     def __len__(self) -> int: ...
 
+    # public methods
     @overload
     def add(
         self,
@@ -972,6 +988,7 @@ class PointTable:
 class Point3d:
     """Python bindings for the openNURBS ``ON_3dPoint`` class.
     """
+    # dunder methods
     def __add__(self, other: Point3d) -> Point3d: ...
 
     def __eq__(self, other: object) -> bool: ...
@@ -984,6 +1001,7 @@ class Point3d:
 
     def __truediv__(self, value: float) -> Point3d: ...
 
+    # properties
     @property
     def x(self) -> float: ...
     @x.setter
@@ -999,6 +1017,7 @@ class Point3d:
     @z.setter
     def z(self, value: float) -> None: ...
 
+    # public methods
     def distance_to(self, point: Point3d) -> float:
         """Returns the distance between the two points.
         """
