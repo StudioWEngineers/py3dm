@@ -26,24 +26,47 @@ ON_UUID PointTable::Add(const ON_Point& point, const ON_3dmObjectAttributes* obj
 }
 
 /*getters*/
-ON_Point* PointTable::GetbyUUID(const ON_UUID on_uuid) {
-    const ON_ModelComponent* mc = m_model->ComponentFromId(ON_ModelComponent::Type::ModelGeometry, on_uuid).ModelComponent();
+const ON_Point* PointTable::GetByUUID(const ON_UUID on_uuid) const {
+    const ON_ModelComponent* mc = m_model->ComponentFromId(
+        ON_ModelComponent::Type::ModelGeometry,
+        on_uuid
+    ).ModelComponent();
+    const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
 
-    if (!IsPoint(mc)) {
+    if (!IsPoint(mgc)) {
         return nullptr;
     }
+    return ON_Point::Cast(mgc->Geometry(nullptr));
+}
 
-    const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
-    return const_cast<ON_Point*>(ON_Point::Cast(mgc->Geometry(nullptr)));
+ON_Point* PointTable::GetByUUIDExclusive(const ON_UUID on_uuid) const {
+    const ON_ModelComponentReference& mcr = m_model->ComponentFromRuntimeSerialNumber(
+        GetRuntimeSerialNumber(on_uuid)
+    );
+    ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(
+        mcr.ExclusiveModelComponent()
+    );
+
+    if (!IsPoint(mgc)) {
+        return nullptr;
+    }
+    return ON_Point::Cast(mgc->ExclusiveGeometry());
+}
+
+ON__UINT64 PointTable::GetRuntimeSerialNumber(const ON_UUID on_uuid) const {
+    return m_model->Manifest().ItemFromId(
+        ON_ModelComponent::Type::ModelGeometry,
+        on_uuid
+    ).ComponentRuntimeSerialNumber();
 }
 
 /*other methods*/
-int PointTable::Count() {
+int PointTable::Count() const {
     int count = 0;
     ONX_ModelComponentIterator mci(*m_model.get(), ON_ModelComponent::Type::ModelGeometry);
     ON_ModelComponentReference mcr = mci.FirstComponentReference();
     while (!mcr.IsEmpty()) {
-        if (PointTable::IsPoint(mcr.ModelComponent())) {
+        if (IsPoint(ON_ModelGeometryComponent::Cast(mcr.ModelComponent()))) {
             ++count;
         }
         mcr = mci.NextComponentReference();
@@ -52,12 +75,10 @@ int PointTable::Count() {
     return count;
 }
 
-bool PointTable::IsPoint(const ON_ModelComponent* mc) {
-    const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
-    if (mgc == nullptr) {
+bool PointTable::IsPoint(const ON_ModelGeometryComponent* mgc) {
+    if (!mgc) {
         return false;
     }
-
     const ON_Geometry* geom = mgc->Geometry(nullptr);
     return (geom && geom->ObjectType() == ON::point_object);
 }
@@ -69,8 +90,8 @@ PointTable::Iterator::Iterator(PointTable* table)
     m_current = m_iterator.FirstComponentReference();
 }
 
-ON_Point* PointTable::Iterator::operator*() const {
-    return m_table->GetbyUUID(m_current.ModelComponentId());
+const ON_Point* PointTable::Iterator::operator*() const {
+    return m_table->GetByUUID(m_current.ModelComponentId());
 }
 
 PointTable::Iterator& PointTable::Iterator::operator++() {
