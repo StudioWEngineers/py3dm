@@ -894,7 +894,7 @@ class PlotColorSource(Enum):
     from_parent = 3
 
 
-class PointGeometry(Geometry):
+class Point(Geometry):
     """Python bindings for the openNURBS ``ON_Point`` class.
     """
     # read-write member variables
@@ -929,7 +929,7 @@ class PointTable:
     associated ``ONX_Model`` instance.
     """
     # dunder methods
-    def __iter__(self) -> Iterator[PointGeometry]: ...
+    def __iter__(self) -> Iterator[Point]: ...
 
     def __len__(self) -> int: ...
 
@@ -951,7 +951,7 @@ class PointTable:
     @overload
     def add(
         self,
-        point: PointGeometry,
+        point: Point,
         obj_attr: None | ObjectAttributes = None
     ) -> UUID:
         """Returns the ``UUID`` of the point in case of successful addition, or
@@ -978,13 +978,13 @@ class PointTable:
         """
         ...
 
-    def get_by_uuid(self, object_uuid: UUID) -> PointGeometry | None:
+    def get_by_uuid(self, object_uuid: UUID) -> Point | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
         """
         ...
 
-    def get_by_uuid_exclusive(self, object_uuid: UUID) -> PointGeometry | None:
+    def get_by_uuid_exclusive(self, object_uuid: UUID) -> Point | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
 

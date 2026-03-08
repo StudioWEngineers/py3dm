@@ -3,7 +3,7 @@ from unittest import TestCase
 from uuid import UUID
 
 # third party library imports
-from py3dm import Model, ObjectAttributes, PointGeometry, Point3d
+from py3dm import Model, ObjectAttributes, Point, Point3d
 
 # local library specific imports
 
@@ -23,13 +23,13 @@ class PointTableTestSuite(TestCase):
             point = self.table.get_by_uuid(point_id)
             self.assertEqual(point.point, Point3d(0, 1, 0))  # type: ignore
 
-        point_geo = PointGeometry(0, 2, 0)
+        point_geo = Point(0, 2, 0)
         point_geo_id = self.table.add(point_geo, ObjectAttributes())
 
-        with self.subTest(msg="add with PointGeometry part I"):
+        with self.subTest(msg="add with Point part I"):
             self.assertNotEqual(point_geo_id, UUID(int=0))
 
-        with self.subTest(msg="add with PointGeometry part II"):
+        with self.subTest(msg="add with Point part II"):
             point = self.table.get_by_uuid(point_geo_id)
             self.assertEqual(point.point, Point3d(0, 2, 0))  # type: ignore
 
