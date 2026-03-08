@@ -984,6 +984,23 @@ class PointTable:
         """
         ...
 
+    def get_by_uuid_exclusive(self, object_uuid: UUID) -> PointGeometry | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+
+        Notes
+        -----
+        From opennurbs documentation
+        (``ON_ModelGeometryComponent::ExclusiveGeometry()``):
+        Get a pointer to geometry that can be used to modify the geometry. The
+        returned pointer is not shared at the time it is returned and will not
+        be shared until a copy of this ``ON_ModelGeometryComponent`` is
+        created. If this ``ON_ModelGeometryComponent`` is the only reference to
+        the geometry, then a pointer to the geometry is returned. Otherwise,
+        ``nullptr`` is returned.
+        """
+        ...
+
 
 class Point3d:
     """Python bindings for the openNURBS ``ON_3dPoint`` class.
