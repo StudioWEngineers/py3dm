@@ -1,5 +1,5 @@
 /*
-    src/bindings/point_geometry_bindings.h: Exposing ON_Point to Python
+    src/bindings/point_bindings.h: Exposing ON_Point to Python
 
     Copyright (c) 2025 Studio W Engineers
 
@@ -16,4 +16,4 @@
 #include "bindings.h"
 
 
-void PointGeometryBindings(nb::module_& m);
+void PointBindings(nb::module_& m);

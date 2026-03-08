@@ -8,17 +8,14 @@
 
 
 void PointTableBindings(nb::module_& m) {
-    nb::class_<PointTable::Iterator>(m, "__CurveTableIterator")
-        .def("__iter__", [](PointTable::Iterator& it) -> PointTable::Iterator& {
-            return it;
-        })
-        .def("__next__", [](PointTable::Iterator& it) {
+    nb::class_<PointTable::Iterator>(m, "__PointTableIterator")
+        .def("__iter__", [](PointTable::Iterator& it) -> PointTable::Iterator& {return it;})
+        .def("__next__", [](PointTable::Iterator& it) -> const ON_Point* {
             while (!it.IsOver()) {
-                ON_Object* object = *it;
+                const ON_Point* point = *it;
                 ++it;
-
-                if (object != nullptr) {
-                    return object;
+                if (point) {
+                    return point;
                 }
             }
             throw nb::stop_iteration();
@@ -54,7 +51,8 @@ void PointTableBindings(nb::module_& m) {
         )
 
         /*getters*/
-        .def("get_by_uuid", &PointTable::GetbyUUID, nb::rv_policy::reference_internal)
+        .def("get_by_uuid", &PointTable::GetByUUID, nb::rv_policy::reference_internal)
+        .def("get_by_uuid_exclusive", &PointTable::GetByUUIDExclusive, nb::rv_policy::reference_internal)
 
         /*other methods*/
         .def("count", &PointTable::Count)
