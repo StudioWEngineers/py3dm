@@ -14,7 +14,7 @@ void PointTableBindings(nb::module_& m) {
             while (!it.IsOver()) {
                 const ON_Point* point = *it;
                 ++it;
-                if (!point) {
+                if (point) {
                     return point;
                 }
             }

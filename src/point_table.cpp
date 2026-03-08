@@ -14,7 +14,7 @@ ON_UUID PointTable::Add(double x, double y, double z, const ON_3dmObjectAttribut
     ON_Point point(x, y, z);
     const ON_ModelComponent* mc = m_model->AddModelGeometryComponent(&point, obj_attr).ModelComponent();
 
-    return (mc != nullptr) ? mc->Id() : ON_nil_uuid;
+    return mc ? mc->Id() : ON_nil_uuid;
 }
 
 ON_UUID PointTable::Add(const ON_3dPoint& point, const ON_3dmObjectAttributes* obj_attr) const {
