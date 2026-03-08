@@ -12,7 +12,7 @@ void PointGeometryBindings(nb::module_& m) {
         /*magic methods*/
         .def(nb::init<>())
         .def(nb::init<double, double, double>())
-        .def(nb::init<ON_3dPoint>())
+        .def(nb::init<const ON_3dPoint&>())
 
         /*read-write member variables*/
         .def_rw("point", &ON_Point::point)
