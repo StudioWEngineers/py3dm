@@ -55,6 +55,7 @@ for the terms and conditions of use.
 
     installation
     tables
+    modify_existing_model
 
 .. toctree::
     :caption: API Reference
