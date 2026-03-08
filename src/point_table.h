@@ -18,8 +18,11 @@
 
 class PointTable {
 public:
-    /*constructors*/
+    /*constructor*/
     PointTable(std::shared_ptr<ONX_Model> model);
+
+    /*destructor*/
+    ~PointTable() = default;
 
     /*add methods*/
     ON_UUID Add(double x, double y, double z, const ON_3dmObjectAttributes* obj_attr) const;
