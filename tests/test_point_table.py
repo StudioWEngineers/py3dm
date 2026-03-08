@@ -33,6 +33,15 @@ class PointTableTestSuite(TestCase):
             point = self.table.get_by_uuid(point_geo_id)
             self.assertEqual(point.point, Point3d(0, 2, 0))  # type: ignore
 
+    def test_const_get_by_uuid(self) -> None:
+        pt_uuid = self.table.add(0, 0, 0)
+        pt = self.table.get_by_uuid(pt_uuid)
+        pt.point.x = 1  # type: ignore
+
+        # NOTE: The const-ness C++ side is lost when exposing ON_Point to
+        # Python direcly without a wrapper
+        self.assertEqual(pt.point.x, 1)  # type: ignore
+
     def test_count(self) -> None:
         with self.subTest(msg="empty table"):
             self.assertEqual(self.table.count(), 0)
@@ -62,6 +71,8 @@ class PointTableIteratorTestSuite(TestCase):
         for point in self.model.point_table:
             point.point.x = 1
 
+        # NOTE: The const-ness C++ side is lost when exposing ON_Point to
+        # Python direcly without a wrapper
         for point_index, point in enumerate(self.model.point_table):
             with self.subTest(point_index=point_index):
                 self.assertEqual(point.point.x, 1)
