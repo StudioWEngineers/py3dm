@@ -14,12 +14,16 @@
 
 // Project includes
 #include "opennurbs_includes.h"
+#include "views/point_view.h"
 
 
 class PointTable {
 public:
-    /*constructors*/
+    /*constructor*/
     PointTable(std::shared_ptr<ONX_Model> model);
+
+    /*destructor*/
+    ~PointTable() = default;
 
     /*add methods*/
     ON_UUID Add(double x, double y, double z, const ON_3dmObjectAttributes* obj_attr) const;
@@ -27,18 +31,20 @@ public:
     ON_UUID Add(const ON_3dPoint& point, const ON_3dmObjectAttributes* obj_attr) const;
 
     /*getters*/
-    ON_Point* GetbyUUID(const ON_UUID obj_uuid);
+    PointView* GetByUUID(const ON_UUID obj_uuid) const;
+    ON_Point* GetByUUIDExclusive(const ON_UUID obj_uuid) const;
+    ON__UINT64 GetRuntimeSerialNumber(const ON_UUID obj_uuid) const;
 
     /*other methods*/
-    int Count();
-    bool IsPoint(const ON_ModelComponent* mc);
+    int Count() const;
+    static bool IsPoint(const ON_ModelGeometryComponent* mgc);
 
     /*PointTable Iterator*/
     class Iterator {
     public:
         Iterator(PointTable* table);
 
-        ON_Point* operator*() const;
+        PointView* operator*() const;
         Iterator& operator++();
         bool IsOver() const;
 

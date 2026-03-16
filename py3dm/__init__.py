@@ -12,8 +12,9 @@ from . _py3dm import (  # type: ignore
     OpenNURBSObject,
     Model,
     PlotColorSource,
-    PointGeometry,
+    Point,
     PointTable,
+    PointView,
     Point3d,
     TextLog
 )

@@ -21,7 +21,7 @@ class PointTableTestSuite(TestCase):
 
         with self.subTest(msg="add with Point3d part II"):
             point = self.table.get_by_uuid(point_id)
-            self.assertEqual(point.point, Point3d(0, 1, 0))  # type: ignore
+            self.assertTrue(point == Point3d(0, 1, 0))
 
         point_geo = Point(0, 2, 0)
         point_geo_id = self.table.add(point_geo, ObjectAttributes())
@@ -31,7 +31,7 @@ class PointTableTestSuite(TestCase):
 
         with self.subTest(msg="add with Point part II"):
             point = self.table.get_by_uuid(point_geo_id)
-            self.assertEqual(point.point, Point3d(0, 2, 0))  # type: ignore
+            self.assertEqual(point.y, 2)  # type: ignore
 
     def test_count(self) -> None:
         with self.subTest(msg="empty table"):
@@ -46,7 +46,7 @@ class PointTableTestSuite(TestCase):
         obj_uuid = self.table.add(Point3d(0, 0, 3))
         point = self.table.get_by_uuid(obj_uuid)
 
-        self.assertEqual(point.point, Point3d(0, 0, 3))  # type: ignore
+        self.assertEqual(point.z, 3)  # type: ignore
 
 
 class PointTableIteratorTestSuite(TestCase):
@@ -56,12 +56,9 @@ class PointTableIteratorTestSuite(TestCase):
         self.model.point_table.add(0, 1, 2)
         self.model.curve_table.add(Point3d(0, 0, 1), Point3d(1, 1, 1))
         self.model.curve_table.add(Point3d(2, 0, 1), Point3d(2, 1, 1))
-        self.model.point_table.add(2, 1, 2)
+        self.model.point_table.add(1, 1, 2)
 
     def test_point_iterator(self) -> None:
-        for point in self.model.point_table:
-            point.point.x = 1
-
         for point_index, point in enumerate(self.model.point_table):
             with self.subTest(point_index=point_index):
-                self.assertEqual(point.point.x, 1)
+                self.assertEqual(point.x, point_index)

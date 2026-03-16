@@ -17,6 +17,7 @@
 #include "object_bindings.h"
 #include "point_bindings.h"
 #include "point_table_bindings.h"
+#include "point_view_bindings.h"
 #include "point3d_bindings.h"
 #include "text_log_bindings.h"
 
@@ -40,6 +41,8 @@ NB_MODULE(_py3dm, m) {
     ModelBindings(m);
     PointBindings(m);
     TextLogBindings(m);
+
+    PointViewBindings(m);
 
     CurveTableBindings(m);
     PointTableBindings(m);
