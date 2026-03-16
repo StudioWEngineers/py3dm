@@ -929,7 +929,7 @@ class PointTable:
     associated ``ONX_Model`` instance.
     """
     # dunder methods
-    def __iter__(self) -> Iterator[Point]: ...
+    def __iter__(self) -> Iterator[PointView]: ...
 
     def __len__(self) -> int: ...
 
@@ -978,9 +978,79 @@ class PointTable:
         """
         ...
 
-    def get_by_uuid(self, object_uuid: UUID) -> PointGeometry | None:
+    def get_by_uuid(self, object_uuid: UUID) -> PointView | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
+        """
+        ...
+
+    def get_by_uuid_exclusive(self, object_uuid: UUID) -> Point | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+
+        Notes
+        -----
+        From opennurbs documentation
+        (``ON_ModelGeometryComponent::ExclusiveGeometry()``):
+        Get a pointer to geometry that can be used to modify the geometry. The
+        returned pointer is not shared at the time it is returned and will not
+        be shared until a copy of this ``ON_ModelGeometryComponent`` is
+        created. If this ``ON_ModelGeometryComponent`` is the only reference to
+        the geometry, then a pointer to the geometry is returned. Otherwise,
+        ``nullptr`` is returned.
+        """
+        ...
+
+
+class PointView:
+    """Tiny wrapper to read-only access `Point` (``ON_Point``) objects.
+    """
+    # dunder methods
+    def __eq__(self, other: object) -> bool: ...
+
+    def __ne__(self, other: object) -> bool: ...
+
+    # properties
+    @property
+    def obj_uuid(self) -> UUID: ...
+
+    @property
+    def x(self) -> float: ...
+
+    @property
+    def y(self) -> float: ...
+
+    @property
+    def z(self) -> float: ...
+
+    # other methods
+    def distance_to(self, point: Point3d) -> float:
+        """Returns the distance between the two points.
+        """
+        ...
+
+    def is_coincident(self, point: Point3d) -> bool:
+        """In openNURBS points within ``ON_ZERO_TOLERANCE`` are generally
+        considered to be the same.
+
+        Returns
+        -------
+        is_coindent: bool
+            ``True`` if for each coordinate pair
+            ``|a - b| <= ON_ZERO_TOLERANCE`` or
+            ``|a - b| <= (abs(a) + abs(b)) * ON_RELATIVE_TOLERANCE``.
+
+        Notes
+        -----
+        ``ON_ZERO_TOLERANCE`` is set to 2.3283064365386962890625e-10
+
+        ``ON_RELATIVE_TOLERANCE`` is set to 2.27373675443232059478759765625e-13
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool:
+        """Returns ``False`` if any coordinate is infinite, a nan, or
+        ``ON_UNSET_VALUE``.
         """
         ...
 
@@ -1033,6 +1103,12 @@ class Point3d:
             ``True`` if for each coordinate pair
             ``|a - b| <= ON_ZERO_TOLERANCE`` or
             ``|a - b| <= (abs(a) + abs(b)) * ON_RELATIVE_TOLERANCE``.
+
+        Notes
+        -----
+        ``ON_ZERO_TOLERANCE`` is set to 2.3283064365386962890625e-10
+
+        ``ON_RELATIVE_TOLERANCE`` is set to 2.27373675443232059478759765625e-13
         """
         ...
 

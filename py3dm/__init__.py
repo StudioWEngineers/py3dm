@@ -14,6 +14,7 @@ from . _py3dm import (  # type: ignore
     PlotColorSource,
     Point,
     PointTable,
+    PointView,
     Point3d,
     TextLog
 )
