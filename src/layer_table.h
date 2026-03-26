@@ -15,40 +15,55 @@
 // Project includes
 #include "../lib/opennurbs/opennurbs.h"
 
+#include "views/layer_view.h"
+
 
 class LayerTable {
 public:
-    /*constructors*/
+    /*constructor*/
     LayerTable(std::shared_ptr<ONX_Model> model);
 
+    /*destructor*/
+    ~LayerTable() = default;
+
     /*deleters*/
-    bool DeleteByName(ON_wString full_name);
-    bool DeleteByUUID(ON_UUID on_uuid);
+    bool DeleteByName(const ON_wString full_name) const;
+    bool DeleteByUUID(const ON_UUID on_uuid) const;
 
     /*getters*/
-    ON_Layer* GetByIndex(int index);
-    ON_Layer* GetByName(ON_wString full_name);
-    ON_Layer* GetByUUID(ON_UUID on_uuid);
+    LayerView* GetByIndex(int index) const;
+    LayerView* GetByName(ON_wString full_name) const;
+    LayerView* GetByUUID(const ON_UUID on_uuid) const;
+    ON_Layer* GetByUUIDExclusive(const ON_UUID on_uuid) const;
 
     /*other methods*/
-    const ON_UUID Add(const ON_Layer& layer);
+    const ON_UUID Add(const ON_Layer& layer) const;
     int Count() const;
     const ON_wString GetFullPath(const ON_Layer* layer) const;
-    int GetIndex(ON_wString full_name);
-    const ON_UUID GetUUID(ON_wString full_name);
-    bool Has(ON_wString full_name);
+    int GetIndex(ON_wString full_name) const;
+    ON__UINT64 GetRuntimeSerialNumber(const ON_UUID on_uuid) const;
+    const ON_UUID GetUUID(ON_wString full_name) const;
+    bool Has(ON_wString full_name) const;
     int MaxIndex() const;
 
     /*LayerTable Iterator*/
     class Iterator {
     public:
+        /*constructor*/
         Iterator(LayerTable* table, int index);
 
-        ON_Layer* operator*() const;
+        /*destructor*/
+        ~Iterator() = default;
+
+        /*operators*/
+        LayerView* operator*() const;
         Iterator& operator++();
+
+        /*other methods*/
         bool IsOver() const;
 
     private:
+        /*member variables*/
         LayerTable* m_table;
         unsigned int m_index;
         unsigned int m_count;

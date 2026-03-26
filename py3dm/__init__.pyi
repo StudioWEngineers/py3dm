@@ -242,9 +242,9 @@ class LayerTable:
     ``LayerTable`` does not own the underlying data; it operates on the
     associated ``ONX_Model`` instance.
     """
-    def __getitem__(self, index: int) -> Layer: ...
+    def __getitem__(self, index: int) -> LayerView: ...
 
-    def __iter__(self) -> Iterator[Layer]: ...
+    def __iter__(self) -> Iterator[LayerView]: ...
 
     def __len__(self) -> int: ...
 
@@ -290,9 +290,9 @@ class LayerTable:
         """
         ...
 
-    def get_by_index(self, layer_index: int) -> Layer | None:
-        """Returns the ``Layer`` if the given ``index`` is found in the table,
-        ``None`` otherwise.
+    def get_by_index(self, layer_index: int) -> LayerView | None:
+        """Returns a view of the ``Layer`` if the given ``index`` is found in
+        the table, ``None`` otherwise.
 
         Raises
         ------
@@ -301,13 +301,19 @@ class LayerTable:
         """
         ...
 
-    def get_by_name(self, full_name: str) -> Layer | None:
-        """Returns the ``Layer`` if the given ``full_name`` is found in the
-        table, ``None`` otherwise.
+    def get_by_name(self, full_name: str) -> LayerView | None:
+        """Returns a view of the ``Layer`` if the given ``full_name`` is found
+        in the table, ``None`` otherwise.
         """
         ...
 
-    def get_by_uuid(self, layer_uuid: UUID) -> Layer | None:
+    def get_by_uuid(self, layer_uuid: UUID) -> LayerView | None:
+        """Returns a view of the ``Layer`` if the given ``layer_uuid`` is found
+        in the table, ``None`` otherwise.
+        """
+        ...
+
+    def get_by_uuid_exclusive(self, layer_uuid: UUID) -> Layer | None:
         """Returns the ``Layer`` if the given ``layer_uuid`` is found in the
         table, ``None`` otherwise.
         """
@@ -336,6 +342,95 @@ class LayerTable:
         ``ON_ModelComponent::Type::Layer`` in the table.
         """
         ...
+
+
+class LayerView:
+    """Tiny wrapper to read-only access `Layer` (``ON_Layer``) objects.
+    """
+    # properties
+    @property
+    def color(self) -> tuple[int, int, int, int]: ...
+
+    @property
+    def iges_level(self) -> int: ...
+
+    @property
+    def is_expanded(self) -> bool: ...
+
+    @property
+    def is_locked(self) -> bool: ...
+
+    @property
+    def is_visible(self) -> bool: ...
+
+    @property
+    def layer_uuid(self) -> UUID: ...
+
+    @property
+    def line_type_index(self) -> int: ...
+
+    @property
+    def name(self) -> str: ...
+
+    @property
+    def parent_uuid(self) -> UUID: ...
+
+    @property
+    def parent_uuid_is_not_null(self) -> bool: ...
+
+    @property
+    def parent_uuid_is_null(self) -> bool: ...
+
+    @property
+    def path_separator(self) -> str: ...
+
+    @property
+    def plot_color(self) -> tuple[int, int, int, int]: ...
+
+    @property
+    def plot_weight(self) -> float: ...
+
+    @property
+    def render_material_index(self) -> int: ...
+
+    @overload
+    def index(self) -> int:
+        """Value of the runtime model component index attribute.
+
+        Notes
+        -----
+        If the component is in a model, then the index is unique for all
+        components of identical type in the model and is locked. If the index
+        has not been set, ``ON_UNSET_INT_INDEX`` is returned. The
+        ``index()`` value can change when saved in an archive (.3dm file).
+        Use the `get_uuid()` when you need to reference model components in an
+        archive.
+        """
+        ...
+
+    @overload
+    def index(self, unset_index_value: int) -> int:
+        """Value of the runtime model component index attribute.
+
+        Parameters
+        ----------
+        unset_index_value: int
+            Value to return if the index has not been set.
+            ``ON_UNSET_INT_INDEX`` or indices of default components are often
+            used for this parameter.
+
+        Notes
+        -----
+        If the component is in a model, then the index is unique for all
+        components of identical type in the model and is locked. If the index
+        has not been set, ``unset_index_value`` is returned. The
+        ``index()`` value can change when saved in an archive (.3dm file).
+        Use the `get_uuid()` when you need to reference model components in an
+        archive.
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool: ...
 
 
 class Line:
