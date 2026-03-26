@@ -131,9 +131,6 @@ class Layer(ModelComponent):
     def color(self, color: tuple[int, int, int, int]) -> None: ...
 
     @property
-    def full_path(self) -> str: ...
-
-    @property
     def iges_level(self) -> int: ...
     @iges_level.setter
     def iges_level(self, level: int) -> None: ...
@@ -616,7 +613,7 @@ class ModelComponent(OpenNURBSObject):
 
         Parameters
         ----------
-        index: int
+        unset_index_value: int
             Value to return if the index has not been set.
             ``ON_UNSET_INT_INDEX`` or indices of default components are often
             used for this parameter.
@@ -625,7 +622,7 @@ class ModelComponent(OpenNURBSObject):
         -----
         If the component is in a model, then the index is unique for all
         components of identical type in the model and is locked. If the index
-        has not been set, ``ON_UNSET_INT_INDEX`` is returned. The
+        has not been set, ``unset_index_value`` is returned. The
         ``get_index()`` value can change when saved in an archive (.3dm file).
         Use the `get_uuid()` when you need to reference model components in an
         archive.
