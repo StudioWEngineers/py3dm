@@ -19,11 +19,11 @@ jobs:
       any_changed: ${{ steps.changed-files.outputs.any_changed }}
     steps:
       - name: checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v5
         with:
           fetch-depth: 2
       - name: check changed files
-        uses: tj-actions/changed-files@v45.0.4
+        uses: tj-actions/changed-files@v47
         id: changed-files
         with:
           files: |
@@ -57,7 +57,7 @@ jobs:
 
     steps:
       - name: set up python ${{ matrix.python }}
-        uses: actions/setup-python@v5.4.0
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
 
@@ -72,7 +72,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y uuid-dev
 
       - name: checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v5
 
       - name: update submodules
         run: git submodule update --init --recursive
@@ -107,13 +107,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: update submodules
         run: git submodule update --init --recursive
 
       - name: Set up ${{ matrix.python }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
           architecture: x64
@@ -161,7 +161,7 @@ jobs:
 
     steps:
       - name: set up python ${{ matrix.python }}
-        uses: actions/setup-python@v5.4.0
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
 
@@ -178,7 +178,7 @@ jobs:
         run: python -m pip install --upgrade pip setuptools wheel build scikit-build-core nanobind
 
       - name: checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v5
 
       - name: update submodules
         run: git submodule update --init --recursive
