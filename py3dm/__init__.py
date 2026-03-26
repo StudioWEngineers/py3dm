@@ -3,6 +3,7 @@ from . _py3dm import (  # type: ignore
     Geometry,
     Layer,
     LayerTable,
+    LayerView,
     Line,
     LineCurve,
     ModelComponent,

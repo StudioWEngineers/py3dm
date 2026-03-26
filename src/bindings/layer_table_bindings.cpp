@@ -13,9 +13,9 @@ void LayerTableBindings(nb::module_& m) {
         .def("__iter__", [](LayerTable::Iterator &it) -> LayerTable::Iterator& {
             return it;
         })
-        .def("__next__", [](LayerTable::Iterator &it) {
+        .def("__next__", [](LayerTable::Iterator &it) -> LayerView* {
             while (!it.IsOver()) {
-                ON_Layer* layer = *it;
+                LayerView* layer = *it;
                 ++it;
 
                 if (layer != nullptr) {
@@ -40,6 +40,7 @@ void LayerTableBindings(nb::module_& m) {
         .def("get_by_index", &LayerTable::GetByIndex, nb::rv_policy::reference_internal)
         .def("get_by_name", &LayerTable::GetByName, nb::rv_policy::reference_internal)
         .def("get_by_uuid", &LayerTable::GetByUUID, nb::rv_policy::reference_internal)
+        .def("get_by_uuid_exclusive", &LayerTable::GetByUUIDExclusive, nb::rv_policy::reference_internal)
 
         /*other methods*/
         .def("add", &LayerTable::Add)
