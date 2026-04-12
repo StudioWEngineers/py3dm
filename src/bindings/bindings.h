@@ -10,7 +10,7 @@
 #include <nanobind/stl/tuple.h>
 
 // Project includes
-#include "../opennurbs_includes.h"
+#include "../../lib/opennurbs/opennurbs.h"
 
 #define PY3DM_VERSION_MAJOR 0
 #define PY3DM_VERSION_MINOR 2
