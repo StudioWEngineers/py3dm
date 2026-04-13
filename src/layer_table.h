@@ -13,7 +13,7 @@
 // External includes
 
 // Project includes
-#include "opennurbs_includes.h"
+#include "../lib/opennurbs/opennurbs.h"
 
 #include "views/layer_view.h"
 
