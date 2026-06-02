@@ -483,6 +483,207 @@ class LineCurve(Geometry):
         ...
 
 
+class Mesh(Geometry):
+    """Python bindings for the openNURBS ``ON_Mesh`` class.
+    """
+    @overload
+    def __init__(self) -> None: ...
+
+    @overload
+    def __init__(
+        self,
+        initial_face_array_capacity: int,
+        initial_vertex_array_capacity: int,
+        has_vertex_normals: bool,
+        has_texture_coordinates: bool
+    ) -> None: ...
+
+    @overload
+    def __init__(self, mesh: Mesh) -> None: ...
+
+    # query methods
+    def is_corrupt(self, repair, silent_error, text_log) -> bool:
+        """Check for corrupt data values that are likely to cause crashes.
+
+        Parameters
+        ----------
+        repair: bool
+            If ``True``, ``const_cast<>`` will be used to change the corrupt
+            data so that crashes are less likely.
+
+        silent_error: bool
+            If ``True``, ON_ERROR will not be called when corruption is
+            detected.
+
+        text_log: TextLog
+            If text_log is not null, then a description of corruption is
+            printed using text_log.
+
+        Notes
+        -----
+        Ideally, ``is_corrupt`` would be a virtual function on ``ON_Object``,
+        but doing that at this point would break the public SDK.
+        """
+        ...
+
+    def is_deformable(self):
+        """Returns ``True`` if object can be accurately modified with "squishy"
+        transformations like projections, shears, an non-uniform scaling.
+        """
+        ...
+
+    def is_empty(self) -> bool:
+        """Returns ``True`` if there are zero vertices or zero faces.
+        """
+        ...
+
+    def is_not_empty(self) -> bool:
+        """Returns ``True`` if there are vertices or faces.
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool:
+        """Tests an object to see if its data members are correctly
+        initialized.
+
+        Parameters
+        ----------
+        text_log: `TextLog`, optional
+            If the object is not valid and ``text_log`` is not ``None``, then a
+            brief english description of the reason the object is not valid is
+            appended to the log. The information appended to ``text_log`` is
+            suitable for low-level debugging purposes by programmers and is not
+            intended to be useful as a high level user interface tool.
+
+        Returns
+        -------
+        success: bool
+            ``True`` if the object is valid or ``False`` if the object is
+            invalid, uninitialized, etc.
+        """
+        ...
+
+    # count methods
+    def face_count(self) -> int:
+        """Return the number of faces.
+        """
+        ...
+
+    def hidden_vertex_count(self) -> int:
+        """Return the number of hidden vertices.
+        """
+        ...
+
+    def invalid_face_count(self) -> int:
+        """Return the number of faces that are invalid.
+        """
+        ...
+
+    def quad_count(self) -> int:
+        """Return the number of faces that are quads.
+        """
+        ...
+
+    def triangle_count(self) -> int:
+        """Return the number of faces that are triangles.
+        """
+        ...
+
+    def vertex_count(self) -> int:
+        """Return the number of vertices.
+        """
+        ...
+
+    # has methods
+    def has_face_normals(self) -> bool: ...
+
+    def has_ngons(self) -> bool: ...
+
+    def has_principal_curvatures(self) -> bool: ...
+
+    def has_surface_parameters(self) -> bool: ...
+
+    def has_vertex_colors(self) -> bool: ...
+
+    def has_vertex_normals(self) -> bool: ...
+
+    # other methods
+    def clear_vertex_colors(self) -> None: ...
+
+    def flip(self) -> None:
+        """Reverses the order of the vertices. The first vertex is not changed.
+        """
+        ...
+
+    def reserve_vertex_capacity(self, new_vertex_capacity: int) -> bool:
+        """Increases the capacity of arrays to be at least the requested capacity.
+
+        Parameters
+        ----------
+        new_vertex_capacity: int
+            The desired capacity
+
+        Notes
+        -----
+        This function is useful if you are getting ready to add a known number
+        of vertices and want to increase the dynamic array capacities before
+        you begin adding vertices.
+        """
+        ...
+
+    def set_quad(self, face_index: int, a: int, b: int, c: int, d: int) -> bool:
+        """Returns `True` if the quad has been successfully set.
+
+        Parameters
+        ----------
+        face_index: int
+            The face index
+        a: int
+            First vertex index
+        b: int
+            Second vertex index
+        c: int
+            Third vertex index
+        d: int
+            Fourth vertex index
+        """
+        ...
+
+    def set_triangle(self, face_index: int, a: int, b: int, c: int) -> bool:
+        """Returns `True` if the triangle has been successfully set.
+
+        Parameters
+        ----------
+        face_index: int
+            The face index
+        a: int
+            First vertex index
+        b: int
+            Second vertex index
+        c: int
+            Third vertex index
+        """
+        ...
+
+    def set_vertex(self, vertex_index: int, vertex_location: Point3d) -> bool:
+        """Returns `True` if the vertex has been successfully set.
+
+        Parameters
+        ----------
+        vertex_index: int
+            The vertex index
+        vertex_location: int
+            New vertex location
+        """
+        ...
+
+    def swap_coordinates(self, i: int, j: int) -> bool:
+        """Returns `True` if the vertices with indices ``i`` and ``j`` has been
+        successfully swap.
+        """
+        ...
+
+
 class Model:
     """Python bindings for the openNURBS ``ONX_Model`` class.
 
