@@ -12,6 +12,7 @@
 #include "line_bindings.h"
 #include "line_curve_bindings.h"
 #include "mesh_bindings.h"
+#include "mesh_view_bindings.h"
 #include "model_bindings.h"
 #include "model_component_bindings.h"
 #include "object_attributes_bindings.h"
@@ -42,6 +43,7 @@ NB_MODULE(_py3dm, m) {
     LayerTableBindings(m);
     LineCurveBindings(m);
     MeshBindings(m);
+    MeshViewBindings(m);
     ModelBindings(m);
     PointGeometryBindings(m);
     TextLogBindings(m);
