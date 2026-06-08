@@ -684,6 +684,110 @@ class Mesh(Geometry):
         ...
 
 
+class MeshView:
+    """Tiny wrapper to read-only access `Mesh` (``ON_Mesh``) objects.
+    """
+    # query methods
+    def is_corrupt(self, repair, silent_error, text_log) -> bool:
+        """Check for corrupt data values that are likely to cause crashes.
+
+        Parameters
+        ----------
+        repair: bool
+            If ``True``, ``const_cast<>`` will be used to change the corrupt
+            data so that crashes are less likely.
+
+        silent_error: bool
+            If ``True``, ON_ERROR will not be called when corruption is
+            detected.
+
+        text_log: TextLog
+            If text_log is not null, then a description of corruption is
+            printed using text_log.
+
+        Notes
+        -----
+        Ideally, ``is_corrupt`` would be a virtual function on ``ON_Object``,
+        but doing that at this point would break the public SDK.
+        """
+        ...
+
+    def is_empty(self) -> bool:
+        """Returns ``True`` if there are zero vertices or zero faces.
+        """
+        ...
+
+    def is_not_empty(self) -> bool:
+        """Returns ``True`` if there are vertices or faces.
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool:
+        """Tests an object to see if its data members are correctly
+        initialized.
+
+        Parameters
+        ----------
+        text_log: `TextLog`, optional
+            If the object is not valid and ``text_log`` is not ``None``, then a
+            brief english description of the reason the object is not valid is
+            appended to the log. The information appended to ``text_log`` is
+            suitable for low-level debugging purposes by programmers and is not
+            intended to be useful as a high level user interface tool.
+
+        Returns
+        -------
+        success: bool
+            ``True`` if the object is valid or ``False`` if the object is
+            invalid, uninitialized, etc.
+        """
+        ...
+
+    # count methods
+    def face_count(self) -> int:
+        """Return the number of faces.
+        """
+        ...
+
+    def hidden_vertex_count(self) -> int:
+        """Return the number of hidden vertices.
+        """
+        ...
+
+    def invalid_face_count(self) -> int:
+        """Return the number of faces that are invalid.
+        """
+        ...
+
+    def quad_count(self) -> int:
+        """Return the number of faces that are quads.
+        """
+        ...
+
+    def triangle_count(self) -> int:
+        """Return the number of faces that are triangles.
+        """
+        ...
+
+    def vertex_count(self) -> int:
+        """Return the number of vertices.
+        """
+        ...
+
+    # has methods
+    def has_face_normals(self) -> bool: ...
+
+    def has_ngons(self) -> bool: ...
+
+    def has_principal_curvatures(self) -> bool: ...
+
+    def has_surface_parameters(self) -> bool: ...
+
+    def has_vertex_colors(self) -> bool: ...
+
+    def has_vertex_normals(self) -> bool: ...
+
+
 class Model:
     """Python bindings for the openNURBS ``ONX_Model`` class.
 
