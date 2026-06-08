@@ -684,6 +684,83 @@ class Mesh(Geometry):
         ...
 
 
+class MeshTable:
+    """Python wrapper providing access to ``ON_Mesh`` objects stored in an
+    ``ONX_Model``.
+
+    This class offers a convenient interface for adding, retrieving, counting,
+    and iterating over mesh objects.
+
+    ``MeshTable`` does not own the underlying data; it operates on the
+    associated ``ONX_Model`` instance.
+    """
+    # dunder methods
+    def __iter__(self) -> Iterator[MeshView]: ...
+
+    def __len__(self) -> int: ...
+
+    # public methods
+    @overload
+    def add(self, obj_attr: ObjectAttributes) -> UUID:
+        """Returns the ``UUID`` of the mesh in case of successful addition, or
+        an empty ``UUID`` otherwise. If the mesh is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, mesh: Mesh, obj_attr: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the mesh in case of successful addition, or
+        an empty ``UUID`` otherwise. If the mesh is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(
+        self,
+        initial_face_array_capacity: int,
+        initial_vertex_array_capacity: int,
+        has_vertex_normals: bool,
+        has_texture_coordinates: bool,
+        obj_attr: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the mesh in case of successful addition, or
+        an empty ``UUID`` otherwise. If the mesh is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    def count(self) -> int:
+        """Returns the number of objects of type ``ON::mesh_object`` in the
+        model.
+        """
+        ...
+
+    def get_by_uuid(self, object_uuid: UUID) -> Mesh | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+        """
+        ...
+
+    def get_by_uuid_exclusive(self, object_uuid: UUID) -> MeshView | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+
+        Notes
+        -----
+        From opennurbs documentation
+        (``ON_ModelGeometryComponent::ExclusiveGeometry()``):
+        Get a pointer to geometry that can be used to modify the geometry. The
+        returned pointer is not shared at the time it is returned and will not
+        be shared until a copy of this ``ON_ModelGeometryComponent`` is
+        created. If this ``ON_ModelGeometryComponent`` is the only reference to
+        the geometry, then a pointer to the geometry is returned. Otherwise,
+        ``nullptr`` is returned.
+        """
+        ...
+
+
 class MeshView:
     """Tiny wrapper to read-only access `Mesh` (``ON_Mesh``) objects.
     """
