@@ -1,9 +1,3 @@
-"""
-ModelComponentTestSuite
------------------------
-
-Tests for the `ModelComponent` class.
-"""
 # standard library imports
 from unittest import TestCase
 from uuid import UUID, uuid4

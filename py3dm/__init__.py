@@ -1,8 +1,4 @@
-from . _py3dm import (
-    __author__,
-    __doc__,
-    __email__,
-    __maintainer__,
+from . _py3dm import (  # type: ignore
     CurveTable,
     Geometry,
     Layer,

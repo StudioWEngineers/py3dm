@@ -1,9 +1,3 @@
-"""
-Point3dTestSuite
-----------------
-
-Tests for the `Point3d` class.
-"""
 # standard library imports
 from math import sqrt
 from unittest import TestCase
@@ -16,7 +10,10 @@ from py3dm import Point3d
 
 class Point3dTestSuite(TestCase):
     def test_distance_to(self) -> None:
-        self.assertEqual(Point3d(0, 0, 0).distance_to(Point3d(1, 1, 1)), sqrt(3))
+        self.assertEqual(
+            Point3d(0, 0, 0).distance_to(Point3d(1, 1, 1)),
+            sqrt(3)
+        )
 
     def test_division(self) -> None:
         point = Point3d(0, 0, 1.1) / 2.1

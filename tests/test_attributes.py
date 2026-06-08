@@ -1,14 +1,13 @@
-"""
-ObjectAttributesTestSuite
--------------------------
-
-Tests for the `ObjectAttributes` class.
-"""
 # standard library imports
 from unittest import TestCase
 
 # third party library imports
-from py3dm import ObjectAttributes, ObjectColorSource, ObjectMode, PlotColorSource
+from py3dm import (
+    ObjectAttributes,
+    ObjectColorSource,
+    ObjectMode,
+    PlotColorSource
+)
 
 # local library specific imports
 
@@ -44,12 +43,18 @@ class ObjectAttributesTestSuite(TestCase):
 
     def test_color_source(self) -> None:
         with self.subTest(msg="Test default color_soucre"):
-            self.assertEqual(self.obj_attr.color_source, ObjectColorSource.from_layer)
+            self.assertEqual(
+                self.obj_attr.color_source,
+                ObjectColorSource.from_layer
+            )
 
         self.obj_attr.color_source = ObjectColorSource.from_parent
 
         with self.subTest(msg="Test assign color_source"):
-            self.assertEqual(self.obj_attr.color_source, ObjectColorSource.from_parent)
+            self.assertEqual(
+                self.obj_attr.color_source,
+                ObjectColorSource.from_parent
+            )
 
     def test_default(self) -> None:
         self.obj_attr.color = (1, 2, 4, 255)
@@ -60,7 +65,10 @@ class ObjectAttributesTestSuite(TestCase):
             self.assertEqual(self.obj_attr.color, (0, 0, 0, 255))
 
         with self.subTest(msg="Test default color_source"):
-            self.assertEqual(self.obj_attr.color_source, ObjectColorSource.from_layer)
+            self.assertEqual(
+                self.obj_attr.color_source,
+                ObjectColorSource.from_layer
+            )
 
     def test_equal(self) -> None:
         self.obj_attr.color = (10, 20, 50, 255)
@@ -132,9 +140,15 @@ class ObjectAttributesTestSuite(TestCase):
 
     def test_plot_color_source(self) -> None:
         with self.subTest(msg="Test default plot_color_soucre"):
-            self.assertEqual(self.obj_attr.plot_color_source, PlotColorSource.from_object)
+            self.assertEqual(
+                self.obj_attr.plot_color_source,
+                PlotColorSource.from_object
+            )
 
         self.obj_attr.plot_color_source = PlotColorSource.from_parent
 
         with self.subTest(msg="Test assign plot_color_source"):
-            self.assertEqual(self.obj_attr.plot_color_source, PlotColorSource.from_parent)
+            self.assertEqual(
+                self.obj_attr.plot_color_source,
+                PlotColorSource.from_parent
+            )

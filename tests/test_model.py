@@ -1,9 +1,3 @@
-"""
-ModelTestSuite
---------------
-
-Test suites for the `Model` class.
-"""
 # standard library imports
 from tempfile import TemporaryDirectory
 from unittest import TestCase
@@ -78,8 +72,8 @@ class NewModelTestSuite(TestCase):
 
 
 class WriteAndReadModelTestSuite(TestCase):
-    """Tests for the `Model` class. A new model is created from scratch, then written and
-    lastly read to ensure the correctness of the workflow.
+    """Tests for the `Model` class. A new model is created from scratch, then
+    written and lastly read to ensure the correctness of the workflow.
     """
     def setUp(self) -> None:
         # create a model with custom info
@@ -99,7 +93,10 @@ class WriteAndReadModelTestSuite(TestCase):
             self.model.read(temp_dir + "/WriteAndReadModelTestSuite.3dm")
 
     def test_application_details(self) -> None:
-        self.assertEqual(self.model.application_details, "WriteAndReadModelTestSuite")
+        self.assertEqual(
+            self.model.application_details,
+            "WriteAndReadModelTestSuite"
+        )
 
     def test_application_name(self) -> None:
         self.assertEqual(self.model.application_name, "Rhinoceros 7")
@@ -128,8 +125,8 @@ class ResetModelTestSuite(TestCase):
         self.model.created_by = "StudioWEngineers"
         self.model.last_edited_by = "StudioWEngineers"
 
-        self.model.LayerTable.add(Layer())
-        self.model.CurveTable.add(Point3d(0, 1, 2), Point3d(0, 1, 0))
+        self.model.layer_table.add(Layer())
+        self.model.curve_table.add(Point3d(0, 1, 2), Point3d(0, 1, 0))
 
         self.model.reset()
 
@@ -140,7 +137,7 @@ class ResetModelTestSuite(TestCase):
         self.assertEqual(self.model.last_edited_by, "")
 
     def test_number_of_layers(self) -> None:
-        self.assertEqual(len(list(self.model.LayerTable)), 0)
+        self.assertEqual(len(list(self.model.layer_table)), 0)
 
     def test_revision(self) -> None:
         self.assertEqual(self.model.revision, 0)

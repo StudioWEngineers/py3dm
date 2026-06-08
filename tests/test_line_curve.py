@@ -1,9 +1,3 @@
-"""
-LineCurveTestSuite
-------------------
-
-Tests for the `LineCurve` class.
-"""
 # standard library imports
 from unittest import TestCase
 

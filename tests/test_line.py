@@ -1,9 +1,3 @@
-"""
-LineTestSuite
--------------
-
-Tests for the `Line` class.
-"""
 # standard library imports
 from math import sqrt
 from unittest import TestCase
@@ -20,24 +14,34 @@ class LineTestSuite(TestCase):
 
     def test_create(self) -> None:
         with self.subTest(msg="Successful create"):
-            self.assertTrue(self.line.create(Point3d(1, 2, 3), Point3d(0, 0, 0)))
+            self.assertTrue(
+                self.line.create(Point3d(1, 2, 3), Point3d(0, 0, 0))
+            )
 
         with self.subTest(msg="Successful create"):
             self.assertEqual(self.line[0], Point3d(1, 2, 3))
 
         with self.subTest(msg="Unsuccessful create"):
-            self.assertFalse(self.line.create(Point3d(1, 2, 3), Point3d(1, 2, 3)))
+            self.assertFalse(
+                self.line.create(Point3d(1, 2, 3), Point3d(1, 2, 3))
+            )
 
     def test_distance_to(self) -> None:
         point = Point3d(-0.4, 0.0, 0.2)
         with self.subTest(msg="with True argument"):
-            self.assertEqual(self.line.distance_to(point, True), 0.447213595499958)
+            self.assertEqual(
+                self.line.distance_to(point, True),
+                0.447213595499958
+            )
 
         with self.subTest(msg="with default argument"):
             self.assertEqual(self.line.distance_to(point), 0.4320493798938574)
 
         with self.subTest(msg="with False argument"):
-            self.assertEqual(self.line.distance_to(point, False), 0.4320493798938574)
+            self.assertEqual(
+                self.line.distance_to(point, False),
+                0.4320493798938574
+            )
 
     def test_getitem(self) -> None:
         with self.subTest(msg="Successful getitem"):
@@ -51,7 +55,9 @@ class LineTestSuite(TestCase):
             self.assertFalse(self.line == Line())
 
         with self.subTest(msg="Positive check"):
-            self.assertTrue(self.line == Line(Point3d(0, 0, 0), Point3d(1, 1, 1)))
+            self.assertTrue(
+                self.line == Line(Point3d(0, 0, 0), Point3d(1, 1, 1))
+            )
 
     def test_is_valid(self) -> None:
         with self.subTest(msg="Positive check"):
