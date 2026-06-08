@@ -129,7 +129,9 @@ jobs:
 
       - name: build ${{ matrix.python }} ${{ matrix.os }}
         run: |
-          python -m build --cmake-args -DINCLUDE_DRACO=ON
+          python -m build \
+            --wheel \
+            --config-setting=cmake.define.INCLUDE_DRACO=ON
         shell: bash
 
       - name: install package
