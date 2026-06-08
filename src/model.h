@@ -15,6 +15,7 @@
 // Project includes
 #include "curve_table.h"
 #include "layer_table.h"
+#include "mesh_table.h"
 #include "point_table.h"
 
 
@@ -46,8 +47,9 @@ public:
     bool Write(ON_wString path, int version);
 
     /*tables*/
-    LayerTable ModelLayerTable();
     CurveTable ModelCurveTable();
+    LayerTable ModelLayerTable();
+    MeshTable ModelMeshTable();
     PointTable ModelPointTable();
 
 private:

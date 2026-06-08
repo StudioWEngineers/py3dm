@@ -911,6 +911,9 @@ class Model:
     def last_edited_by(self, author: str) -> None: ...
 
     @property
+    def mesh_table(self) -> MeshTable: ...
+
+    @property
     def point_table(self) -> PointTable: ...
 
     @property
