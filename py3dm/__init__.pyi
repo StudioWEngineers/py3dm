@@ -19,6 +19,26 @@ from uuid import UUID
 __version__: str
 
 
+class CurveView:
+    """Tiny wrapper to read-only access `Curve` (``ON_Curve``) objects.
+    """
+    def get_uuid(self) -> UUID:
+        """Returns the object UUID.
+        """
+        ...
+
+    def is_closed(self) -> bool:
+        """`True` if the curve is closed (either curve has clamped end knots
+        and euclidean location of start CV = euclidean location of end CV, or
+        curve is periodic.
+        """
+        ...
+
+    def is_linear(self) -> bool: ...
+
+    def is_Valid(self, text_log: TextLog) -> bool: ...
+
+
 class CurveTable:
     """Python wrapper providing access to objects of type ``ON::curve_object``
     stored in an ``ONX_Model``.
