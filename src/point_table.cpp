@@ -32,11 +32,7 @@ PointView* PointTable::GetByUUID(const ON_UUID obj_uuid) const {
         obj_uuid
     ).ModelComponent();
     const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
-
-    if (!IsPoint(mgc)) {
-        return nullptr;
-    }
-    return new PointView(ON_Point::Cast(mgc->Geometry(nullptr)), mgc->ModelObjectId());
+    return IsPoint(mgc)? new PointView(ON_Point::Cast(mgc->Geometry(nullptr)), mgc->ModelObjectId()) : nullptr;
 }
 
 ON_Point* PointTable::GetByUUIDExclusive(const ON_UUID obj_uuid) const {
@@ -46,10 +42,6 @@ ON_Point* PointTable::GetByUUIDExclusive(const ON_UUID obj_uuid) const {
     ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(
         mcr.ExclusiveModelComponent()
     );
-
-    if (!IsPoint(mgc)) {
-        return nullptr;
-    }
     return ON_Point::Cast(mgc->ExclusiveGeometry());
 }
 
