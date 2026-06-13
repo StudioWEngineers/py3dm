@@ -80,15 +80,3 @@ class Point3dTestSuite(TestCase):
 
         with self.subTest(msg="z-coordinate"):
             self.assertEqual(point.z, 1.1 * 2.1)
-
-    def test_sum(self) -> None:
-        point = Point3d(0, 0, 1.1) + Point3d(1, 2, 3)
-
-        with self.subTest(msg="x-coordinate"):
-            self.assertEqual(point.x, 1)
-
-        with self.subTest(msg="y-coordinate"):
-            self.assertEqual(point.y, 2)
-
-        with self.subTest(msg="z-coordinate"):
-            self.assertEqual(point.z, 4.1)

@@ -10,10 +10,6 @@ void Point3dBindings(nb::module_& m) {
     nb::class_<ON_3dPoint>(m, "Point3d")
         /*dunder methods*/
         .def(nb::init<double, double, double>())
-        .def("__add__", [] (const ON_3dPoint& self, const ON_3dPoint& other) {
-            return self + other;
-            }
-        )
         .def("__eq__", &ON_3dPoint::operator==)
         .def("__mul__", &ON_3dPoint::operator*=)
         .def("__ne__", &ON_3dPoint::operator!=)
