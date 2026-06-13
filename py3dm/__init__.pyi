@@ -19,71 +19,6 @@ from uuid import UUID
 __version__: str
 
 
-class CurveTable:
-    """Python wrapper providing access to objects of type ``ON::curve_object``
-    stored in an ``ONX_Model``.
-
-    This class offers a convenient interface for adding, retrieving, counting,
-    and iterating over curve objects.
-
-    ``CurveTable`` does not own the underlying data; it operates on the
-    associated ``ONX_Model`` instance.
-    """
-    def __iter__(self) -> Iterator[LineCurve]: ...
-
-    def __len__(self) -> int: ...
-
-    @overload
-    def add(
-        self,
-        start:
-        Point3d,
-        end: Point3d,
-        attributes: None | ObjectAttributes = None
-    ) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or
-        an empty ``UUID`` otherwise. If the line is in the model, then the
-        ``UUID`` is unique for all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add(
-        self,
-        line: Line,
-        obj_attr: None | ObjectAttributes = None
-    ) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or
-        an empty ``UUID`` otherwise. If the line is in the model, then the
-        ``UUID`` is unique for all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add(
-        self,
-        line: LineCurve,
-        obj_attr: None | ObjectAttributes = None
-    ) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or
-        an empty ``UUID`` otherwise. If the line is in the model, then the
-        ``UUID`` is unique for all components in the model and is locked.
-        """
-        ...
-
-    def count(self) -> int:
-        """Returns the number of objects of type ``ON::curve_object`` in the
-        model.
-        """
-        ...
-
-    def get_by_uuid(self, object_uuid: UUID) -> LineCurve | None:
-        """Returns the object with the given ``object_uuid`` or ``None`` if
-        ``object_uuid`` is not found.
-        """
-        ...
-
-
 class Geometry(OpenNURBSObject):
     """Python bindings for the openNURBS ``ON_Geometry`` class.
 
@@ -242,9 +177,9 @@ class LayerTable:
     ``LayerTable`` does not own the underlying data; it operates on the
     associated ``ONX_Model`` instance.
     """
-    def __getitem__(self, index: int) -> Layer: ...
+    def __getitem__(self, index: int) -> LayerView: ...
 
-    def __iter__(self) -> Iterator[Layer]: ...
+    def __iter__(self) -> Iterator[LayerView]: ...
 
     def __len__(self) -> int: ...
 
@@ -290,9 +225,9 @@ class LayerTable:
         """
         ...
 
-    def get_by_index(self, layer_index: int) -> Layer | None:
-        """Returns the ``Layer`` if the given ``index`` is found in the table,
-        ``None`` otherwise.
+    def get_by_index(self, layer_index: int) -> LayerView | None:
+        """Returns a view of the ``Layer`` if the given ``index`` is found in
+        the table, ``None`` otherwise.
 
         Raises
         ------
@@ -301,13 +236,19 @@ class LayerTable:
         """
         ...
 
-    def get_by_name(self, full_name: str) -> Layer | None:
-        """Returns the ``Layer`` if the given ``full_name`` is found in the
-        table, ``None`` otherwise.
+    def get_by_name(self, full_name: str) -> LayerView | None:
+        """Returns a view of the ``Layer`` if the given ``full_name`` is found
+        in the table, ``None`` otherwise.
         """
         ...
 
-    def get_by_uuid(self, layer_uuid: UUID) -> Layer | None:
+    def get_by_uuid(self, layer_uuid: UUID) -> LayerView | None:
+        """Returns a view of the ``Layer`` if the given ``layer_uuid`` is found
+        in the table, ``None`` otherwise.
+        """
+        ...
+
+    def get_by_uuid_exclusive(self, layer_uuid: UUID) -> Layer | None:
         """Returns the ``Layer`` if the given ``layer_uuid`` is found in the
         table, ``None`` otherwise.
         """
@@ -336,6 +277,95 @@ class LayerTable:
         ``ON_ModelComponent::Type::Layer`` in the table.
         """
         ...
+
+
+class LayerView:
+    """Tiny wrapper to read-only access `Layer` (``ON_Layer``) objects.
+    """
+    # properties
+    @property
+    def color(self) -> tuple[int, int, int, int]: ...
+
+    @property
+    def iges_level(self) -> int: ...
+
+    @property
+    def is_expanded(self) -> bool: ...
+
+    @property
+    def is_locked(self) -> bool: ...
+
+    @property
+    def is_visible(self) -> bool: ...
+
+    @property
+    def layer_uuid(self) -> UUID: ...
+
+    @property
+    def line_type_index(self) -> int: ...
+
+    @property
+    def name(self) -> str: ...
+
+    @property
+    def parent_uuid(self) -> UUID: ...
+
+    @property
+    def parent_uuid_is_not_null(self) -> bool: ...
+
+    @property
+    def parent_uuid_is_null(self) -> bool: ...
+
+    @property
+    def path_separator(self) -> str: ...
+
+    @property
+    def plot_color(self) -> tuple[int, int, int, int]: ...
+
+    @property
+    def plot_weight(self) -> float: ...
+
+    @property
+    def render_material_index(self) -> int: ...
+
+    @overload
+    def index(self) -> int:
+        """Value of the runtime model component index attribute.
+
+        Notes
+        -----
+        If the component is in a model, then the index is unique for all
+        components of identical type in the model and is locked. If the index
+        has not been set, ``ON_UNSET_INT_INDEX`` is returned. The
+        ``index()`` value can change when saved in an archive (.3dm file).
+        Use the `get_uuid()` when you need to reference model components in an
+        archive.
+        """
+        ...
+
+    @overload
+    def index(self, unset_index_value: int) -> int:
+        """Value of the runtime model component index attribute.
+
+        Parameters
+        ----------
+        unset_index_value: int
+            Value to return if the index has not been set.
+            ``ON_UNSET_INT_INDEX`` or indices of default components are often
+            used for this parameter.
+
+        Notes
+        -----
+        If the component is in a model, then the index is unique for all
+        components of identical type in the model and is locked. If the index
+        has not been set, ``unset_index_value`` is returned. The
+        ``index()`` value can change when saved in an archive (.3dm file).
+        Use the `get_uuid()` when you need to reference model components in an
+        archive.
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool: ...
 
 
 class Line:
@@ -539,6 +569,26 @@ class Mesh(Geometry):
 
     def is_not_empty(self) -> bool:
         """Returns ``True`` if there are vertices or faces.
+class LineCurveView:
+    """Tiny wrapper to read-only access `LineCurve` (``ON_LineCurve``) objects.
+    """
+    def __eq__(self, other: object) -> bool: ...
+
+    def __ne__(self, other: object) -> bool: ...
+
+    def distance_to(
+            self,
+            test_point: Point3d,
+            finite_chord: bool = False
+    ) -> float:
+        """Returns the distance from the point on the line that is closest to
+        the ``test_point``. If ``finite_chord`` is ``True``, the distance is
+        reported to the line as a finite chord.
+        """
+        ...
+
+    def get_uuid(self) -> UUID:
+        """Returns the line unique UUID.
         """
         ...
 
@@ -704,6 +754,41 @@ class MeshTable:
     def add(self, obj_attr: ObjectAttributes) -> UUID:
         """Returns the ``UUID`` of the mesh in case of successful addition, or
         an empty ``UUID`` otherwise. If the mesh is in the model, then the
+        """Returns ``True`` if start ``!=`` end and both start and end are
+        valid points.
+        """
+        ...
+
+    def length(self) -> float:
+        """Returns the length of the line.
+        """
+        ...
+
+
+class LineCurveTable:
+    """Python wrapper providing access to objects of type ``ON::curve_object``
+    stored in an ``ONX_Model``.
+
+    This class offers a convenient interface for adding, retrieving, counting,
+    and iterating over curve objects.
+
+    ``CurveTable`` does not own the underlying data; it operates on the
+    associated ``ONX_Model`` instance.
+    """
+    def __iter__(self) -> Iterator[LineCurveView]: ...
+
+    def __len__(self) -> int: ...
+
+    @overload
+    def add(
+        self,
+        start:
+        Point3d,
+        end: Point3d,
+        attributes: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or
+        an empty ``UUID`` otherwise. If the line is in the model, then the
         ``UUID`` is unique for all components in the model and is locked.
         """
         ...
@@ -712,6 +797,13 @@ class MeshTable:
     def add(self, mesh: Mesh, obj_attr: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the mesh in case of successful addition, or
         an empty ``UUID`` otherwise. If the mesh is in the model, then the
+    def add(
+        self,
+        line: Line,
+        obj_attr: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or
+        an empty ``UUID`` otherwise. If the line is in the model, then the
         ``UUID`` is unique for all components in the model and is locked.
         """
         ...
@@ -727,17 +819,24 @@ class MeshTable:
     ) -> UUID:
         """Returns the ``UUID`` of the mesh in case of successful addition, or
         an empty ``UUID`` otherwise. If the mesh is in the model, then the
+        line: LineCurve,
+        obj_attr: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or
+        an empty ``UUID`` otherwise. If the line is in the model, then the
         ``UUID`` is unique for all components in the model and is locked.
         """
         ...
 
     def count(self) -> int:
         """Returns the number of objects of type ``ON::mesh_object`` in the
+        """Returns the number of objects of type ``ON::curve_object`` in the
         model.
         """
         ...
 
     def get_by_uuid(self, object_uuid: UUID) -> Mesh | None:
+    def get_by_uuid(self, object_uuid: UUID) -> LineCurveView | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
         """
@@ -900,7 +999,7 @@ class Model:
     def created_by(self, author: str) -> None: ...
 
     @property
-    def curve_table(self) -> CurveTable: ...
+    def line_curve_table(self) -> LineCurveTable: ...
 
     @property
     def layer_table(self) -> LayerTable: ...
@@ -1279,7 +1378,7 @@ class PlotColorSource(Enum):
     from_parent = 3
 
 
-class PointGeometry(Geometry):
+class Point(Geometry):
     """Python bindings for the openNURBS ``ON_Point`` class.
     """
     # read-write member variables
@@ -1314,7 +1413,7 @@ class PointTable:
     associated ``ONX_Model`` instance.
     """
     # dunder methods
-    def __iter__(self) -> Iterator[PointGeometry]: ...
+    def __iter__(self) -> Iterator[PointView]: ...
 
     def __len__(self) -> int: ...
 
@@ -1336,7 +1435,7 @@ class PointTable:
     @overload
     def add(
         self,
-        point: PointGeometry,
+        point: Point,
         obj_attr: None | ObjectAttributes = None
     ) -> UUID:
         """Returns the ``UUID`` of the point in case of successful addition, or
@@ -1363,9 +1462,79 @@ class PointTable:
         """
         ...
 
-    def get_by_uuid(self, object_uuid: UUID) -> PointGeometry | None:
+    def get_by_uuid(self, object_uuid: UUID) -> PointView | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
+        """
+        ...
+
+    def get_by_uuid_exclusive(self, object_uuid: UUID) -> Point | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+
+        Notes
+        -----
+        From opennurbs documentation
+        (``ON_ModelGeometryComponent::ExclusiveGeometry()``):
+        Get a pointer to geometry that can be used to modify the geometry. The
+        returned pointer is not shared at the time it is returned and will not
+        be shared until a copy of this ``ON_ModelGeometryComponent`` is
+        created. If this ``ON_ModelGeometryComponent`` is the only reference to
+        the geometry, then a pointer to the geometry is returned. Otherwise,
+        ``nullptr`` is returned.
+        """
+        ...
+
+
+class PointView:
+    """Tiny wrapper to read-only access `Point` (``ON_Point``) objects.
+    """
+    # dunder methods
+    def __eq__(self, other: object) -> bool: ...
+
+    def __ne__(self, other: object) -> bool: ...
+
+    # properties
+    @property
+    def obj_uuid(self) -> UUID: ...
+
+    @property
+    def x(self) -> float: ...
+
+    @property
+    def y(self) -> float: ...
+
+    @property
+    def z(self) -> float: ...
+
+    # other methods
+    def distance_to(self, point: Point3d) -> float:
+        """Returns the distance between the two points.
+        """
+        ...
+
+    def is_coincident(self, point: Point3d) -> bool:
+        """In openNURBS points within ``ON_ZERO_TOLERANCE`` are generally
+        considered to be the same.
+
+        Returns
+        -------
+        is_coindent: bool
+            ``True`` if for each coordinate pair
+            ``|a - b| <= ON_ZERO_TOLERANCE`` or
+            ``|a - b| <= (abs(a) + abs(b)) * ON_RELATIVE_TOLERANCE``.
+
+        Notes
+        -----
+        ``ON_ZERO_TOLERANCE`` is set to 2.3283064365386962890625e-10
+
+        ``ON_RELATIVE_TOLERANCE`` is set to 2.27373675443232059478759765625e-13
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool:
+        """Returns ``False`` if any coordinate is infinite, a nan, or
+        ``ON_UNSET_VALUE``.
         """
         ...
 
@@ -1418,6 +1587,12 @@ class Point3d:
             ``True`` if for each coordinate pair
             ``|a - b| <= ON_ZERO_TOLERANCE`` or
             ``|a - b| <= (abs(a) + abs(b)) * ON_RELATIVE_TOLERANCE``.
+
+        Notes
+        -----
+        ``ON_ZERO_TOLERANCE`` is set to 2.3283064365386962890625e-10
+
+        ``ON_RELATIVE_TOLERANCE`` is set to 2.27373675443232059478759765625e-13
         """
         ...
 

@@ -13,7 +13,7 @@
 // External includes
 
 // Project includes
-#include "curve_table.h"
+#include "line_curve_table.h"
 #include "layer_table.h"
 #include "mesh_table.h"
 #include "point_table.h"
@@ -47,7 +47,7 @@ public:
     bool Write(ON_wString path, int version);
 
     /*tables*/
-    CurveTable ModelCurveTable();
+    LineCurveTable ModelLineCurveTable();
     LayerTable ModelLayerTable();
     MeshTable ModelMeshTable();
     PointTable ModelPointTable();

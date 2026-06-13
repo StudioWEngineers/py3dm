@@ -4,13 +4,15 @@
 
 // Project includes
 #include "bindings.h"
-#include "curve_table_bindings.h"
 #include "enumerators_bindings.h"
 #include "geometry_bindings.h"
 #include "layer_bindings.h"
 #include "layer_table_bindings.h"
+#include "layer_view_bindings.h"
 #include "line_bindings.h"
 #include "line_curve_bindings.h"
+#include "line_curve_table_bindings.h"
+#include "line_curve_view_bindings.h"
 #include "mesh_bindings.h"
 #include "mesh_table_bindings.h"
 #include "mesh_view_bindings.h"
@@ -18,16 +20,14 @@
 #include "model_component_bindings.h"
 #include "object_attributes_bindings.h"
 #include "object_bindings.h"
-#include "point_geometry_bindings.h"
+#include "point_bindings.h"
 #include "point_table_bindings.h"
+#include "point_view_bindings.h"
 #include "point3d_bindings.h"
 #include "text_log_bindings.h"
 
 
 NB_MODULE(_py3dm, m) {
-    m.attr("__author__") = "StudioWEngineers";
-    m.attr("__email__") = "studio.w.engineers@gmail.com";
-    m.attr("__maintainer__") = "StudioWEngineers";
     m.doc() = "Python bindings for openNURBS using nanobind.";
 
     ON::Begin();
@@ -43,13 +43,17 @@ NB_MODULE(_py3dm, m) {
     LayerBindings(m);
     LayerTableBindings(m);
     LineCurveBindings(m);
+    LineCurveViewBindings(m);
     MeshBindings(m);
     MeshTableBindings(m);
     MeshViewBindings(m);
     ModelBindings(m);
-    PointGeometryBindings(m);
+    PointBindings(m);
     TextLogBindings(m);
 
-    CurveTableBindings(m);
+    LayerViewBindings(m);
+    PointViewBindings(m);
+
+    LineCurveTableBindings(m);
     PointTableBindings(m);
 }

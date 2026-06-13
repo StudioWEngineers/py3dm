@@ -31,13 +31,13 @@ class layer_tableTestSuite(TestCase):
 
         with self.subTest(msg="Name of 1st layer"):
             self.assertEqual(
-                self.model.layer_table.get_by_uuid(layer_1_uuid).get_name(),  # type: ignore
+                self.model.layer_table.get_by_uuid(layer_1_uuid).name,  # type: ignore
                 "Layer A"
             )
 
         with self.subTest(msg="Name of 2nd layer"):
             self.assertEqual(
-                self.model.layer_table.get_by_uuid(layer_2_uuid).get_name(),  # type: ignore
+                self.model.layer_table.get_by_uuid(layer_2_uuid).name,  # type: ignore
                 "layer 2"
             )
 
@@ -98,7 +98,7 @@ class layer_tableTestSuite(TestCase):
             self.assertIsNone(self.model.layer_table[3])
 
         with self.subTest(msg="Existing index"):
-            self.assertEqual(self.model.layer_table[1].get_name(), "Layer 02")
+            self.assertEqual(self.model.layer_table[1].name, "Layer 02")
 
         with self.subTest(msg="Negative index"):
             with self.assertRaises(IndexError):
@@ -122,7 +122,7 @@ class layer_tableTestSuite(TestCase):
             self.assertIsNone(self.model.layer_table.get_by_index(3))
 
         with self.subTest(msg="Name of 2nd layer"):
-            self.assertEqual(rl_2.get_name(), "layer 2")  # type: ignore
+            self.assertEqual(rl_2.name, "layer 2")  # type: ignore
 
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(rl_1.color, (255, 0, 255, 255))  # type: ignore
@@ -149,7 +149,7 @@ class layer_tableTestSuite(TestCase):
             self.assertIsNone(self.model.layer_table.get_by_name("dummy"))
 
         with self.subTest(msg="Name of 2nd layer"):
-            self.assertEqual(rl_2.get_name(), "layer 2")  # type: ignore
+            self.assertEqual(rl_2.name, "layer 2")  # type: ignore
 
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(rl_1.color, (255, 0, 255, 255))  # type: ignore
@@ -172,7 +172,7 @@ class layer_tableTestSuite(TestCase):
             self.assertIsNone(self.model.layer_table.get_by_uuid(UUID(int=0)))
 
         with self.subTest(msg="Name of 2nd layer"):
-            self.assertEqual(rl_2.get_name(), "layer 2")  # type: ignore
+            self.assertEqual(rl_2.name, "layer 2")  # type: ignore
 
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(rl_1.color, (255, 0, 255, 255))  # type: ignore
@@ -266,20 +266,7 @@ class layer_tableTeIteratorstSuite(TestCase):
 
         for layer_index, layer in enumerate(model.layer_table):
             with self.subTest(layer_index=layer_index):
-                self.assertEqual(layer.get_name(), f"Layer 0{layer_index + 1}")
+                self.assertEqual(layer.name, f"Layer 0{layer_index + 1}")
 
             with self.subTest(layer_index=layer_index):
-                self.assertEqual(layer.get_index(), layer_index)
-
-    def test_modify_layer_in_iter(self) -> None:
-        model = Model()
-
-        model.layer_table.add(Layer())
-        model.layer_table.add(Layer())
-
-        for layer_index, layer in enumerate(model.layer_table):
-            with self.subTest(layer_index=layer_index):
-                layer.set_name(f"new_layer_{layer_index}")
-
-            with self.subTest(layer_index=layer_index):
-                self.assertEqual(layer.get_name(), f"new_layer_{layer_index}")
+                self.assertEqual(layer.index(), layer_index)

@@ -213,9 +213,11 @@ class ExistingLayerModificationTestSuite(TestCase):
         self.model = Model()
         layer_uuid = self.model.layer_table.add(Layer())
 
-        # workaround to silent mypy complains
-        layer = self.model.layer_table.get_by_uuid(layer_uuid)
-        self.layer = cast(Layer, layer)
+        # NOTE workaround to silent type checkers complains
+        self.layer = cast(
+            Layer,
+            self.model.layer_table.get_by_uuid_exclusive(layer_uuid)
+        )
 
     def test_get_and_set_color(self) -> None:
         with self.subTest(msg="Layer color before assignment"):

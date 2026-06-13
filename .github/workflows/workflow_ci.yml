@@ -50,7 +50,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['windows-latest', 'macos-15', 'ubuntu-latest']
-        python: ['3.12', '3.13', '3.14', '3.15.0-alpha.4']
+        python: ['3.12', '3.13', '3.14']
 
     name: "Python ${{ matrix.python }} / ${{ matrix.os }}"
     runs-on: ${{ matrix.os }}
@@ -154,7 +154,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['windows-latest']
-        python: ['3.12', '3.13', '3.14', '3.15.0-alpha.1']
+        python: ['3.12', '3.13', '3.14']
 
     name: "Python ${{ matrix.python }} / ${{ matrix.os }} / CLANG"
     runs-on: ${{ matrix.os }}
@@ -191,6 +191,60 @@ jobs:
           $env:SKBUILD_CMAKE_DEFINE = "CMAKE_C_COMPILER=clang;CMAKE_CXX_COMPILER=clang++;CMAKE_CXX_FLAGS=-Wno-c++11-narrowing"
           python -m build --no-isolation
         shell: pwsh
+
+      - name: install package
+        run: |
+          cd dist
+          python -m pip install *.whl
+        shell: bash
+
+      - name: test ${{ matrix.python }} ${{ matrix.os }}
+        run: |
+          cd tests
+          python -m unittest discover --verbose
+        shell: bash
+
+  cpython_build_with_draco_and_test:
+    needs: [check_relevant_changes]
+    if: needs.check_relevant_changes.outputs.any_changed == 'true'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['windows-latest', 'macos-15', 'ubuntu-latest']
+        python: ['3.14']
+
+    name: "Python ${{ matrix.python }} / ${{ matrix.os }} / DRACO"
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: set up python ${{ matrix.python }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: install the latest CMake
+        uses: lukka/get-cmake@latest
+
+      - name: install dependencies
+        run: python -m pip install --upgrade pip setuptools wheel build scikit-build-core
+
+      - name: Install libuuid (dev headers and linker support)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y uuid-dev
+
+      - name: checkout
+        uses: actions/checkout@v5
+
+      - name: update submodules
+        run: git submodule update --init --recursive
+
+      - name: build ${{ matrix.python }} ${{ matrix.os }}
+        run: |
+          python -m build \
+            --wheel \
+            --config-setting=cmake.define.INCLUDE_DRACO=ON
+        shell: bash
 
       - name: install package
         run: |

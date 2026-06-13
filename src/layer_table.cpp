@@ -7,45 +7,58 @@ LayerTable::LayerTable(std::shared_ptr<ONX_Model> model) {
 }
 
 /*deleters*/
-bool LayerTable::DeleteByName(ON_wString layer_name) {
-    return LayerTable::DeleteByUUID(LayerTable::GetUUID(layer_name));
+bool LayerTable::DeleteByName(const ON_wString layer_name) const {
+    return DeleteByUUID(GetUUID(layer_name));
 }
 
-bool LayerTable::DeleteByUUID(ON_UUID on_uuid) {
-    return !m_model->RemoveModelComponent(ON_ModelComponent::Type::Layer, on_uuid).IsEmpty();
+bool LayerTable::DeleteByUUID(const ON_UUID on_uuid) const {
+    return !m_model->RemoveModelComponent(
+        ON_ModelComponent::Type::Layer,
+        on_uuid
+    ).IsEmpty();
 }
 
 /*getters*/
-ON_Layer* LayerTable::GetByIndex(int index) {
+LayerView* LayerTable::GetByIndex(int index) const {
     if (index < 0) {
         throw std::out_of_range("index must be greater than equal to 0!");
     }
 
-    ON_ModelComponentReference comp_ref = m_model->ComponentFromIndex(ON_ModelComponent::Type::Layer, index);
-    if (comp_ref.IsEmpty()) {
+    ON_ModelComponentReference mcr = m_model->ComponentFromIndex(ON_ModelComponent::Type::Layer, index);
+    if (mcr.IsEmpty()) {
         return nullptr;
     }
 
-    ON_Layer* layer = const_cast<ON_Layer*>(ON_Layer::Cast(comp_ref.ModelComponent()));
-    return layer;
+    return new LayerView(ON_Layer::Cast(mcr.ModelComponent()));
 }
 
-ON_Layer* LayerTable::GetByName(ON_wString full_name) {
-    return LayerTable::GetByUUID(LayerTable::GetUUID(full_name));
+LayerView* LayerTable::GetByName(ON_wString full_name) const {
+    return GetByUUID(GetUUID(full_name));
 }
 
-ON_Layer* LayerTable::GetByUUID(ON_UUID on_uuid) {
-    ON_ModelComponentReference comp_ref = m_model->ComponentFromId(ON_ModelComponent::Type::Layer, on_uuid);
-    if (comp_ref.IsEmpty()) {
+LayerView* LayerTable::GetByUUID(const ON_UUID on_uuid) const {
+    ON_ModelComponentReference mcr = m_model->ComponentFromId(ON_ModelComponent::Type::Layer, on_uuid);
+    if (mcr.IsEmpty()) {
         return nullptr;
     }
 
-    ON_Layer* layer = const_cast<ON_Layer*>(ON_Layer::Cast(comp_ref.ModelComponent()));
-    return layer;
+    return new LayerView(ON_Layer::Cast(mcr.ModelComponent()));
+}
+
+ON_Layer* LayerTable::GetByUUIDExclusive(const ON_UUID on_uuid) const {
+    const ON_ModelComponentReference& mcr = m_model->ComponentFromRuntimeSerialNumber(
+        GetRuntimeSerialNumber(on_uuid)
+    );
+
+    if (mcr.IsEmpty()) {
+        return nullptr;
+    }
+
+    return ON_Layer::Cast(mcr.ExclusiveModelComponent());
 }
 
 /*other methods*/
-const ON_UUID LayerTable::Add(const ON_Layer& layer) {
+const ON_UUID LayerTable::Add(const ON_Layer& layer) const {
     const ON_Layer* m_layer = ON_Layer::FromModelComponentRef(m_model->AddModelComponent(layer), nullptr);
 
     return (nullptr != m_layer) ? m_layer->Id() : ON_nil_uuid;
@@ -64,8 +77,8 @@ const ON_wString LayerTable::GetFullPath(const ON_Layer* layer) const {
     ON_wString full_name = layer->Name();
     ON_UUID parent_id = layer->ParentId();
     while (ON_UuidIsNotNil(parent_id)) {
-        ON_ModelComponentReference comp_ref = model->LayerFromId(parent_id);
-        const ON_Layer* layer = ON_Layer::Cast(comp_ref.ModelComponent());
+        ON_ModelComponentReference mcr = model->LayerFromId(parent_id);
+        const ON_Layer* layer = ON_Layer::Cast(mcr.ModelComponent());
         if (layer == nullptr) {
             break;
         }
@@ -78,20 +91,20 @@ const ON_wString LayerTable::GetFullPath(const ON_Layer* layer) const {
     return full_name.Array();
 }
 
-int LayerTable::GetIndex(ON_wString full_name) {
+int LayerTable::GetIndex(ON_wString full_name) const {
     const int max_index = m_model->Manifest().ComponentIndexLimit(ON_ModelComponent::Type::Layer);
 
     for (unsigned int i = 0; i < max_index; ++i) {
-        ON_ModelComponentReference comp_ref = m_model->ComponentFromIndex(ON_ModelComponent::Type::Layer, i);
-        if (comp_ref.IsEmpty())
+        ON_ModelComponentReference mcr = m_model->ComponentFromIndex(ON_ModelComponent::Type::Layer, i);
+        if (mcr.IsEmpty())
             continue;
 
-        const ON_Layer* layer = ON_Layer::Cast(comp_ref.ModelComponent());
+        const ON_Layer* layer = ON_Layer::Cast(mcr.ModelComponent());
         if (layer == nullptr) {
             continue;
         }
 
-        if (full_name == LayerTable::GetFullPath(LayerTable::GetByIndex(i))) {
+        if (full_name == GetFullPath(layer)) {
             return layer->Index();
         }
     }
@@ -99,15 +112,22 @@ int LayerTable::GetIndex(ON_wString full_name) {
     return ON_UNSET_INT_INDEX;
 }
 
-const ON_UUID LayerTable::GetUUID(ON_wString full_name) {
+ON__UINT64 LayerTable::GetRuntimeSerialNumber(const ON_UUID on_uuid) const {
+    return m_model->Manifest().ItemFromId(
+        ON_ModelComponent::Type::Layer,
+        on_uuid
+    ).ComponentRuntimeSerialNumber();
+}
+
+const ON_UUID LayerTable::GetUUID(ON_wString full_name) const {
     const int count = m_model->Manifest().ComponentIndexLimit(ON_ModelComponent::Type::Layer);
 
     for (unsigned int i = 0; i < count; ++i) {
-        ON_ModelComponentReference comp_ref = m_model->ComponentFromIndex(ON_ModelComponent::Type::Layer, i);
-        if (comp_ref.IsEmpty())
+        ON_ModelComponentReference mcr = m_model->ComponentFromIndex(ON_ModelComponent::Type::Layer, i);
+        if (mcr.IsEmpty())
             continue;
 
-        const ON_Layer* layer = ON_Layer::Cast(comp_ref.ModelComponent());
+        const ON_Layer* layer = ON_Layer::Cast(mcr.ModelComponent());
         if (!layer)
             continue;
 
@@ -115,20 +135,19 @@ const ON_UUID LayerTable::GetUUID(ON_wString full_name) {
             return layer->Id();
         }
     }
-
     return ON_nil_uuid;
 }
 
-bool LayerTable::Has(ON_wString full_name) {
+bool LayerTable::Has(ON_wString full_name) const {
     const int max_index = m_model->Manifest().ComponentIndexLimit(ON_ModelComponent::Type::Layer);
 
     for (unsigned int i = 0; i < max_index; ++i) {
-        ON_ModelComponentReference comp_ref = m_model->ComponentFromIndex(ON_ModelComponent::Type::Layer, i);
-        if (comp_ref.IsEmpty()) {
+        ON_ModelComponentReference mcr = m_model->ComponentFromIndex(ON_ModelComponent::Type::Layer, i);
+        if (mcr.IsEmpty()) {
             continue;
         }
 
-        const ON_Layer* layer = ON_Layer::Cast(comp_ref.ModelComponent());
+        const ON_Layer* layer = ON_Layer::Cast(mcr.ModelComponent());
         if (layer == nullptr)
             continue;
 
@@ -139,8 +158,8 @@ bool LayerTable::Has(ON_wString full_name) {
         ON_wString name = layer->Name();
         ON_UUID parent_uuid = layer->ParentId();
         while (ON_UuidIsNotNil(parent_uuid)) {
-            ON_ModelComponentReference comp_ref = m_model->LayerFromId(parent_uuid);
-            const ON_Layer* layer = ON_Layer::Cast(comp_ref.ModelComponent());
+            ON_ModelComponentReference mcr = m_model->LayerFromId(parent_uuid);
+            const ON_Layer* layer = ON_Layer::Cast(mcr.ModelComponent());
             if (layer == nullptr) {
                 break;
             }
@@ -153,9 +172,7 @@ bool LayerTable::Has(ON_wString full_name) {
         if (full_name == name.Array()) {
             return true;
         }
-
     }
-
     return false;
 }
 
@@ -167,7 +184,7 @@ int LayerTable::MaxIndex() const {
 LayerTable::Iterator::Iterator(LayerTable* table, int index)
     : m_table(table), m_index(index), m_count(table->MaxIndex()) {}
 
-ON_Layer* LayerTable::Iterator::operator*() const {
+LayerView* LayerTable::Iterator::operator*() const {
     return m_table->GetByIndex(m_index);
 }
 

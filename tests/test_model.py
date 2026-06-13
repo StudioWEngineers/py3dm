@@ -126,7 +126,7 @@ class ResetModelTestSuite(TestCase):
         self.model.last_edited_by = "StudioWEngineers"
 
         self.model.layer_table.add(Layer())
-        self.model.curve_table.add(Point3d(0, 1, 2), Point3d(0, 1, 0))
+        self.model.line_curve_table.add(Point3d(0, 1, 2), Point3d(0, 1, 0))
 
         self.model.reset()
 

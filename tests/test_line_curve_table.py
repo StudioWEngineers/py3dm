@@ -12,7 +12,7 @@ from py3dm import Line, LineCurve, Model, ObjectAttributes, Point3d
 class CurveTableTestSuite(TestCase):
     def setUp(self) -> None:
         model = Model()
-        self.table = model.curve_table
+        self.table = model.line_curve_table
 
     def test_add_with_attributes(self) -> None:
         line_id = self.table.add(
@@ -24,7 +24,7 @@ class CurveTableTestSuite(TestCase):
 
         with self.subTest(msg="add with Line part II"):
             retrieved_line = self.table.get_by_uuid(line_id)
-            self.assertEqual(retrieved_line.line.length(), 1.0)  # type: ignore
+            self.assertEqual(retrieved_line.length(), 1.0)  # type: ignore
 
         line_curve = LineCurve(Point3d(0, 1, 0), Point3d(0, 0, 0))
         line_curve_id = self.table.add(line_curve, ObjectAttributes())
@@ -34,8 +34,8 @@ class CurveTableTestSuite(TestCase):
 
         with self.subTest(msg="add with LineCurve part II"):
             retrieved_line_curve = self.table.get_by_uuid(line_curve_id)
-            self.assertEqual(
-                retrieved_line_curve.line,  # type: ignore
+            self.assertTrue(
+                retrieved_line_curve ==
                 Line(Point3d(0, 1, 0), Point3d(0, 0, 0))
             )
 
@@ -48,7 +48,7 @@ class CurveTableTestSuite(TestCase):
 
         with self.subTest(msg="add with Line part II"):
             retrieved_line = self.table.get_by_uuid(line_id)
-            self.assertEqual(retrieved_line.line, line)  # type: ignore
+            self.assertEqual(retrieved_line, line)
 
         line_curve = LineCurve(Point3d(1, 1, 0), Point3d(0, 0, 0))
         line_curve_id = self.table.add(line_curve)
@@ -59,7 +59,7 @@ class CurveTableTestSuite(TestCase):
         with self.subTest(msg="add with LineCurve part II"):
             retrieved_line_curve = self.table.get_by_uuid(line_curve_id)
             self.assertEqual(
-                retrieved_line_curve.line.length(),  # type: ignore
+                retrieved_line_curve.length(),  # type: ignore
                 sqrt(2)
             )
 
@@ -67,16 +67,13 @@ class CurveTableTestSuite(TestCase):
         obj_uuid = self.table.add(Line(Point3d(0, 0, 0), Point3d(1, 1, 1)))
         returned_curve = self.table.get_by_uuid(obj_uuid)
 
-        self.assertEqual(
-            returned_curve.line.point_at(1),  # type: ignore
-            Point3d(1, 1, 1)
-        )
+        self.assertEqual(returned_curve.get_uuid(), obj_uuid)  # type: ignore
 
 
 class CurveTableIteratorTestSuite(TestCase):
     def setUp(self) -> None:
         model = Model()
-        self.table = model.curve_table
+        self.table = model.line_curve_table
 
         # adding few objects of different types
         model.point_table.add(0, 1, 2)

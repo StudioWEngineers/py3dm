@@ -1,5 +1,5 @@
 /*
-    src/bindings/line_table_bindings.h: Exposing helper class CurveTable to Python
+    src/bindings/point_view?bindings.h: Exposing PointView to Python
 
     Copyright (c) 2025 Studio W Engineers
 
@@ -16,4 +16,4 @@
 #include "bindings.h"
 
 
-void CurveTableBindings(nb::module_& m);
+void PointViewBindings(nb::module_& m);

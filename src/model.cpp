@@ -107,12 +107,12 @@ bool Model::Write(ON_wString path, int version) {
 }
 
 /*tables*/
-CurveTable Model::ModelCurveTable() {
-    return CurveTable(p_model);
-}
-
 LayerTable Model::ModelLayerTable() {
     return LayerTable(p_model);
+}
+
+LineCurveTable Model::ModelLineCurveTable() {
+    return LineCurveTable(p_model);
 }
 
 MeshTable Model::ModelMeshTable() {

@@ -1,10 +1,12 @@
 from . _py3dm import (  # type: ignore
-    CurveTable,
     Geometry,
     Layer,
     LayerTable,
+    LayerView,
     Line,
     LineCurve,
+    LineCurveView,
+    LineCurveTable,
     Mesh,
     MeshTable,
     MeshView,
@@ -15,8 +17,9 @@ from . _py3dm import (  # type: ignore
     OpenNURBSObject,
     Model,
     PlotColorSource,
-    PointGeometry,
+    Point,
     PointTable,
+    PointView,
     Point3d,
     TextLog
 )
