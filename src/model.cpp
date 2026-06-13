@@ -115,6 +115,10 @@ LineCurveTable Model::ModelLineCurveTable() {
     return LineCurveTable(p_model);
 }
 
+MeshTable Model::ModelMeshTable() {
+    return MeshTable(p_model);
+}
+
 PointTable Model::ModelPointTable() {
     return PointTable(p_model);
 }

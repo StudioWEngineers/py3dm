@@ -613,6 +613,398 @@ class LineCurveTable:
         ...
 
 
+class Mesh(Geometry):
+    """Python bindings for the openNURBS ``ON_Mesh`` class.
+    """
+    @overload
+    def __init__(self) -> None: ...
+
+    @overload
+    def __init__(
+        self,
+        initial_face_array_capacity: int,
+        initial_vertex_array_capacity: int,
+        has_vertex_normals: bool,
+        has_texture_coordinates: bool
+    ) -> None: ...
+
+    @overload
+    def __init__(self, mesh: Mesh) -> None: ...
+
+    # query methods
+    def is_corrupt(
+            self,
+            repair: bool,
+            silent_error: bool,
+            text_log: TextLog | None = None
+    ) -> bool:
+        """Check for corrupt data values that are likely to cause crashes.
+
+        Parameters
+        ----------
+        repair: bool
+            If ``True``, ``const_cast<>`` will be used to change the corrupt
+            data so that crashes are less likely.
+
+        silent_error: bool
+            If ``True``, ON_ERROR will not be called when corruption is
+            detected.
+
+        text_log: TextLog
+            If text_log is not null, then a description of corruption is
+            printed using text_log.
+
+        Notes
+        -----
+        Ideally, ``is_corrupt`` would be a virtual function on ``ON_Object``,
+        but doing that at this point would break the public SDK.
+        """
+        ...
+
+    def is_deformable(self) -> bool:
+        """Returns ``True`` if object can be accurately modified with "squishy"
+        transformations like projections, shears, an non-uniform scaling.
+        """
+        ...
+
+    def is_empty(self) -> bool:
+        """Returns ``True`` if there are zero vertices or zero faces.
+        """
+        ...
+
+    def is_not_empty(self) -> bool:
+        """Returns ``True`` if there are vertices or faces.
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool:
+        """Tests an object to see if its data members are correctly
+        initialized.
+
+        Parameters
+        ----------
+        text_log: `TextLog`, optional
+            If the object is not valid and ``text_log`` is not ``None``, then a
+            brief english description of the reason the object is not valid is
+            appended to the log. The information appended to ``text_log`` is
+            suitable for low-level debugging purposes by programmers and is not
+            intended to be useful as a high level user interface tool.
+
+        Returns
+        -------
+        success: bool
+            ``True`` if the object is valid or ``False`` if the object is
+            invalid, uninitialized, etc.
+        """
+        ...
+
+    # count methods
+    def face_count(self) -> int:
+        """Return the number of faces.
+        """
+        ...
+
+    def hidden_vertex_count(self) -> int:
+        """Return the number of hidden vertices.
+        """
+        ...
+
+    def invalid_face_count(self) -> int:
+        """Return the number of faces that are invalid.
+        """
+        ...
+
+    def quad_count(self) -> int:
+        """Return the number of faces that are quads.
+        """
+        ...
+
+    def triangle_count(self) -> int:
+        """Return the number of faces that are triangles.
+        """
+        ...
+
+    def vertex_count(self) -> int:
+        """Return the number of vertices.
+        """
+        ...
+
+    # has methods
+    def has_face_normals(self) -> bool: ...
+
+    def has_ngons(self) -> bool: ...
+
+    def has_principal_curvatures(self) -> bool: ...
+
+    def has_surface_parameters(self) -> bool: ...
+
+    def has_vertex_colors(self) -> bool: ...
+
+    def has_vertex_normals(self) -> bool: ...
+
+    # other methods
+    def clear_vertex_colors(self) -> None: ...
+
+    def flip(self) -> None:
+        """Reverses the order of the vertices. The first vertex is not changed.
+        """
+        ...
+
+    def reserve_vertex_capacity(self, new_vertex_capacity: int) -> bool:
+        """Increases the capacity of arrays to be at least the requested capacity.
+
+        Parameters
+        ----------
+        new_vertex_capacity: int
+            The desired capacity
+
+        Notes
+        -----
+        This function is useful if you are getting ready to add a known number
+        of vertices and want to increase the dynamic array capacities before
+        you begin adding vertices.
+        """
+        ...
+
+    def set_quad(self, face_index: int, a: int, b: int, c: int, d: int) -> bool:
+        """Returns `True` if the quad has been successfully set.
+
+        Parameters
+        ----------
+        face_index: int
+            The face index
+        a: int
+            First vertex index
+        b: int
+            Second vertex index
+        c: int
+            Third vertex index
+        d: int
+            Fourth vertex index
+        """
+        ...
+
+    def set_triangle(self, face_index: int, a: int, b: int, c: int) -> bool:
+        """Returns `True` if the triangle has been successfully set.
+
+        Parameters
+        ----------
+        face_index: int
+            The face index
+        a: int
+            First vertex index
+        b: int
+            Second vertex index
+        c: int
+            Third vertex index
+        """
+        ...
+
+    def set_vertex(self, vertex_index: int, vertex_location: Point3d) -> bool:
+        """Returns `True` if the vertex has been successfully set.
+
+        Parameters
+        ----------
+        vertex_index: int
+            The vertex index
+        vertex_location: int
+            New vertex location
+        """
+        ...
+
+    def swap_coordinates(self, i: int, j: int) -> bool:
+        """Returns `True` if the vertices with indices ``i`` and ``j`` has been
+        successfully swap.
+        """
+        ...
+
+
+class MeshTable:
+    """Python wrapper providing access to ``ON_Mesh`` objects stored in an
+    ``ONX_Model``.
+
+    This class offers a convenient interface for adding, retrieving, counting,
+    and iterating over mesh objects.
+
+    ``MeshTable`` does not own the underlying data; it operates on the
+    associated ``ONX_Model`` instance.
+    """
+    # dunder methods
+    def __iter__(self) -> Iterator[MeshView]: ...
+
+    def __len__(self) -> int: ...
+
+    # public methods
+    @overload
+    def add(self, obj_attr: ObjectAttributes) -> UUID:
+        """Returns the ``UUID`` of the mesh in case of successful addition, or
+        an empty ``UUID`` otherwise. If the mesh is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(self, mesh: Mesh, obj_attr: None | ObjectAttributes = None) -> UUID:
+        """Returns the ``UUID`` of the mesh in case of successful addition, or
+        an empty ``UUID`` otherwise. If the mesh is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(
+        self,
+        initial_face_array_capacity: int,
+        initial_vertex_array_capacity: int,
+        has_vertex_normals: bool,
+        has_texture_coordinates: bool,
+        obj_attr: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the mesh in case of successful addition, or
+        an empty ``UUID`` otherwise. If the mesh is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    def count(self) -> int:
+        """Returns the number of objects of type ``ON::mesh_object`` in the
+        model.
+        """
+        ...
+
+    def get_by_uuid(self, object_uuid: UUID) -> Mesh | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+        """
+        ...
+
+    def get_by_uuid_exclusive(self, object_uuid: UUID) -> MeshView | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+
+        Notes
+        -----
+        From opennurbs documentation
+        (``ON_ModelGeometryComponent::ExclusiveGeometry()``):
+        Get a pointer to geometry that can be used to modify the geometry. The
+        returned pointer is not shared at the time it is returned and will not
+        be shared until a copy of this ``ON_ModelGeometryComponent`` is
+        created. If this ``ON_ModelGeometryComponent`` is the only reference to
+        the geometry, then a pointer to the geometry is returned. Otherwise,
+        ``nullptr`` is returned.
+        """
+        ...
+
+
+class MeshView:
+    """Tiny wrapper to read-only access `Mesh` (``ON_Mesh``) objects.
+    """
+    # query methods
+    def is_corrupt(
+            self,
+            repair: bool,
+            silent_error: bool,
+            text_log: TextLog | None = None
+    ) -> bool:
+        """Check for corrupt data values that are likely to cause crashes.
+
+        Parameters
+        ----------
+        repair: bool
+            If ``True``, ``const_cast<>`` will be used to change the corrupt
+            data so that crashes are less likely.
+
+        silent_error: bool
+            If ``True``, ON_ERROR will not be called when corruption is
+            detected.
+
+        text_log: TextLog
+            If text_log is not null, then a description of corruption is
+            printed using text_log.
+
+        Notes
+        -----
+        Ideally, ``is_corrupt`` would be a virtual function on ``ON_Object``,
+        but doing that at this point would break the public SDK.
+        """
+        ...
+
+    def is_empty(self) -> bool:
+        """Returns ``True`` if there are zero vertices or zero faces.
+        """
+        ...
+
+    def is_not_empty(self) -> bool:
+        """Returns ``True`` if there are vertices or faces.
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool:
+        """Tests an object to see if its data members are correctly
+        initialized.
+
+        Parameters
+        ----------
+        text_log: `TextLog`, optional
+            If the object is not valid and ``text_log`` is not ``None``, then a
+            brief english description of the reason the object is not valid is
+            appended to the log. The information appended to ``text_log`` is
+            suitable for low-level debugging purposes by programmers and is not
+            intended to be useful as a high level user interface tool.
+
+        Returns
+        -------
+        success: bool
+            ``True`` if the object is valid or ``False`` if the object is
+            invalid, uninitialized, etc.
+        """
+        ...
+
+    # count methods
+    def face_count(self) -> int:
+        """Return the number of faces.
+        """
+        ...
+
+    def hidden_vertex_count(self) -> int:
+        """Return the number of hidden vertices.
+        """
+        ...
+
+    def invalid_face_count(self) -> int:
+        """Return the number of faces that are invalid.
+        """
+        ...
+
+    def quad_count(self) -> int:
+        """Return the number of faces that are quads.
+        """
+        ...
+
+    def triangle_count(self) -> int:
+        """Return the number of faces that are triangles.
+        """
+        ...
+
+    def vertex_count(self) -> int:
+        """Return the number of vertices.
+        """
+        ...
+
+    # has methods
+    def has_face_normals(self) -> bool: ...
+
+    def has_ngons(self) -> bool: ...
+
+    def has_principal_curvatures(self) -> bool: ...
+
+    def has_surface_parameters(self) -> bool: ...
+
+    def has_vertex_colors(self) -> bool: ...
+
+    def has_vertex_normals(self) -> bool: ...
+
+
 class Model:
     """Python bindings for the openNURBS ``ONX_Model`` class.
 
