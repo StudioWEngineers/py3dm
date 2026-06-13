@@ -513,6 +513,106 @@ class LineCurve(Geometry):
         ...
 
 
+class LineCurveView:
+    """Tiny wrapper to read-only access `LineCurve` (``ON_LineCurve``) objects.
+    """
+    def __eq__(self, other: object) -> bool: ...
+
+    def __ne__(self, other: object) -> bool: ...
+
+    def distance_to(
+            self,
+            test_point: Point3d,
+            finite_chord: bool = False
+    ) -> float:
+        """Returns the distance from the point on the line that is closest to
+        the ``test_point``. If ``finite_chord`` is ``True``, the distance is
+        reported to the line as a finite chord.
+        """
+        ...
+
+    def get_uuid(self) -> UUID:
+        """Returns the line unique UUID.
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool:
+        """Returns ``True`` if start ``!=`` end and both start and end are
+        valid points.
+        """
+        ...
+
+    def length(self) -> float:
+        """Returns the length of the line.
+        """
+        ...
+
+
+class LineCurveTable:
+    """Python wrapper providing access to objects of type ``ON::curve_object``
+    stored in an ``ONX_Model``.
+
+    This class offers a convenient interface for adding, retrieving, counting,
+    and iterating over curve objects.
+
+    ``CurveTable`` does not own the underlying data; it operates on the
+    associated ``ONX_Model`` instance.
+    """
+    def __iter__(self) -> Iterator[LineCurveView]: ...
+
+    def __len__(self) -> int: ...
+
+    @overload
+    def add(
+        self,
+        start:
+        Point3d,
+        end: Point3d,
+        attributes: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or
+        an empty ``UUID`` otherwise. If the line is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(
+        self,
+        line: Line,
+        obj_attr: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or
+        an empty ``UUID`` otherwise. If the line is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(
+        self,
+        line: LineCurve,
+        obj_attr: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or
+        an empty ``UUID`` otherwise. If the line is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    def count(self) -> int:
+        """Returns the number of objects of type ``ON::curve_object`` in the
+        model.
+        """
+        ...
+
+    def get_by_uuid(self, object_uuid: UUID) -> LineCurveView | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+        """
+        ...
+
+
 class Mesh(Geometry):
     """Python bindings for the openNURBS ``ON_Mesh`` class.
     """
@@ -532,7 +632,12 @@ class Mesh(Geometry):
     def __init__(self, mesh: Mesh) -> None: ...
 
     # query methods
-    def is_corrupt(self, repair, silent_error, text_log) -> bool:
+    def is_corrupt(
+            self,
+            repair: bool,
+            silent_error: bool,
+            text_log: TextLog | None = None
+    ) -> bool:
         """Check for corrupt data values that are likely to cause crashes.
 
         Parameters
@@ -556,7 +661,7 @@ class Mesh(Geometry):
         """
         ...
 
-    def is_deformable(self):
+    def is_deformable(self) -> bool:
         """Returns ``True`` if object can be accurately modified with "squishy"
         transformations like projections, shears, an non-uniform scaling.
         """
@@ -569,26 +674,6 @@ class Mesh(Geometry):
 
     def is_not_empty(self) -> bool:
         """Returns ``True`` if there are vertices or faces.
-class LineCurveView:
-    """Tiny wrapper to read-only access `LineCurve` (``ON_LineCurve``) objects.
-    """
-    def __eq__(self, other: object) -> bool: ...
-
-    def __ne__(self, other: object) -> bool: ...
-
-    def distance_to(
-            self,
-            test_point: Point3d,
-            finite_chord: bool = False
-    ) -> float:
-        """Returns the distance from the point on the line that is closest to
-        the ``test_point``. If ``finite_chord`` is ``True``, the distance is
-        reported to the line as a finite chord.
-        """
-        ...
-
-    def get_uuid(self) -> UUID:
-        """Returns the line unique UUID.
         """
         ...
 
@@ -754,41 +839,6 @@ class MeshTable:
     def add(self, obj_attr: ObjectAttributes) -> UUID:
         """Returns the ``UUID`` of the mesh in case of successful addition, or
         an empty ``UUID`` otherwise. If the mesh is in the model, then the
-        """Returns ``True`` if start ``!=`` end and both start and end are
-        valid points.
-        """
-        ...
-
-    def length(self) -> float:
-        """Returns the length of the line.
-        """
-        ...
-
-
-class LineCurveTable:
-    """Python wrapper providing access to objects of type ``ON::curve_object``
-    stored in an ``ONX_Model``.
-
-    This class offers a convenient interface for adding, retrieving, counting,
-    and iterating over curve objects.
-
-    ``CurveTable`` does not own the underlying data; it operates on the
-    associated ``ONX_Model`` instance.
-    """
-    def __iter__(self) -> Iterator[LineCurveView]: ...
-
-    def __len__(self) -> int: ...
-
-    @overload
-    def add(
-        self,
-        start:
-        Point3d,
-        end: Point3d,
-        attributes: None | ObjectAttributes = None
-    ) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or
-        an empty ``UUID`` otherwise. If the line is in the model, then the
         ``UUID`` is unique for all components in the model and is locked.
         """
         ...
@@ -797,13 +847,6 @@ class LineCurveTable:
     def add(self, mesh: Mesh, obj_attr: None | ObjectAttributes = None) -> UUID:
         """Returns the ``UUID`` of the mesh in case of successful addition, or
         an empty ``UUID`` otherwise. If the mesh is in the model, then the
-    def add(
-        self,
-        line: Line,
-        obj_attr: None | ObjectAttributes = None
-    ) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or
-        an empty ``UUID`` otherwise. If the line is in the model, then the
         ``UUID`` is unique for all components in the model and is locked.
         """
         ...
@@ -819,24 +862,17 @@ class LineCurveTable:
     ) -> UUID:
         """Returns the ``UUID`` of the mesh in case of successful addition, or
         an empty ``UUID`` otherwise. If the mesh is in the model, then the
-        line: LineCurve,
-        obj_attr: None | ObjectAttributes = None
-    ) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or
-        an empty ``UUID`` otherwise. If the line is in the model, then the
         ``UUID`` is unique for all components in the model and is locked.
         """
         ...
 
     def count(self) -> int:
         """Returns the number of objects of type ``ON::mesh_object`` in the
-        """Returns the number of objects of type ``ON::curve_object`` in the
         model.
         """
         ...
 
     def get_by_uuid(self, object_uuid: UUID) -> Mesh | None:
-    def get_by_uuid(self, object_uuid: UUID) -> LineCurveView | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
         """
@@ -864,7 +900,12 @@ class MeshView:
     """Tiny wrapper to read-only access `Mesh` (``ON_Mesh``) objects.
     """
     # query methods
-    def is_corrupt(self, repair, silent_error, text_log) -> bool:
+    def is_corrupt(
+            self,
+            repair: bool,
+            silent_error: bool,
+            text_log: TextLog | None = None
+    ) -> bool:
         """Check for corrupt data values that are likely to cause crashes.
 
         Parameters
@@ -1008,9 +1049,6 @@ class Model:
     def last_edited_by(self) -> str: ...
     @last_edited_by.setter
     def last_edited_by(self, author: str) -> None: ...
-
-    @property
-    def mesh_table(self) -> MeshTable: ...
 
     @property
     def point_table(self) -> PointTable: ...
