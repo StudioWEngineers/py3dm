@@ -513,6 +513,41 @@ class LineCurve(Geometry):
         ...
 
 
+class LineCurveView:
+    """Tiny wrapper to read-only access `LineCurve` (``ON_LineCurve``) objects.
+    """
+    def __eq__(self, other: object) -> bool: ...
+
+    def __ne__(self, other: object) -> bool: ...
+
+    def distance_to(
+            self,
+            test_point: Point3d,
+            finite_chord: bool = False
+    ) -> float:
+        """Returns the distance from the point on the line that is closest to
+        the ``test_point``. If ``finite_chord`` is ``True``, the distance is
+        reported to the line as a finite chord.
+        """
+        ...
+
+    def get_uuid(self) -> UUID:
+        """Returns the line unique UUID.
+        """
+        ...
+
+    def is_valid(self, text_log: TextLog | None = None) -> bool:
+        """Returns ``True`` if start ``!=`` end and both start and end are
+        valid points.
+        """
+        ...
+
+    def length(self) -> float:
+        """Returns the length of the line.
+        """
+        ...
+
+
 class LineCurveTable:
     """Python wrapper providing access to objects of type ``ON::curve_object``
     stored in an ``ONX_Model``.
@@ -523,7 +558,7 @@ class LineCurveTable:
     ``CurveTable`` does not own the underlying data; it operates on the
     associated ``ONX_Model`` instance.
     """
-    def __iter__(self) -> Iterator[LineCurve]: ...
+    def __iter__(self) -> Iterator[LineCurveView]: ...
 
     def __len__(self) -> int: ...
 
@@ -571,7 +606,7 @@ class LineCurveTable:
         """
         ...
 
-    def get_by_uuid(self, object_uuid: UUID) -> LineCurve | None:
+    def get_by_uuid(self, object_uuid: UUID) -> LineCurveView | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
         """

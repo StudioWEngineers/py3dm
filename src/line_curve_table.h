@@ -13,6 +13,7 @@
 // External includes
 
 // Project includes
+#include "views/line_curve_view.h"
 #include "../lib/opennurbs/opennurbs.h"
 
 
@@ -27,7 +28,7 @@ public:
     ON_UUID Add(const ON_LineCurve& line, const ON_3dmObjectAttributes* obj_attr) const;
 
     /*getters*/
-    ON_Object* GetbyUUID(const ON_UUID on_uuid);
+    LineCurveView* GetbyUUID(const ON_UUID on_uuid);
 
     /*other methods*/
     int Count();
@@ -38,7 +39,7 @@ public:
     public:
         Iterator(LineCurveTable* table);
 
-        ON_Object* operator*() const;
+        LineCurveView* operator*() const;
         Iterator& operator++();
         bool IsOver() const;
 

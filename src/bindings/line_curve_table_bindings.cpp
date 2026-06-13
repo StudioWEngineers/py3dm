@@ -14,7 +14,7 @@ void LineCurveTableBindings(nb::module_& m) {
         })
         .def("__next__", [](LineCurveTable::Iterator& it) {
             while (!it.IsOver()) {
-                ON_Object* object = *it;
+                LineCurveView* object = *it;
                 ++it;
 
                 if (object != nullptr) {

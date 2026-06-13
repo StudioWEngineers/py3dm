@@ -5,6 +5,7 @@ from . _py3dm import (  # type: ignore
     LayerView,
     Line,
     LineCurve,
+    LineCurveView,
     LineCurveTable,
     ModelComponent,
     ObjectAttributes,

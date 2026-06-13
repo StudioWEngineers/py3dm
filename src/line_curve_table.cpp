@@ -27,15 +27,13 @@ ON_UUID LineCurveTable::Add(const ON_LineCurve& line, const ON_3dmObjectAttribut
 }
 
 /*getters*/
-ON_Object* LineCurveTable::GetbyUUID(const ON_UUID on_uuid) {
-    const ON_ModelComponent* mc = m_model->ComponentFromId(ON_ModelComponent::Type::ModelGeometry, on_uuid).ModelComponent();
-
-    if (!IsCurve(mc)) {
-        return nullptr;
-    }
-
+LineCurveView* LineCurveTable::GetbyUUID(const ON_UUID on_uuid) {
+    const ON_ModelComponent* mc = m_model->ComponentFromId(
+        ON_ModelComponent::Type::ModelGeometry,
+        on_uuid
+    ).ModelComponent();
     const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
-    return const_cast<ON_LineCurve*>(ON_LineCurve::Cast(mgc->Geometry(nullptr)));
+    return mgc ? new LineCurveView(ON_LineCurve::Cast(mgc->Geometry(nullptr)), mgc->Id()) : nullptr;
 }
 
 
@@ -72,7 +70,7 @@ LineCurveTable::Iterator::Iterator(LineCurveTable* table)
     m_current = m_iterator.FirstComponentReference();
 }
 
-ON_Object* LineCurveTable::Iterator::operator*() const {
+LineCurveView* LineCurveTable::Iterator::operator*() const {
     return m_table->GetbyUUID(m_current.ModelComponentId());
 }
 
