@@ -33,7 +33,7 @@ void ModelBindings(nb::module_& m) {
 
         /*tables*/
         .def_prop_ro("layer_table", &Model::ModelLayerTable)
-        .def_prop_ro("curve_table", &Model::ModelCurveTable)
+        .def_prop_ro("line_curve_table", &Model::ModelLineCurveTable)
         .def_prop_ro("point_table", &Model::ModelPointTable)
     ;
 }

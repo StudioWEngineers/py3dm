@@ -1,5 +1,5 @@
 /*
-    src/curve_table.h: Implementation details related to CurveTable.
+    src/line_curve_table.h: Implementation details related to LineCurveTable.
 
     Copyright (c) 2025 Studio W Engineers
 
@@ -16,10 +16,10 @@
 #include "../lib/opennurbs/opennurbs.h"
 
 
-class CurveTable {
+class LineCurveTable {
 public:
     /*constructors*/
-    CurveTable(std::shared_ptr<ONX_Model> model);
+    LineCurveTable(std::shared_ptr<ONX_Model> model);
 
     /*add methods*/
     ON_UUID Add(const ON_3dPoint& start, const ON_3dPoint& end, const ON_3dmObjectAttributes* obj_attr) const;
@@ -33,17 +33,17 @@ public:
     int Count();
     bool IsCurve(const ON_ModelComponent* mc);
 
-    /*CurveTable Iterator*/
+    /*LineCurveTable Iterator*/
     class Iterator {
     public:
-        Iterator(CurveTable* table);
+        Iterator(LineCurveTable* table);
 
         ON_Object* operator*() const;
         Iterator& operator++();
         bool IsOver() const;
 
     private:
-        CurveTable* m_table;
+        LineCurveTable* m_table;
         ONX_ModelComponentIterator m_iterator;
         mutable ON_ModelComponentReference m_current;
     };

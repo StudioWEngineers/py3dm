@@ -1,11 +1,11 @@
 from . _py3dm import (  # type: ignore
-    CurveTable,
     Geometry,
     Layer,
     LayerTable,
     LayerView,
     Line,
     LineCurve,
+    LineCurveTable,
     ModelComponent,
     ObjectAttributes,
     ObjectColorSource,

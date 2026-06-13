@@ -111,8 +111,8 @@ LayerTable Model::ModelLayerTable() {
     return LayerTable(p_model);
 }
 
-CurveTable Model::ModelCurveTable() {
-    return CurveTable(p_model);
+LineCurveTable Model::ModelLineCurveTable() {
+    return LineCurveTable(p_model);
 }
 
 PointTable Model::ModelPointTable() {

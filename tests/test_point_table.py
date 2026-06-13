@@ -54,8 +54,8 @@ class PointTableIteratorTestSuite(TestCase):
         self.model = Model()
 
         self.model.point_table.add(0, 1, 2)
-        self.model.curve_table.add(Point3d(0, 0, 1), Point3d(1, 1, 1))
-        self.model.curve_table.add(Point3d(2, 0, 1), Point3d(2, 1, 1))
+        self.model.line_curve_table.add(Point3d(0, 0, 1), Point3d(1, 1, 1))
+        self.model.line_curve_table.add(Point3d(2, 0, 1), Point3d(2, 1, 1))
         self.model.point_table.add(1, 1, 2)
 
     def test_point_iterator(self) -> None:

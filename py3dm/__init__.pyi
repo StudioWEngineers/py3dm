@@ -19,71 +19,6 @@ from uuid import UUID
 __version__: str
 
 
-class CurveTable:
-    """Python wrapper providing access to objects of type ``ON::curve_object``
-    stored in an ``ONX_Model``.
-
-    This class offers a convenient interface for adding, retrieving, counting,
-    and iterating over curve objects.
-
-    ``CurveTable`` does not own the underlying data; it operates on the
-    associated ``ONX_Model`` instance.
-    """
-    def __iter__(self) -> Iterator[LineCurve]: ...
-
-    def __len__(self) -> int: ...
-
-    @overload
-    def add(
-        self,
-        start:
-        Point3d,
-        end: Point3d,
-        attributes: None | ObjectAttributes = None
-    ) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or
-        an empty ``UUID`` otherwise. If the line is in the model, then the
-        ``UUID`` is unique for all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add(
-        self,
-        line: Line,
-        obj_attr: None | ObjectAttributes = None
-    ) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or
-        an empty ``UUID`` otherwise. If the line is in the model, then the
-        ``UUID`` is unique for all components in the model and is locked.
-        """
-        ...
-
-    @overload
-    def add(
-        self,
-        line: LineCurve,
-        obj_attr: None | ObjectAttributes = None
-    ) -> UUID:
-        """Returns the ``UUID`` of the line in case of successful addition, or
-        an empty ``UUID`` otherwise. If the line is in the model, then the
-        ``UUID`` is unique for all components in the model and is locked.
-        """
-        ...
-
-    def count(self) -> int:
-        """Returns the number of objects of type ``ON::curve_object`` in the
-        model.
-        """
-        ...
-
-    def get_by_uuid(self, object_uuid: UUID) -> LineCurve | None:
-        """Returns the object with the given ``object_uuid`` or ``None`` if
-        ``object_uuid`` is not found.
-        """
-        ...
-
-
 class Geometry(OpenNURBSObject):
     """Python bindings for the openNURBS ``ON_Geometry`` class.
 
@@ -578,6 +513,71 @@ class LineCurve(Geometry):
         ...
 
 
+class LineCurveTable:
+    """Python wrapper providing access to objects of type ``ON::curve_object``
+    stored in an ``ONX_Model``.
+
+    This class offers a convenient interface for adding, retrieving, counting,
+    and iterating over curve objects.
+
+    ``CurveTable`` does not own the underlying data; it operates on the
+    associated ``ONX_Model`` instance.
+    """
+    def __iter__(self) -> Iterator[LineCurve]: ...
+
+    def __len__(self) -> int: ...
+
+    @overload
+    def add(
+        self,
+        start:
+        Point3d,
+        end: Point3d,
+        attributes: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or
+        an empty ``UUID`` otherwise. If the line is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(
+        self,
+        line: Line,
+        obj_attr: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or
+        an empty ``UUID`` otherwise. If the line is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    @overload
+    def add(
+        self,
+        line: LineCurve,
+        obj_attr: None | ObjectAttributes = None
+    ) -> UUID:
+        """Returns the ``UUID`` of the line in case of successful addition, or
+        an empty ``UUID`` otherwise. If the line is in the model, then the
+        ``UUID`` is unique for all components in the model and is locked.
+        """
+        ...
+
+    def count(self) -> int:
+        """Returns the number of objects of type ``ON::curve_object`` in the
+        model.
+        """
+        ...
+
+    def get_by_uuid(self, object_uuid: UUID) -> LineCurve | None:
+        """Returns the object with the given ``object_uuid`` or ``None`` if
+        ``object_uuid`` is not found.
+        """
+        ...
+
+
 class Model:
     """Python bindings for the openNURBS ``ONX_Model`` class.
 
@@ -613,7 +613,7 @@ class Model:
     def created_by(self, author: str) -> None: ...
 
     @property
-    def curve_table(self) -> CurveTable: ...
+    def line_curve_table(self) -> LineCurveTable: ...
 
     @property
     def layer_table(self) -> LayerTable: ...
