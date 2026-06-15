@@ -44,7 +44,7 @@ int LineCurveTable::Count() {
     ON_ModelComponentReference mcr = mci.FirstComponentReference();
 
     while (!mcr.IsEmpty()) {
-        if (LineCurveTable::IsCurve(mcr.ModelComponent())) {
+        if (LineCurveTable::IsLineCurve(mcr.ModelComponent())) {
             ++count;
         }
         mcr = mci.NextComponentReference();
@@ -53,14 +53,11 @@ int LineCurveTable::Count() {
     return count;
 }
 
-bool LineCurveTable::IsCurve(const ON_ModelComponent* mc) {
-    const ON_ModelGeometryComponent* mgc = ON_ModelGeometryComponent::Cast(mc);
-    if (mgc == nullptr) {
-        return false;
+bool LineCurveTable::IsLineCurve(const ON_ModelComponent* mc) {
+    if (const auto* mgc = ON_ModelGeometryComponent::Cast(mc)) {
+        return ON_LineCurve::Cast(mgc->Geometry(nullptr)) != nullptr;
     }
-
-    const ON_Geometry* geom = mgc->Geometry(nullptr);
-    return (geom && geom->ObjectType() == ON::curve_object);
+    return false;
 }
 
 /*LineCurveTable Iterator*/

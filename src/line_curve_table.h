@@ -32,7 +32,7 @@ public:
 
     /*other methods*/
     int Count();
-    bool IsCurve(const ON_ModelComponent* mc);
+    bool IsLineCurve(const ON_ModelComponent* mc);
 
     /*LineCurveTable Iterator*/
     class Iterator {
