@@ -139,10 +139,10 @@ class Layer(ModelComponent):
         -----
         If the component is in a model, then the name is unique among all
         components in the model. Names are formatted as reference :
-        parent::leaf. For example in ``A.3dm : Z``, ``A.3dm`` is the reference
-        and ``Z`` is the leaf. For a layer full path ``X::Y::Z``, ``X::Y`` is
-        the parent and ``Z`` is the leaf. For most models, only the leaf is
-        present in the name. The reference portion appears when a model
+        ``parent::leaf``. For example in ``A.3dm : Z``, ``A.3dm`` is the
+        reference and ``Z`` is the leaf. For a layer full path ``X::Y::Z``,
+        ``X::Y`` is the parent and ``Z`` is the leaf. For most models, only the
+        leaf is present in the name. The reference portion appears when a model
         component originates in a reference file (a linked instance definition
         with reference component names or a worksession reference). Components
         with a tree hierarchy, like layers, can have a parent and leaf.
