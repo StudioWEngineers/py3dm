@@ -204,7 +204,8 @@ class LayerTable:
         """
         ...
 
-    def delete_by_name(self, layer_name: str) -> bool:
+    @overload
+    def delete(self, layer_name: str) -> bool:
         """Deletes the `Layer` given its full name, e.g., ``Layer 01::Nested
         layer 02``.
 
@@ -215,7 +216,8 @@ class LayerTable:
         """
         ...
 
-    def delete_by_uuid(self, layer_uuid: UUID) -> bool:
+    @overload
+    def delete(self, layer_uuid: UUID) -> bool:
         """Deletes the `Layer` given its uuid.
 
         Returns

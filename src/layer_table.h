@@ -27,8 +27,8 @@ public:
     ~LayerTable() = default;
 
     /*deleters*/
-    bool DeleteByName(const ON_wString full_name) const;
-    bool DeleteByUUID(const ON_UUID on_uuid) const;
+    bool Delete(const ON_wString full_name) const;
+    bool Delete(const ON_UUID on_uuid) const;
 
     /*getters*/
     LayerView* Get(int index) const;

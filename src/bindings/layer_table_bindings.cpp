@@ -33,8 +33,8 @@ void LayerTableBindings(nb::module_& m) {
         .def("__len__", &LayerTable::Count)
 
         /*deleters*/
-        .def("delete_by_name", &LayerTable::DeleteByName)
-        .def("delete_by_uuid", &LayerTable::DeleteByUUID)
+        .def("delete", nb::overload_cast<const ON_wString>(&LayerTable::Delete, nb::const_))
+        .def("delete", nb::overload_cast<const ON_UUID>(&LayerTable::Delete, nb::const_))
 
         /*getters*/
         .def("get", nb::overload_cast<int>(&LayerTable::Get, nb::const_), nb::rv_policy::reference_internal)

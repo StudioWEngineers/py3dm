@@ -65,10 +65,10 @@ class layer_tableTestSuite(TestCase):
         self.model.layer_table.add(layer_2)
 
         with self.subTest("Successfull delete"):
-            self.assertTrue(self.model.layer_table.delete_by_name("New 1"))
+            self.assertTrue(self.model.layer_table.delete("New 1"))
 
         with self.subTest("Unsuccessfull delete"):
-            self.assertFalse(self.model.layer_table.delete_by_name("New 3"))
+            self.assertFalse(self.model.layer_table.delete("New 3"))
 
         with self.subTest(msg="Current number of layers"):
             self.assertEqual(self.model.layer_table.count(), 1)
@@ -82,10 +82,10 @@ class layer_tableTestSuite(TestCase):
         self.model.layer_table.add(layer_2)
 
         with self.subTest("Successfull delete"):
-            self.assertTrue(self.model.layer_table.delete_by_uuid(layer_1_uuid))
+            self.assertTrue(self.model.layer_table.delete(layer_1_uuid))
 
         with self.subTest("Unsuccessfull delete"):
-            self.assertFalse(self.model.layer_table.delete_by_uuid(UUID(int=0)))
+            self.assertFalse(self.model.layer_table.delete(UUID(int=0)))
 
         with self.subTest(msg="Current number of layers"):
             self.assertEqual(self.model.layer_table.count(), 1)
@@ -231,7 +231,7 @@ class layer_tableTestSuite(TestCase):
         with self.subTest(msg="max_index after adding layers to model"):
             self.assertEqual(self.model.layer_table.max_index(), 2)
 
-        self.model.layer_table.delete_by_name("Layer 02")
+        self.model.layer_table.delete("Layer 02")
         self.model.layer_table.add(Layer())
 
         with self.subTest(msg="max_index after add delete layers to model"):

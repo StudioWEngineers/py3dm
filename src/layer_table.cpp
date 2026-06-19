@@ -7,11 +7,11 @@ LayerTable::LayerTable(std::shared_ptr<ONX_Model> model) {
 }
 
 /*deleters*/
-bool LayerTable::DeleteByName(const ON_wString layer_name) const {
-    return DeleteByUUID(GetUUID(layer_name));
+bool LayerTable::Delete(const ON_wString layer_name) const {
+    return Delete(GetUUID(layer_name));
 }
 
-bool LayerTable::DeleteByUUID(const ON_UUID on_uuid) const {
+bool LayerTable::Delete(const ON_UUID on_uuid) const {
     return !m_model->RemoveModelComponent(
         ON_ModelComponent::Type::Layer,
         on_uuid
