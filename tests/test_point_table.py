@@ -20,7 +20,7 @@ class PointTableTestSuite(TestCase):
             self.assertNotEqual(point_id, UUID(int=0))
 
         with self.subTest(msg="add with Point3d part II"):
-            point = self.table.get_by_uuid(point_id)
+            point = self.table.get(point_id)
             self.assertTrue(point == Point3d(0, 1, 0))
 
         point_geo = Point(0, 2, 0)
@@ -30,7 +30,7 @@ class PointTableTestSuite(TestCase):
             self.assertNotEqual(point_geo_id, UUID(int=0))
 
         with self.subTest(msg="add with Point part II"):
-            point = self.table.get_by_uuid(point_geo_id)
+            point = self.table.get(point_geo_id)
             self.assertEqual(point.y, 2)  # type: ignore
 
     def test_count(self) -> None:
@@ -42,9 +42,9 @@ class PointTableTestSuite(TestCase):
         with self.subTest(msg="non-empty table"):
             self.assertEqual(self.table.count(), 1)
 
-    def test_get_by_uuid(self) -> None:
+    def test_get(self) -> None:
         obj_uuid = self.table.add(Point3d(0, 0, 3))
-        point = self.table.get_by_uuid(obj_uuid)
+        point = self.table.get(obj_uuid)
 
         self.assertEqual(point.z, 3)  # type: ignore
 

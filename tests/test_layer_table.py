@@ -31,19 +31,19 @@ class layer_tableTestSuite(TestCase):
 
         with self.subTest(msg="Name of 1st layer"):
             self.assertEqual(
-                self.model.layer_table.get_by_uuid(layer_1_uuid).name,  # type: ignore
+                self.model.layer_table.get(layer_1_uuid).name,  # type: ignore
                 "Layer A"
             )
 
         with self.subTest(msg="Name of 2nd layer"):
             self.assertEqual(
-                self.model.layer_table.get_by_uuid(layer_2_uuid).name,  # type: ignore
+                self.model.layer_table.get(layer_2_uuid).name,  # type: ignore
                 "layer 2"
             )
 
         with self.subTest(msg="Color of 1st layer"):
             self.assertEqual(
-                self.model.layer_table.get_by_index(0).color,  # type: ignore
+                self.model.layer_table.get(0).color,  # type: ignore
                 (255, 0, 255, 255)
             )
 
@@ -115,11 +115,11 @@ class layer_tableTestSuite(TestCase):
         self.model.layer_table.add(layer_1)
         self.model.layer_table.add(layer_2)
 
-        rl_1 = self.model.layer_table.get_by_index(0)
-        rl_2 = self.model.layer_table.get_by_index(1)
+        rl_1 = self.model.layer_table.get(0)
+        rl_2 = self.model.layer_table.get(1)
 
         with self.subTest(msg="Retrieving not existing layer"):
-            self.assertIsNone(self.model.layer_table.get_by_index(3))
+            self.assertIsNone(self.model.layer_table.get(3))
 
         with self.subTest(msg="Name of 2nd layer"):
             self.assertEqual(rl_2.name, "layer 2")  # type: ignore
@@ -129,7 +129,7 @@ class layer_tableTestSuite(TestCase):
 
         with self.subTest(msg="Negative index"):
             with self.assertRaises(IndexError):
-                self.model.layer_table.get_by_index(-1)
+                self.model.layer_table.get(-1)
 
     def test_get_by_name(self) -> None:
         layer_1 = Layer()
@@ -142,11 +142,11 @@ class layer_tableTestSuite(TestCase):
         self.model.layer_table.add(layer_1)
         self.model.layer_table.add(layer_2)
 
-        rl_1 = self.model.layer_table.get_by_name("Layer A")
-        rl_2 = self.model.layer_table.get_by_name("layer 2")
+        rl_1 = self.model.layer_table.get("Layer A")
+        rl_2 = self.model.layer_table.get("layer 2")
 
         with self.subTest(msg="Retrieving not existing layer"):
-            self.assertIsNone(self.model.layer_table.get_by_name("dummy"))
+            self.assertIsNone(self.model.layer_table.get("dummy"))
 
         with self.subTest(msg="Name of 2nd layer"):
             self.assertEqual(rl_2.name, "layer 2")  # type: ignore
@@ -165,11 +165,11 @@ class layer_tableTestSuite(TestCase):
         layer_1_uuid = self.model.layer_table.add(layer_1)
         layer_2_uuid = self.model.layer_table.add(layer_2)
 
-        rl_1 = self.model.layer_table.get_by_uuid(layer_1_uuid)
-        rl_2 = self.model.layer_table.get_by_uuid(layer_2_uuid)
+        rl_1 = self.model.layer_table.get(layer_1_uuid)
+        rl_2 = self.model.layer_table.get(layer_2_uuid)
 
         with self.subTest(msg="Retrieving not existing layer"):
-            self.assertIsNone(self.model.layer_table.get_by_uuid(UUID(int=0)))
+            self.assertIsNone(self.model.layer_table.get(UUID(int=0)))
 
         with self.subTest(msg="Name of 2nd layer"):
             self.assertEqual(rl_2.name, "layer 2")  # type: ignore
@@ -252,7 +252,7 @@ class Nestedlayer_tableTestSuite(TestCase):
         child_uuid = model.layer_table.get_uuid("my child layer")
 
         self.assertEqual(
-            model.layer_table.get_by_uuid(child_uuid).parent_uuid,  # type: ignore
+            model.layer_table.get(child_uuid).parent_uuid,  # type: ignore
             parent_layer_uuid
         )
 

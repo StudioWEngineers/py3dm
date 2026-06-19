@@ -28,7 +28,7 @@ public:
     ON_UUID Add(const ON_LineCurve& line, const ON_3dmObjectAttributes* obj_attr) const;
 
     /*getters*/
-    LineCurveView* GetbyUUID(const ON_UUID on_uuid);
+    LineCurveView* Get(const ON_UUID on_uuid);
 
     /*other methods*/
     int Count();

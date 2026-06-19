@@ -51,8 +51,8 @@ void PointTableBindings(nb::module_& m) {
         )
 
         /*getters*/
-        .def("get_by_uuid", &PointTable::GetByUUID, nb::rv_policy::reference_internal)
-        .def("get_by_uuid_exclusive", &PointTable::GetByUUIDExclusive, nb::rv_policy::reference_internal)
+        .def("get", &PointTable::Get, nb::rv_policy::reference_internal)
+        .def("get_exclusive", &PointTable::GetExclusive, nb::rv_policy::reference_internal)
 
         /*other methods*/
         .def("count", &PointTable::Count)

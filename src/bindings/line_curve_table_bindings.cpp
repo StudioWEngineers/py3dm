@@ -53,7 +53,7 @@ void LineCurveTableBindings(nb::module_& m) {
         )
 
         /*getters*/
-        .def("get_by_uuid", &LineCurveTable::GetbyUUID, nb::rv_policy::reference_internal)
+        .def("get", &LineCurveTable::Get, nb::rv_policy::reference_internal)
 
         /*other methods*/
         .def("count", &LineCurveTable::Count)

@@ -225,7 +225,8 @@ class LayerTable:
         """
         ...
 
-    def get_by_index(self, layer_index: int) -> LayerView | None:
+    @overload
+    def get(self, layer_index: int) -> LayerView | None:
         """Returns a view of the ``Layer`` if the given ``index`` is found in
         the table, ``None`` otherwise.
 
@@ -236,19 +237,21 @@ class LayerTable:
         """
         ...
 
-    def get_by_name(self, full_name: str) -> LayerView | None:
+    @overload
+    def get(self, full_name: str) -> LayerView | None:
         """Returns a view of the ``Layer`` if the given ``full_name`` is found
         in the table, ``None`` otherwise.
         """
         ...
 
-    def get_by_uuid(self, layer_uuid: UUID) -> LayerView | None:
+    @overload
+    def get(self, layer_uuid: UUID) -> LayerView | None:
         """Returns a view of the ``Layer`` if the given ``layer_uuid`` is found
         in the table, ``None`` otherwise.
         """
         ...
 
-    def get_by_uuid_exclusive(self, layer_uuid: UUID) -> Layer | None:
+    def get_exclusive(self, layer_uuid: UUID) -> Layer | None:
         """Returns the ``Layer`` if the given ``layer_uuid`` is found in the
         table, ``None`` otherwise.
         """
@@ -606,7 +609,7 @@ class LineCurveTable:
         """
         ...
 
-    def get_by_uuid(self, object_uuid: UUID) -> LineCurveView | None:
+    def get(self, object_uuid: UUID) -> LineCurveView | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
         """
@@ -872,7 +875,7 @@ class MeshTable:
         """
         ...
 
-    def get_by_uuid(self, object_uuid: UUID) -> Mesh | None:
+    def get(self, object_uuid: UUID) -> Mesh | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
         """
@@ -1486,13 +1489,13 @@ class PointTable:
         """
         ...
 
-    def get_by_uuid(self, object_uuid: UUID) -> PointView | None:
+    def get(self, object_uuid: UUID) -> PointView | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
         """
         ...
 
-    def get_by_uuid_exclusive(self, object_uuid: UUID) -> Point | None:
+    def get_exclusive(self, object_uuid: UUID) -> Point | None:
         """Returns the object with the given ``object_uuid`` or ``None`` if
         ``object_uuid`` is not found.
 

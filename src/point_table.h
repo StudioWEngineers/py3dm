@@ -31,8 +31,8 @@ public:
     ON_UUID Add(const ON_3dPoint& point, const ON_3dmObjectAttributes* obj_attr) const;
 
     /*getters*/
-    PointView* GetByUUID(const ON_UUID obj_uuid) const;
-    ON_Point* GetByUUIDExclusive(const ON_UUID obj_uuid) const;
+    PointView* Get(const ON_UUID obj_uuid) const;
+    ON_Point* GetExclusive(const ON_UUID obj_uuid) const;
     ON__UINT64 GetRuntimeSerialNumber(const ON_UUID obj_uuid) const;
 
     /*other methods*/

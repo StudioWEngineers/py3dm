@@ -13,7 +13,7 @@ class PointViewTestSuite(TestCase):
         model = Model()
         self.table = model.point_table
         self.uuid_1 = self.table.add(0, 1, 2)
-        self.point_1 = cast(PointView, self.table.get_by_uuid(self.uuid_1))
+        self.point_1 = cast(PointView, self.table.get(self.uuid_1))
 
     def test_distance_to(self) -> None:
         self.assertEqual(self.point_1.distance_to(Point3d(0, 2, 2)), 1)

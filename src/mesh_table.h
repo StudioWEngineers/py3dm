@@ -37,8 +37,8 @@ public:
     ) const;
 
     /*getters*/
-    MeshView* GetbyUUID(const ON_UUID obj_uuid) const;
-    ON_Mesh* GetbyUUIDExclusive(const ON_UUID obj_uuid) const;
+    MeshView* Get(const ON_UUID obj_uuid) const;
+    ON_Mesh* GetExclusive(const ON_UUID obj_uuid) const;
     ON__UINT64 GetRuntimeSerialNumber(const ON_UUID obj_uuid) const;
 
     /*other methods*/

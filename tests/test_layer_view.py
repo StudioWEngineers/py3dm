@@ -25,7 +25,7 @@ class LayerViewTestSuite(TestCase):
         # NOTE: workaround to silent type checker complains
         self.layer_view = cast(
             LayerView,
-            model.layer_table.get_by_uuid(self.layer_uuid)
+            model.layer_table.get(self.layer_uuid)
         )
 
     def test_color(self) -> None:

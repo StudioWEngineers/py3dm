@@ -35,7 +35,7 @@ ON_UUID MeshTable::Add(
 }
 
 /*getters*/
-MeshView* MeshTable::GetbyUUID(const ON_UUID on_uuid) const {
+MeshView* MeshTable::Get(const ON_UUID on_uuid) const {
     const ON_ModelComponent* mc = m_model->ComponentFromId(ON_ModelComponent::Type::ModelGeometry, on_uuid).ModelComponent();
 
     if (!IsMesh(mc)) {
@@ -46,7 +46,7 @@ MeshView* MeshTable::GetbyUUID(const ON_UUID on_uuid) const {
     return new MeshView(ON_Mesh::Cast(mgc->Geometry(nullptr)), mgc->ModelObjectId());
 }
 
-ON_Mesh* MeshTable::GetbyUUIDExclusive(const ON_UUID obj_uuid) const {
+ON_Mesh* MeshTable::GetExclusive(const ON_UUID obj_uuid) const {
     const ON_ModelComponentReference& mcr = m_model->ComponentFromRuntimeSerialNumber(
         GetRuntimeSerialNumber(obj_uuid)
     );
@@ -97,7 +97,7 @@ MeshTable::Iterator::Iterator(MeshTable* table)
 }
 
 MeshView* MeshTable::Iterator::operator*() const {
-    return m_table->GetbyUUID(m_current.ModelComponentId());
+    return m_table->Get(m_current.ModelComponentId());
 }
 
 MeshTable::Iterator& MeshTable::Iterator::operator++() {

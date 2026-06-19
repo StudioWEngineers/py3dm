@@ -26,12 +26,12 @@ class MeshTableTestSuite(TestCase):
             self.assertNotEqual(mesh_uuid, UUID(int=0))
 
         with self.subTest():
-            retrieved_mesh = self.table.get_by_uuid(mesh_uuid)
-            self.assertEqual(retrieved_mesh.face_count(), 1)
+            retrieved_mesh = self.table.get(mesh_uuid)
+            self.assertEqual(retrieved_mesh.face_count(), 1)  #type: ignore
 
         with self.subTest():
-            retrieved_mesh = self.table.get_by_uuid(mesh_uuid)
-            self.assertEqual(retrieved_mesh.triangle_count(), 1)
+            retrieved_mesh = self.table.get(mesh_uuid)
+            self.assertEqual(retrieved_mesh.triangle_count(), 1)  #type: ignore
 
     def test_count(self) -> None:
         with self.subTest(msg="empty table"):
@@ -47,5 +47,4 @@ class MeshTableTestSuite(TestCase):
 
     def test_get_by_uuid(self) -> None:
         obj_uuid = self.table.add(Mesh())
-        mesh = self.table.get_by_uuid(obj_uuid)
-        self.assertTrue(mesh.is_empty())
+        self.assertTrue(self.table.get(obj_uuid).is_empty())  #type: ignore

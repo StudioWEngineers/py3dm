@@ -27,7 +27,7 @@ ON_UUID LineCurveTable::Add(const ON_LineCurve& line, const ON_3dmObjectAttribut
 }
 
 /*getters*/
-LineCurveView* LineCurveTable::GetbyUUID(const ON_UUID on_uuid) {
+LineCurveView* LineCurveTable::Get(const ON_UUID on_uuid) {
     const ON_ModelComponent* mc = m_model->ComponentFromId(
         ON_ModelComponent::Type::ModelGeometry,
         on_uuid
@@ -68,7 +68,7 @@ LineCurveTable::Iterator::Iterator(LineCurveTable* table)
 }
 
 LineCurveView* LineCurveTable::Iterator::operator*() const {
-    return m_table->GetbyUUID(m_current.ModelComponentId());
+    return m_table->Get(m_current.ModelComponentId());
 }
 
 LineCurveTable::Iterator& LineCurveTable::Iterator::operator++() {

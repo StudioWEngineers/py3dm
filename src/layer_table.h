@@ -31,10 +31,10 @@ public:
     bool DeleteByUUID(const ON_UUID on_uuid) const;
 
     /*getters*/
-    LayerView* GetByIndex(int index) const;
-    LayerView* GetByName(ON_wString full_name) const;
-    LayerView* GetByUUID(const ON_UUID on_uuid) const;
-    ON_Layer* GetByUUIDExclusive(const ON_UUID on_uuid) const;
+    LayerView* Get(int index) const;
+    LayerView* Get(ON_wString full_name) const;
+    LayerView* Get(const ON_UUID on_uuid) const;
+    ON_Layer* GetExclusive(const ON_UUID on_uuid) const;
 
     /*other methods*/
     const ON_UUID Add(const ON_Layer& layer) const;

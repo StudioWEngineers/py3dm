@@ -26,7 +26,7 @@ ON_UUID PointTable::Add(const ON_Point& point, const ON_3dmObjectAttributes* obj
 }
 
 /*getters*/
-PointView* PointTable::GetByUUID(const ON_UUID obj_uuid) const {
+PointView* PointTable::Get(const ON_UUID obj_uuid) const {
     const ON_ModelComponent* mc = m_model->ComponentFromId(
         ON_ModelComponent::Type::ModelGeometry,
         obj_uuid
@@ -35,7 +35,7 @@ PointView* PointTable::GetByUUID(const ON_UUID obj_uuid) const {
     return IsPoint(mgc)? new PointView(ON_Point::Cast(mgc->Geometry(nullptr)), mgc->ModelObjectId()) : nullptr;
 }
 
-ON_Point* PointTable::GetByUUIDExclusive(const ON_UUID obj_uuid) const {
+ON_Point* PointTable::GetExclusive(const ON_UUID obj_uuid) const {
     const ON_ModelComponentReference& mcr = m_model->ComponentFromRuntimeSerialNumber(
         GetRuntimeSerialNumber(obj_uuid)
     );
@@ -83,7 +83,7 @@ PointTable::Iterator::Iterator(PointTable* table)
 }
 
 PointView* PointTable::Iterator::operator*() const {
-    return m_table->GetByUUID(m_current.ModelComponentId());
+    return m_table->Get(m_current.ModelComponentId());
 }
 
 PointTable::Iterator& PointTable::Iterator::operator++() {

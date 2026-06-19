@@ -23,7 +23,7 @@ class CurveTableTestSuite(TestCase):
             self.assertNotEqual(line_id, UUID(int=0))
 
         with self.subTest(msg="add with Line part II"):
-            retrieved_line = self.table.get_by_uuid(line_id)
+            retrieved_line = self.table.get(line_id)
             self.assertEqual(retrieved_line.length(), 1.0)  # type: ignore
 
         line_curve = LineCurve(Point3d(0, 1, 0), Point3d(0, 0, 0))
@@ -33,7 +33,7 @@ class CurveTableTestSuite(TestCase):
             self.assertNotEqual(line_id, UUID(int=0))
 
         with self.subTest(msg="add with LineCurve part II"):
-            retrieved_line_curve = self.table.get_by_uuid(line_curve_id)
+            retrieved_line_curve = self.table.get(line_curve_id)
             self.assertTrue(
                 retrieved_line_curve ==
                 Line(Point3d(0, 1, 0), Point3d(0, 0, 0))
@@ -47,7 +47,7 @@ class CurveTableTestSuite(TestCase):
             self.assertNotEqual(line_id, UUID(int=0))
 
         with self.subTest(msg="add with Line part II"):
-            retrieved_line = self.table.get_by_uuid(line_id)
+            retrieved_line = self.table.get(line_id)
             self.assertEqual(retrieved_line, line)
 
         line_curve = LineCurve(Point3d(1, 1, 0), Point3d(0, 0, 0))
@@ -57,7 +57,7 @@ class CurveTableTestSuite(TestCase):
             self.assertNotEqual(line_curve_id, UUID(int=0))
 
         with self.subTest(msg="add with LineCurve part II"):
-            retrieved_line_curve = self.table.get_by_uuid(line_curve_id)
+            retrieved_line_curve = self.table.get(line_curve_id)
             self.assertEqual(
                 retrieved_line_curve.length(),  # type: ignore
                 sqrt(2)
@@ -65,7 +65,7 @@ class CurveTableTestSuite(TestCase):
 
     def test_get_by_uuid(self) -> None:
         obj_uuid = self.table.add(Line(Point3d(0, 0, 0), Point3d(1, 1, 1)))
-        returned_curve = self.table.get_by_uuid(obj_uuid)
+        returned_curve = self.table.get(obj_uuid)
 
         self.assertEqual(returned_curve.get_uuid(), obj_uuid)  # type: ignore
 

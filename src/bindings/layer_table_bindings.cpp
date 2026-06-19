@@ -28,7 +28,7 @@ void LayerTableBindings(nb::module_& m) {
 
     nb::class_<LayerTable>(m, "LayerTable")
         /*magic methods*/
-        .def("__getitem__", &LayerTable::GetByIndex, nb::rv_policy::reference_internal)
+        .def("__getitem__", nb::overload_cast<int>(&LayerTable::Get, nb::const_), nb::rv_policy::reference_internal)
         .def("__iter__", [](LayerTable& self) {return self.Begin();}, nb::keep_alive<0, 1>())
         .def("__len__", &LayerTable::Count)
 
@@ -37,10 +37,10 @@ void LayerTableBindings(nb::module_& m) {
         .def("delete_by_uuid", &LayerTable::DeleteByUUID)
 
         /*getters*/
-        .def("get_by_index", &LayerTable::GetByIndex, nb::rv_policy::reference_internal)
-        .def("get_by_name", &LayerTable::GetByName, nb::rv_policy::reference_internal)
-        .def("get_by_uuid", &LayerTable::GetByUUID, nb::rv_policy::reference_internal)
-        .def("get_by_uuid_exclusive", &LayerTable::GetByUUIDExclusive, nb::rv_policy::reference_internal)
+        .def("get", nb::overload_cast<int>(&LayerTable::Get, nb::const_), nb::rv_policy::reference_internal)
+        .def("get", nb::overload_cast<ON_wString>(&LayerTable::Get, nb::const_), nb::rv_policy::reference_internal)
+        .def("get", nb::overload_cast<const ON_UUID>(&LayerTable::Get, nb::const_), nb::rv_policy::reference_internal)
+        .def("get_exclusive", &LayerTable::GetExclusive, nb::rv_policy::reference_internal)
 
         /*other methods*/
         .def("add", &LayerTable::Add)

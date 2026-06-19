@@ -19,7 +19,7 @@ bool LayerTable::DeleteByUUID(const ON_UUID on_uuid) const {
 }
 
 /*getters*/
-LayerView* LayerTable::GetByIndex(int index) const {
+LayerView* LayerTable::Get(int index) const {
     if (index < 0) {
         throw std::out_of_range("index must be greater than equal to 0!");
     }
@@ -32,11 +32,11 @@ LayerView* LayerTable::GetByIndex(int index) const {
     return new LayerView(ON_Layer::Cast(mcr.ModelComponent()));
 }
 
-LayerView* LayerTable::GetByName(ON_wString full_name) const {
-    return GetByUUID(GetUUID(full_name));
+LayerView* LayerTable::Get(ON_wString full_name) const {
+    return Get(GetUUID(full_name));
 }
 
-LayerView* LayerTable::GetByUUID(const ON_UUID on_uuid) const {
+LayerView* LayerTable::Get(const ON_UUID on_uuid) const {
     ON_ModelComponentReference mcr = m_model->ComponentFromId(ON_ModelComponent::Type::Layer, on_uuid);
     if (mcr.IsEmpty()) {
         return nullptr;
@@ -45,7 +45,7 @@ LayerView* LayerTable::GetByUUID(const ON_UUID on_uuid) const {
     return new LayerView(ON_Layer::Cast(mcr.ModelComponent()));
 }
 
-ON_Layer* LayerTable::GetByUUIDExclusive(const ON_UUID on_uuid) const {
+ON_Layer* LayerTable::GetExclusive(const ON_UUID on_uuid) const {
     const ON_ModelComponentReference& mcr = m_model->ComponentFromRuntimeSerialNumber(
         GetRuntimeSerialNumber(on_uuid)
     );
@@ -185,7 +185,7 @@ LayerTable::Iterator::Iterator(LayerTable* table, int index)
     : m_table(table), m_index(index), m_count(table->MaxIndex()) {}
 
 LayerView* LayerTable::Iterator::operator*() const {
-    return m_table->GetByIndex(m_index);
+    return m_table->Get(m_index);
 }
 
 LayerTable::Iterator& LayerTable::Iterator::operator++() {
