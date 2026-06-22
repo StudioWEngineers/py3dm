@@ -3,8 +3,8 @@
 Installation
 ============
 
-*py3dm* can be installed either via *pip* (from PyPI or a wheel) or built locally from
-source.
+*py3dm* can be installed either via *pip* (from PyPI or a wheel) or built
+locally from source.
 
 Prerequisites:
 
@@ -20,14 +20,14 @@ The simplest way to install *py3dm* is using pip:
 
     pip install py3dm
 
-This command downloads the latest release from PyPI and installs all required dependencies
-automatically.
+This command downloads the latest release from PyPI and installs all required
+dependencies automatically.
 
 Local build from source
 -----------------------
 
-For access to the latest development version or modifications to the source, a local build
-can be performed.
+For access to the latest development version or modifications to the source, a
+local build can be performed.
 
 Additional prerequisites for local build:
 

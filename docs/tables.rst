@@ -3,40 +3,65 @@
 Tables
 ======
 
-Objects can be added, deleted and retrieved from a ``Model`` using tables.
+Objects can be added, deleted, and retrieved from a ``Model`` through tables.
 
-All tables implement an iterator, add and getter methods and they allow working on small
-subsets of objects (Curves, Points, ...). All the tables that refer to geometrical objects
-are an interface to the same container via ``ON_ModelComponent::Type::ModelGeometry``.
+The primary purpose of tables is to provide convenient access to specific
+subsets of objects (such as Layers, LineCurves, Meshes, Points, ...). This is
+particularly useful when working with existing models, as it eliminates the
+need to inspect the type of every retrieved object.
+
+Separate tables do not correspond to separate storage mechanisms in openNURBS.
+They exist solely as a convenience layer that provides a cleaner and more
+intuitive API.
+
+All tables implement the following common API:
+
+* iterator support
+* ``add`` method
+* ``count`` method
+* ``delete`` method
+* ``get`` method
+* ``get_exclusive`` method
+
+The difference between the ``get`` and ``get_exclusive`` methods is that the
+former returns a read-only view of the underlying object, whereas the latter
+returns a modifiable object.
+Refer also to chapter :ref:`access_existing_model`.
 
 .. _layer_table:
 
 LayerTable
 ----------
 
-The ``LayerTable`` class provides interface to objects of type
+The ``LayerTable`` class provides an interface to objects of type
 ``ON_ModelComponent::Type::Layer``.
 
-Despite these objects are supposed to be accessed (and actually are) by ``ON_UUID`` (or
-``index``) like any other objects in `Model`, this table provides abstractions to enable
-access to Layers via full name, i.e., using the format ``parent::leaf``.
+Although these objects are typically accessed by ``ON_UUID`` (or ``index``),
+like other model objects, this table provides additional abstractions that
+allow layers to be accessed by their full name using the format
+``parent::leaf``.
 
-It is highlighted that deleting the last Layer in the table and adding a new one does
-not guarantee nor preserve the order of the Layers in the table in case of deletions and
-additions.
+Note that deleting the last layer and then adding a new one does not guarantee
+that layer ordering will be preserved.
 
-.. _curve_table:
+.. _line_curve_table:
 
-CurveTable
-----------
+LineCurveTable
+--------------
 
-The ``CurveTable`` class provides methods to add .
+The ``LineCurveTable`` class provides methods to manage ``ON_LineCurve``
+objects.
+
+.. _mesh_table:
+
+MeshTable
+---------
+
+The ``MeshTable`` class provides methods to manage ``ON_Mesh`` objects.
 
 .. _point_table:
 
 PointTable
 ----------
 
-The ``PointTable`` class provides methods to access and modify existing ``ON_Point`` s as
-well as add new ones.
-
+The ``PointTable`` class provides methods to manage ``ON_Point`` objects.

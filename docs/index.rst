@@ -1,21 +1,25 @@
 Introduction
 ============
 
-This is the py3dm 0.2.0-dev1 documentation.
+This is the *py3dm 0.2.0-dev1* documentation.
 
 *py3dm* is a small binding library that exposes openNURBS classes to Python.
-It is reminiscent of `rhino3dm <https://github.com/mcneel/rhino3dm>`__ and uses very
-similar syntax.
+It is reminiscent of `rhino3dm <https://github.com/mcneel/rhino3dm>`__ and uses
+very similar syntax.
 
 .. important::
 
-    **OpenNURBS and Rhinoceros are registered trademarks of Robert McNeel & Associates.**
+    **OpenNURBS and Rhinoceros are registered trademarks of Robert McNeel &
+    Associates.**
 
-    *py3dm* is an independent, open-source project not affiliated with, endorsed by, or
-    vetted by Robert McNeel & Associates. It provides Python bindings that utilize the
-    publicly available OpenNURBS APIs. Users should refer to the OpenNURBS
-    `Terms of Use <https://www.rhino3d.com/features/developer/opennurbs/>`__ for further
-    details.
+    *py3dm* is an independent, open-source project not affiliated with,
+    endorsed by, or vetted by Robert McNeel & Associates. It provides Python
+    bindings that utilize the publicly available OpenNURBS APIs. Users shall
+    refer to the OpenNURBS
+    `Terms of Use <https://www.rhino3d.com/features/developer/opennurbs/>`__ as
+    well as to the
+    `py3dm license <https://github.com/StudioWEngineers/py3dm/blob/main/LICENSE>`__
+    for further details.
 
 How to cite this project?
 -------------------------
@@ -35,11 +39,13 @@ Disclaimer
 ----------
 
 *py3dm* is an open-source set of bindings that benefits from the collaboration
-of many contributors. While efforts have been made to ensure the implementation is
-correct, it remains the user's responsibility to verify and accept the results.
+of many contributors. While efforts have been made to ensure the implementation
+is correct, it remains the user's responsibility to verify and accept the
+results.
 
-Please refer to the `license <https://github.com/StudioWEngineers/py3dm/blob/main/LICENSE>`__
-for the terms and conditions of use.
+Please refer to the
+`license <https://github.com/StudioWEngineers/py3dm/blob/main/LICENSE>`__ for
+the terms and conditions of use.
 
 .. toctree::
     :maxdepth: 1
@@ -55,6 +61,7 @@ for the terms and conditions of use.
 
     installation
     tables
+    access_existing_model
 
 .. toctree::
     :caption: API Reference
