@@ -26,7 +26,7 @@ add_library(opennurbs_static STATIC ${opennurbs_source})
 # Main Python extension module
 add_subdirectory(lib/nanobind)
 nanobind_build_library(nanobind)
-nanobind_add_module(_py3dm NB_STATIC ${bindings_source} ${zlib_source})
+nanobind_add_module(_py3dm STABLE_ABI NB_STATIC ${bindings_source} ${zlib_source})
 
 # Compiler definitions - py3dm (zlib) specific
 target_compile_definitions(_py3dm PRIVATE
