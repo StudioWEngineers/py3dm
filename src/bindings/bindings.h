@@ -14,7 +14,7 @@
 
 #define PY3DM_VERSION_MAJOR 0
 #define PY3DM_VERSION_MINOR 1
-#define PY3DM_VERSION_PATCH 0
+#define PY3DM_VERSION_PATCH 1
 #define PY3DM_VERSION_DEV   0 // A value > 0 indicates a development release
 
 namespace nb = nanobind;

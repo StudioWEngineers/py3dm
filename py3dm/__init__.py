@@ -24,4 +24,4 @@ from . _py3dm import (  # type: ignore
     TextLog
 )
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
