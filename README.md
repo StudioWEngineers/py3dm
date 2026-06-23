@@ -1,6 +1,5 @@
 # py3dm
 [![Continuous Integration](https://img.shields.io/github/actions/workflow/status/StudioWEngineers/py3dm/workflow_ci.yml?label=tests)](https://github.com/StudioWEngineers/py3dm/actions/workflows/workflow_ci.yml)
-[![PyPI Publish](https://img.shields.io/github/actions/workflow/status/StudioWEngineers/py3dm/build_and_publish.yml?label=publish)](https://github.com/StudioWEngineers/py3dm/actions/workflows/build_and_publish.yml)
 [![Documentation](https://img.shields.io/readthedocs/py3dm/latest)](https://py3dm.readthedocs.io/en/latest/)
 [![](https://img.shields.io/pypi/v/py3dm.svg?color=brightgreen)](https://pypi.org/pypi/py3dm/)
 ![](https://img.shields.io/pypi/l/py3dm.svg?color=brightgreen)
