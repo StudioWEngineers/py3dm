@@ -7,7 +7,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "py3dm"
-version = "0.1.1"
+version = "0.2.0-dev1"
 description = "Python bindings for openNURBS using nanobind."
 readme = "README.md"
 license = "BSD-3-Clause"

@@ -5,7 +5,12 @@ Changelog
 
 *py3dm* uses a `semantic versioning <http://semver.org>`__ policy for its API.
 
-Version 0.1.1 (June 23, 2026)
+Version 0.2.0 (T.B.A.)
+-----------------------------
+
+
+
+Version 0.1.1 (June 22, 2026)
 -----------------------------
 
 Dummy release due to an error in uploading to PyPI.
