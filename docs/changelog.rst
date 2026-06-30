@@ -9,6 +9,7 @@ Version 0.2.0 (T.B.A.)
 -----------------------------
 
 - Added bindings for ``ON_3dVector``.
+- Added bindings for ``ON_3dPoint::operator+=``.
 
 
 Version 0.1.1 (June 22, 2026)

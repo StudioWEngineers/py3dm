@@ -3,12 +3,17 @@ from math import sqrt
 from unittest import TestCase
 
 # third party library imports
-from py3dm import Point3d
+from py3dm import Point3d, Vector3d
 
 # local library specific imports
 
 
 class Point3dTestSuite(TestCase):
+    def test_add(self) -> None:
+        point = Point3d(0, 0, 1.1)
+        point += Vector3d(1, 2, 0.1)
+        self.assertEqual(point.y, 2.0)
+
     def test_distance_to(self) -> None:
         self.assertEqual(
             Point3d(0, 0, 0).distance_to(Point3d(1, 1, 1)),
