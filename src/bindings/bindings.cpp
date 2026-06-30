@@ -4,6 +4,7 @@
 
 // Project includes
 #include "bindings.h"
+#include "3d_vector_bindings.h"
 #include "enumerators_bindings.h"
 #include "geometry_bindings.h"
 #include "layer_bindings.h"
@@ -50,6 +51,7 @@ NB_MODULE(_py3dm, m) {
     ModelBindings(m);
     PointBindings(m);
     TextLogBindings(m);
+    Vector3dBindings(m);
 
     LayerViewBindings(m);
     PointViewBindings(m);

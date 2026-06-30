@@ -21,7 +21,8 @@ from . _py3dm import (  # type: ignore
     PointTable,
     PointView,
     Point3d,
-    TextLog
+    TextLog,
+    Vector3d
 )
 
 __version__ = "0.2.0-dev1"
