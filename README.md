@@ -18,7 +18,7 @@ The Studio W Python bindings for *OpenNURBS* using *nanobind*.
 
 - [OpenNURBS](https://github.com/mcneel/opennurbs/) (`v8.32.26160.13001`)
 - [google-draco](https://github.com/google/draco) (`1.3.0-291-g3abbc66`)
-- [nanobind](https://github.com/wjakob/nanobind) (`v2.13.0`)
+- [nanobind](https://github.com/wjakob/nanobind) (`v3.1.0`)
 
 ## Documentation
 
